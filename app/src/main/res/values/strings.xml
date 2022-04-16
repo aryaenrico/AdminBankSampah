@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DynamicView</string>
+
+    <string-array name="masa">
+        <item>KG</item>
+        <item>GRAM</item>
+    </string-array>
+</resources>
