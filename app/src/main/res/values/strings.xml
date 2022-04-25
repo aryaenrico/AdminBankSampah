@@ -1,8 +1,19 @@
 <resources>
-    <string name="app_name">DynamicView</string>
+    <string name="app_name">Admin App</string>
 
     <string-array name="masa">
         <item>KG</item>
         <item>GRAM</item>
     </string-array>
+    <string name="title_activity_splashscreen">Splashscreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="logosplashscreen">LogoSplashscreen</string>
+    <string name="add">Tambah</string>
+    <string name="username">Username</string>
+    <string name="process">Process</string>
+    <string name="masukkan_nama_pengguna">Masukkan Nama Pengguna</string>
+    <string name="nama_sampah">Nama Sampah</string>
+    <string name="sampah">Sampah</string>
+
 </resources>

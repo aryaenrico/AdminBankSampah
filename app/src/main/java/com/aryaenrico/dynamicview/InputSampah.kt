@@ -9,7 +9,7 @@ import com.aryaenrico.dynamicview.databinding.ActivityMainBinding
 
 
 
-class MainActivity : AppCompatActivity() {
+class InputSampah : AppCompatActivity() {
 
   private  lateinit var binding:ActivityMainBinding
   private var languageList = ArrayList<Language>()
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        supportActionBar?.hide()
         binding.buttonAdd.setOnClickListener {
             addNewView()
         }
@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         // This Show button is used to show data
         // stored in the arraylist.
-        binding.buttonShowList.setOnClickListener {
-            showData()
-        }
+
     }
 
     // This function is called after
