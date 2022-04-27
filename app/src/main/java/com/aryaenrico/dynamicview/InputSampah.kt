@@ -46,7 +46,7 @@ class InputSampah : AppCompatActivity() {
         var view:View = layoutInflater.inflate(R.layout.row_add_language,null,false)
         var spin = view.findViewById<Spinner>(R.id.exp_spinner)
         val arrayAdapter = ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, otherStrings)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         spin.adapter =arrayAdapter
 
         //binding.parentLinearLayout.addView(inflate, binding.parentLinearLayout.childCount)
