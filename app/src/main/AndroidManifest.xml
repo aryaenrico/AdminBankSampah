@@ -37,9 +37,6 @@
             android:name=".activity.UbahTransaksi"
             android:exported="false" />
         <activity
-            android:name=".UbahHarga"
-            android:exported="false" />
-        <activity
             android:name=".activity.UbahHarga"
             android:exported="false" />
         <activity

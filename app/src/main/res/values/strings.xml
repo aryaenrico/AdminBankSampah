@@ -26,5 +26,6 @@
     <string name="tambah_kategori">Tambah Kategori</string>
     <string name="ubah_harga">Ubah Harga Sampah</string>
     <string name="verifikasi">Verifikasi</string>
+    <string name="bobot">Bobot</string>
 
 </resources>

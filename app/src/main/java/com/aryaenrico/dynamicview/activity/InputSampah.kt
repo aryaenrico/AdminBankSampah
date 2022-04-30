@@ -6,7 +6,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
-import com.aryaenrico.dynamicview.databinding.ActivityMainBinding
+import com.aryaenrico.dynamicview.databinding.ActivityInputSampahBinding
 import com.aryaenrico.dynamicview.model.DetilSetor
 import com.aryaenrico.dynamicview.model.Sampah
 import com.aryaenrico.dynamicview.model.Setoran
@@ -16,7 +16,7 @@ import com.aryaenrico.dynamicview.viewmodel.InputSampahViewModel
 
 class InputSampah : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityInputSampahBinding
     private lateinit var model: InputSampahViewModel
     private var mapSampah = HashMap<String, Sampah>()
     private var sampah = ArrayList<String>()
@@ -25,7 +25,7 @@ class InputSampah : AppCompatActivity() {
     private lateinit var dataSampah: ArrayList<Sampah>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityInputSampahBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
