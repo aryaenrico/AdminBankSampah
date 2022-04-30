@@ -54,8 +54,6 @@
             android:layout_gravity="center"
             android:backgroundTint="#56983D"
             android:fontFamily="@font/poppins_light"
-            android:gravity="center"
-            android:foregroundGravity="center"
             android:text="@string/cek_nama_pengguna"
             android:textAllCaps="false"
             android:textColor="@color/white"

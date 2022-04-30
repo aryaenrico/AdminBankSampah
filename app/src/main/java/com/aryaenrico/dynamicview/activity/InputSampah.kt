@@ -148,7 +148,7 @@ class InputSampah : AppCompatActivity() {
             paramDetilSetor.add(detilSetoran)
         }
         builder.append(binding.etUsername.text.toString().trim())
-               .append(Utils.getTanggalBulan())
+            .append(Utils.getTanggalBulan())
 
         setoran.id_admin = "a001"
         setoran.detil = paramDetilSetor
@@ -180,5 +180,4 @@ class InputSampah : AppCompatActivity() {
     private fun showToast(message:String){
         Toast.makeText(this@InputSampah ,message,Toast.LENGTH_SHORT).show()
     }
-
 }
