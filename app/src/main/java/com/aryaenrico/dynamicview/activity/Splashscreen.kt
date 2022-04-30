@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.aryaenrico.dynamicview.InputSampah
 import com.aryaenrico.dynamicview.R
 
 class Splashscreen : AppCompatActivity() {
@@ -14,7 +13,7 @@ class Splashscreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, InputSampah::class.java)
+            val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
             finish()
         }, 3000)

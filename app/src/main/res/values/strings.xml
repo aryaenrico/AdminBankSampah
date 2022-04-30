@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Admin App</string>
-
     <string-array name="masa">
         <item>KG</item>
         <item>GRAM</item>
@@ -15,5 +14,17 @@
     <string name="masukkan_nama_pengguna">Masukkan Nama Pengguna</string>
     <string name="nama_sampah">Nama Sampah</string>
     <string name="sampah">Sampah</string>
+    <string name="cek_nama_pengguna">Cek Nama Pengguna</string>
+    <string name="arya_enrico">Arya Enrico</string>
+    <string name="phaksibangunasmoro">phaksibangunasmoro</string>
+    <string name="mutasi_transaksi">Mutasi Transaksi</string>
+    <string name="hi">Hi,</string>
+    <string name="input_sampah">Input Sampah</string>
+    <string name="ubah_transaksi">Ubah Transaksi</string>
+    <string name="tambah_sampah">Tambah Sampah</string>
+    <string name="tambah_user">Tambah User</string>
+    <string name="tambah_kategori">Tambah Kategori</string>
+    <string name="ubah_harga">Ubah Harga Sampah</string>
+    <string name="verifikasi">Verifikasi</string>
 
 </resources>

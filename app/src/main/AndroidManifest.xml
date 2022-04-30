@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aryaenrico.dynamicview">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicView">
-
+        <activity
+            android:name=".detail.DetailMutasi"
+            android:exported="false" />
+        <activity
+            android:name=".detail.DetailPengajuan"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Verifikasi"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MutasiTransaksi"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TambahKategori"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TambahSampah"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TambahUser"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UbahTransaksi"
+            android:exported="false" />
+        <activity
+            android:name=".UbahHarga"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UbahHarga"
+            android:exported="false" />
         <activity
             android:name=".activity.Splashscreen"
             android:exported="true">
@@ -20,17 +50,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".InputSampah"
+            android:name=".activity.InputSampah"
             android:exported="false" />
         <activity
             android:name=".activity.Dashboard"
-            android:exported="false" />
-
-
-
+            android:exported="false"
+            android:theme="@style/dashboard" />
     </application>
 
 </manifest>

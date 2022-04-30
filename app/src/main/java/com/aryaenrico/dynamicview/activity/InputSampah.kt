@@ -1,10 +1,11 @@
-package com.aryaenrico.dynamicview
+package com.aryaenrico.dynamicview.activity
 
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.databinding.ActivityMainBinding
 import com.aryaenrico.dynamicview.model.DetilSetor
 import com.aryaenrico.dynamicview.model.Sampah
