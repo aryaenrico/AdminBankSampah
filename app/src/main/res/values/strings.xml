@@ -12,8 +12,6 @@
     <string name="username">Username</string>
     <string name="process">Process</string>
     <string name="masukkan_nama_pengguna">Masukkan Nama Pengguna</string>
-    <string name="nama_sampah">Nama Sampah</string>
-    <string name="sampah">Sampah</string>
     <string name="cek_nama_pengguna">Cek Nama Pengguna</string>
     <string name="arya_enrico">Arya Enrico</string>
     <string name="phaksibangunasmoro">phaksibangunasmoro</string>
@@ -48,6 +46,17 @@
     <string name="tambah">Tambah</string>
     <string name="masukkan_kategori_sampah">Masukkan Kategori Sampah</string>
     <string name="kategori">Kategori</string>
+    <string name="tanggaltv">Tanggal</string>
+    <string name="daftar_sampah">Daftar Sampah</string>
+    <string name="total">Total</string>
+    <string name="bobots">10 Kg</string>
+    <string name="gayung">Gayung</string>
+    <string name="rp_13_000">Rp. 13.000</string>
+    <string name="sampah">Sampah</string>
+    <string name="tanggal_berlaku">Tanggal Berlaku</string>
+    <string name="nama_sampah">Nama Sampah</string>
+    <string name="harga_pengepul">Harga Pengepul</string>
+    <string name="masukkan_harga_pengepul">Masukkan Harga Pengepul</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>
