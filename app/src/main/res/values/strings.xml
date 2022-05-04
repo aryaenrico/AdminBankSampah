@@ -27,5 +27,31 @@
     <string name="ubah_harga">Ubah Harga Sampah</string>
     <string name="verifikasi">Verifikasi</string>
     <string name="bobot">Bobot</string>
+    <string name="daftar_pengajuan">Daftar Pengajuan</string>
+    <string name="tanggal">2022–03-08</string>
+    <string name="nominal">Rp.320.000</string>
+    <string name="statuspengajuan">Sedang Diproses</string>
+    <string name="Rp">Rp</string>
+    <string name="_300_0000">300.0000</string>
+    <string name="detail_pengajuan">Detail Pengajuan</string>
+    <string name="nama">Nama</string>
+    <string name="tanggal_pengajuan">Tanggal Pengajuan</string>
+    <string name="tanggal_diproses">Tanggal Diproses</string>
+    <string name="tanggal_penarikan">Tanggal Penarikan</string>
+    <string name="status">Status</string>
+    <string name="type">Type</string>
+    <string name="kategori_sampah">Kategori Sampah</string>
+    <string name="disetujui">Disetujui</string>
+    <string name="masukkan_nama_sampah">Masukkan Nama Sampah</string>
+    <string name="harga_nasabah">Harga Nasabah</string>
+    <string name="masukkan_harga_nasabah">Masukkan Harga Nasabah</string>
+    <string name="tambah">Tambah</string>
+    <string name="masukkan_kategori_sampah">Masukkan Kategori Sampah</string>
+    <string name="kategori">Kategori</string>
 
+    <string-array name="kategorisampah">
+        <item>Plastik</item>
+        <item>Besi</item>
+        <item>Kertas</item>
+    </string-array>
 </resources>

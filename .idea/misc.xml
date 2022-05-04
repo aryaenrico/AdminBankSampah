@@ -15,16 +15,22 @@
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.171" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable/ic_launcher_background.xml" value="0.171" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable/rectangle.xml" value="0.1355" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable/rectangle2.xml" value="0.1" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable/spinnerback.xml" value="0.171" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
-        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_detail_pengajuan.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_input_sampah.xml" value="0.22" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_detail_mutasi.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_detail_pengajuan.xml" value="0.22" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_input_sampah.xml" value="0.18" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_mutasi_transaksi.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_splashscreen.xml" value="0.16" />
-        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_tambah_kategori.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_tambah_kategori.xml" value="0.22" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_tambah_sampah.xml" value="0.2" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_tambah_user.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_verifikasi.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_ubah_harga.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/activity_verifikasi.xml" value="0.17" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/dropdownitem.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/item_verifikasi.xml" value="0.2" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/layout/row_add_language.xml" value="0.2" />
       </map>
     </option>

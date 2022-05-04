@@ -55,6 +55,10 @@
             android:name=".activity.Dashboard"
             android:exported="false"
             android:theme="@style/dashboard" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
