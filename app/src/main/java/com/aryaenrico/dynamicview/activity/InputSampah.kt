@@ -74,7 +74,8 @@ class InputSampah : AppCompatActivity() {
         model.pesan.observe(this){
             if (it.pesan.isNotBlank()){
                 showToast(it.pesan)
-            }else if (it.equals("sukses")){
+            }
+            if (it.equals("sukses")){
                 binding.parentLinearLayout.removeAllViews()
             }
         }

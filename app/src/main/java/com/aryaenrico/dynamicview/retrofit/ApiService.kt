@@ -2,12 +2,11 @@ package com.aryaenrico.dynamicview.retrofit
 
 
 
+import com.aryaenrico.dynamicview.model.DaftarAjuan
 import com.aryaenrico.dynamicview.model.Message
 import com.aryaenrico.dynamicview.model.Sampah
 import com.aryaenrico.dynamicview.model.Setoran
 import retrofit2.http.*
-
-
 interface ApiService {
 
    @GET("getSampahAll.php")
@@ -20,5 +19,6 @@ interface ApiService {
    @POST("insert_kategori.php")
    suspend fun insertKategori (@Field("kategori") kategori:String):Message
 
-
+   @GET("get_pengajuan.php")
+   suspend fun getAjuan():ArrayList<DaftarAjuan>
 }

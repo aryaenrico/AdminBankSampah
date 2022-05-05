@@ -17,6 +17,7 @@ class InputKategoriViewmodel(private val inputKategoriRepository: InputKategoriR
         }
     }
 }
+
 class ViewModelFactoryInputKategori(private val inputKategoriRepository: InputKategoriRepository ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
