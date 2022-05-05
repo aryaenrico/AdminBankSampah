@@ -34,7 +34,7 @@ class InputSampah : AppCompatActivity() {
         val factory:ViewModelFactory = ViewModelFactory.getInstance()
         model = ViewModelProvider(this@InputSampah,factory).get(InputSampahViewModel::class.java)
 
-        model.getData();
+        model.getData()
 
         model.data.observe(this) {
             this.dataSampah = it

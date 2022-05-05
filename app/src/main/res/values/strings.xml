@@ -57,6 +57,9 @@
     <string name="nama_sampah">Nama Sampah</string>
     <string name="harga_pengepul">Harga Pengepul</string>
     <string name="masukkan_harga_pengepul">Masukkan Harga Pengepul</string>
+    <string name="tanggal_awal">Tanggal Awal</string>
+    <string name="tanggal_akhir">Tanggal Akhir</string>
+    <string name="cari">Cari</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>
