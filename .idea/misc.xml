@@ -15,6 +15,7 @@
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_detail_pengajuan.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_input_sampah.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_mutasi_transaksi.xml" value="0.17426545086119555" />
+        <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_pengajuan.xml" value="0.23143115942028986" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_splashscreen.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_tambah_kategori.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_tambah_sampah.xml" value="0.17426545086119555" />
@@ -24,6 +25,7 @@
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_verifikasi.xml" value="0.5" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/dropdownitem.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/item_detail_mutasi.xml" value="0.35833333333333334" />
+        <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/item_mutasi_transaksi.xml" value="0.18541666666666667" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/item_verifikasi.xml" value="0.35833333333333334" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/row_add_language.xml" value="0.35833333333333334" />
         <entry key="..\:/Users/Arya Enrico/DynamicView/app/src/main/res/layout/activity_main.xml" value="0.5" />

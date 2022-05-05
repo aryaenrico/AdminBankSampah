@@ -1,7 +1,10 @@
 package com.aryaenrico.dynamicview.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DaftarAjuan(
     @field:SerializedName("jumlah")
     var jumlah:Int =0,
@@ -12,5 +15,5 @@ data class DaftarAjuan(
     @field:SerializedName("nama")
     var nama_nasabah:String ="",
     @field:SerializedName("id_nasabah")
-    var id_nasabah:String ="",
-)
+    var id_nasabah:String =""
+): Parcelable

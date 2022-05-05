@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicView">
         <activity
+            android:name=".activity.DetailPengajuanActivity"
+            android:exported="false" />
+        <activity
             android:name=".detail.DetailMutasi"
             android:exported="false" />
         <activity

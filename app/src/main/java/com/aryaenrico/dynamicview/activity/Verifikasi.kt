@@ -33,7 +33,7 @@ class Verifikasi : AppCompatActivity() {
             if (!it.isEmpty()){
                 showData(it)
             }else{
-                showToast("Tidak ada data ")
+                showToast("Tidak ada data")
             }
 
         }
@@ -43,7 +43,7 @@ class Verifikasi : AppCompatActivity() {
 
     private fun showData(value: ArrayList<DaftarAjuan>) {
         binding.rvPengajuan.layoutManager = LinearLayoutManager(this)
-        val adapter = DaftarAjuanAdapter()
+        val adapter = DaftarAjuanAdapter(this@Verifikasi)
         adapter.setData(value)
         binding.rvPengajuan.adapter = adapter
 
