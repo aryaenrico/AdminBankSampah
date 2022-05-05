@@ -26,6 +26,7 @@
         android:id="@+id/rvPengajuan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingStart="20dp"
         app:layout_constraintStart_toStartOf="parent"

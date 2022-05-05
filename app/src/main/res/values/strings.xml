@@ -60,6 +60,12 @@
     <string name="tanggal_awal">Tanggal Awal</string>
     <string name="tanggal_akhir">Tanggal Akhir</string>
     <string name="cari">Cari</string>
+    <string name="image">image</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="password">Password</string>
+    <string name="masukkan_nama">Masukkan Nama</string>
+    <string name="masukkan_password">Masukkan Password</string>
+    <string name="masukkan_nomor_telepon">Masukkan Nomor Telepon</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>

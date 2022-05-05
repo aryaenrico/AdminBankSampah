@@ -2,6 +2,7 @@ package com.aryaenrico.dynamicview.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.adapter.DaftarAjuanAdapter
 import com.aryaenrico.dynamicview.databinding.ActivityDetailPengajuanBinding
@@ -17,6 +18,9 @@ class DetailPengajuanActivity : AppCompatActivity() {
         val param = intent.getParcelableExtra<DaftarAjuan>(DaftarAjuanAdapter.PARAM) as DaftarAjuan
         data(param)
 
+        val status = listOf("Disetujui","Ditolak")
+        val arrayAdapter = ArrayAdapter(this,R.layout.dropdownitem,status)
+        binding.filledexposed.setAdapter(arrayAdapter)
     }
 
     private fun data(detail:DaftarAjuan){

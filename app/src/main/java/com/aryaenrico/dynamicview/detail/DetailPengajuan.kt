@@ -18,9 +18,7 @@ class DetailPengajuan : AppCompatActivity() {
         binding = ActivityDetailPengajuanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val status = listOf("Disetujui","Ditolak")
-        val arrayAdapter = ArrayAdapter(this,R.layout.dropdownitem,status)
-        binding.dropDownVerifikasi.setAdapter(arrayAdapter)
+
 
 
 
