@@ -12,6 +12,7 @@ import com.aryaenrico.dynamicview.model.Sampah
 import com.aryaenrico.dynamicview.model.Setoran
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.InputSampahViewModel
+import com.aryaenrico.dynamicview.viewmodel.ViewModelFactory
 
 
 class InputSampah : AppCompatActivity() {
@@ -30,26 +31,33 @@ class InputSampah : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         supportActionBar?.hide()
-
-        model = ViewModelProvider(this).get(InputSampahViewModel::class.java)
+        val factory:ViewModelFactory = ViewModelFactory.getInstance()
+        model = ViewModelProvider(this@InputSampah,factory).get(InputSampahViewModel::class.java)
 
         model.getData();
 
         model.data.observe(this) {
             this.dataSampah = it
-            for (i in 0..dataSampah.size - 1) {
-                this.mapSampah.set(
-                    dataSampah[i].nama_sampah,
-                    Sampah(
-                        id_sampah = dataSampah[i].id_sampah,
-                        nama_sampah = dataSampah[i].nama_sampah,
-                        harga_nasabah = dataSampah[i].harga_nasabah,
-                        harga_pengepul = dataSampah[i].harga_pengepul
-                    )
-                )
-                this.sampah.add(dataSampah[i].nama_sampah)
 
+            if (dataSampah[0].id_sampah.equals("null")){
+                showToast("Terdapat kesalahan")
+                finish()
+            }else{
+                for (i in 0..dataSampah.size - 1) {
+                    this.mapSampah.set(
+                        dataSampah[i].nama_sampah,
+                        Sampah(
+                            id_sampah = dataSampah[i].id_sampah,
+                            nama_sampah = dataSampah[i].nama_sampah,
+                            harga_nasabah = dataSampah[i].harga_nasabah,
+                            harga_pengepul = dataSampah[i].harga_pengepul
+                        )
+                    )
+                    this.sampah.add(dataSampah[i].nama_sampah)
+
+                }
             }
+
         }
 
         binding.buttonAdd.setOnClickListener {
@@ -159,21 +167,40 @@ class InputSampah : AppCompatActivity() {
         return setoran
     }
 
+    private fun checkEror():Boolean{
+        val count = binding.parentLinearLayout.childCount
+        var v: View?
+        for (i in 0 until count) {
+            v = binding.parentLinearLayout.getChildAt(i)
+            val bobot: EditText = v.findViewById(R.id.et_name)
+            if (bobot.text.toString().isBlank()){
+                return false
+                break
+            }
+
+        }
+        return true
+    }
+
     // This function is called after user
     // clicks on Show List data button
     private fun showData() {
-        var data = saveData()
-        model.setor(data)
-        showToast(data.id_setor)
-
-        val count = binding.parentLinearLayout.childCount
-        for (i in 0 until count) {
-            Toast.makeText(
-                this,
-                "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
-                Toast.LENGTH_SHORT
-            ).show()
+        if (checkEror()){
+            var data = saveData()
+            model.setor(data)
+            val count = binding.parentLinearLayout.childCount
+            for (i in 0 until count) {
+                Toast.makeText(
+                    this,
+                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }else{
+            showToast("Pastikan semua data telah terisi ")
         }
+
+
 
     }
 
