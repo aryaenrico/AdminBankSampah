@@ -1,11 +1,5 @@
 package com.aryaenrico.dynamicview.retrofit
-
-
-
-import com.aryaenrico.dynamicview.model.DaftarAjuan
-import com.aryaenrico.dynamicview.model.Message
-import com.aryaenrico.dynamicview.model.Sampah
-import com.aryaenrico.dynamicview.model.Setoran
+import com.aryaenrico.dynamicview.model.*
 import retrofit2.http.*
 interface ApiService {
 
@@ -21,4 +15,12 @@ interface ApiService {
 
    @GET("get_pengajuan.php")
    suspend fun getAjuan():ArrayList<DaftarAjuan>
+
+   @GET("getMutasi_Transaksi.php")
+   suspend fun getMutasiTransaksi(
+      @Query("tanggal_awal") awal:String,
+      @Query("tanggal_akhir") akhir:String
+   ):ArrayList<MutasiTransaksiData>
+
+
 }

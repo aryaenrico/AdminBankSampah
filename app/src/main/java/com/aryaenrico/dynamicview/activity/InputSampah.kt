@@ -75,8 +75,9 @@ class InputSampah : AppCompatActivity() {
             if (it.pesan.isNotBlank()){
                 showToast(it.pesan)
             }
-            if (it.equals("sukses")){
+            if (it.pesan.equals("sukses")){
                 binding.parentLinearLayout.removeAllViews()
+
             }
         }
 
@@ -91,6 +92,7 @@ class InputSampah : AppCompatActivity() {
         // membuat objek view dari hasil inflate layout xml
         var view: View = layoutInflater.inflate(R.layout.row_add_language, null, false)
         var spin = view.findViewById<Spinner>(R.id.exp_spinner)
+        var button = view.findViewById<Button>(R.id.bt_cancel)
         val arrayAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -100,6 +102,13 @@ class InputSampah : AppCompatActivity() {
         spin.adapter = arrayAdapter
 
         binding.parentLinearLayout.addView(view, binding.parentLinearLayout.childCount)
+        button.setOnClickListener {
+            remove(view)
+        }
+    }
+
+    private fun remove(data:View){
+        binding.parentLinearLayout.removeView(data)
     }
 
 
@@ -113,16 +122,16 @@ class InputSampah : AppCompatActivity() {
         var v: View?
 
         // array list detilsetor
-        var paramDetilSetor = ArrayList<DetilSetor>()
+        val paramDetilSetor = ArrayList<DetilSetor>()
         // objek setoran
-        var setoran = Setoran()
+        val setoran = Setoran()
 
         // objek Stringbuilder
         val builder = StringBuilder()
 
 
         for (i in 0 until count) {
-            var detilSetoran = DetilSetor()
+            val detilSetoran = DetilSetor()
 
             v = binding.parentLinearLayout.getChildAt(i)
 
@@ -139,8 +148,8 @@ class InputSampah : AppCompatActivity() {
                     _timbangan = (_timbangan.toFloat() / 1000).toString()
                 }
             }
-            var paramNasabah = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
-            var paramPengepul = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
+            val paramNasabah = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
+            val paramPengepul = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
 
             val timbangan: Float = _timbangan.toFloat()
             val hargaNasabah = (paramNasabah * timbangan).toInt()
@@ -169,6 +178,10 @@ class InputSampah : AppCompatActivity() {
     }
 
     private fun checkEror():Boolean{
+
+        if (binding.etUsername.text.toString().trim().isEmpty()){
+            return false
+        }
         val count = binding.parentLinearLayout.childCount
         var v: View?
         for (i in 0 until count) {
@@ -176,7 +189,6 @@ class InputSampah : AppCompatActivity() {
             val bobot: EditText = v.findViewById(R.id.et_name)
             if (bobot.text.toString().isBlank()){
                 return false
-                break
             }
 
         }
@@ -187,7 +199,7 @@ class InputSampah : AppCompatActivity() {
     // clicks on Show List data button
     private fun showData() {
         if (checkEror()){
-            var data = saveData()
+            val data = saveData()
             model.setor(data)
             val count = binding.parentLinearLayout.childCount
             for (i in 0 until count) {
@@ -200,9 +212,6 @@ class InputSampah : AppCompatActivity() {
         }else{
             showToast("Pastikan semua data telah terisi ")
         }
-
-
-
     }
 
     private fun showToast(message:String){
