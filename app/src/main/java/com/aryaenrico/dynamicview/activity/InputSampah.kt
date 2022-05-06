@@ -20,6 +20,8 @@ class InputSampah : AppCompatActivity() {
     private lateinit var binding: ActivityInputSampahBinding
     private lateinit var model: InputSampahViewModel
     private var mapSampah = HashMap<String, Sampah>()
+
+   // ini sisnya dari kolom nama_sampah
     private var sampah = ArrayList<String>()
 
 
@@ -155,7 +157,6 @@ class InputSampah : AppCompatActivity() {
             val hargaNasabah = (paramNasabah * timbangan).toInt()
             val hargaPengepul = (paramPengepul * timbangan).toInt()
             val idSampah = this.mapSampah.get(paramSampah)?.id_sampah ?: ""
-
 
 
             detilSetoran.id_sampah = idSampah

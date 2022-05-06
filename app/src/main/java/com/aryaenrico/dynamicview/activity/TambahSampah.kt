@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.databinding.ActivityDashboardBinding
@@ -21,6 +22,16 @@ class TambahSampah : AppCompatActivity() {
         val kategorisampah = listOf("Kertas","Besi","Plastik")
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdownitem,kategorisampah)
         binding.filledexposed.setAdapter(arrayAdapter)
+
+        binding.findUser.setOnClickListener {
+           // mendapat inputan user
+            showToast( binding.filledexposed.text.toString())
+        }
+
+    }
+
+    private fun showToast(message:String){
+        Toast.makeText(this@TambahSampah ,message, Toast.LENGTH_SHORT).show()
     }
 
 
