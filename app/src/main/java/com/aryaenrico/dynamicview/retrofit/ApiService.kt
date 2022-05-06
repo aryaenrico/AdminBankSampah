@@ -22,5 +22,14 @@ interface ApiService {
       @Query("tanggal_akhir") akhir:String
    ):ArrayList<MutasiTransaksiData>
 
+   @FormUrlEncoded
+   @POST("insert_nasabah.php")
+   suspend fun addUser(
+      @Field("nama") nama: String,
+      @Field("alamat") alamat: String,
+      @Field("password") password: String,
+      @Field("id") username: String
+   ): Message
+
 
 }

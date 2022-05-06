@@ -26,8 +26,6 @@ class MutasiTransaksi : AppCompatActivity() {
         val factory:ViewModelFactoryMutasiTransaksi = ViewModelFactoryMutasiTransaksi.getInstance()
         model =ViewModelProvider(this@MutasiTransaksi,factory).get(MutasiTransaksiViewModel::class.java)
 
-
-
         val calendar = Calendar.getInstance()
 
         val datePicker = DatePickerDialog.OnDateSetListener{_,year,month,dayofmonth ->

@@ -1,9 +1,6 @@
 package com.aryaenrico.dynamicview.injection
 
-import com.aryaenrico.dynamicview.repository.DaftarAjuanRepository
-import com.aryaenrico.dynamicview.repository.InputKategoriRepository
-import com.aryaenrico.dynamicview.repository.InputSampahRepository
-import com.aryaenrico.dynamicview.repository.MutasiTransaksiRepository
+import com.aryaenrico.dynamicview.repository.*
 import com.aryaenrico.dynamicview.retrofit.ApiConfig
 
 object Injection {
@@ -22,6 +19,10 @@ object Injection {
     fun provideRepositoryMutasiTransaksi():MutasiTransaksiRepository {
         val apiService = ApiConfig.getApi()
         return MutasiTransaksiRepository.getInstance(apiService)
+    }
+    fun provideRepositorAddUser():AddUserRepository {
+        val apiService = ApiConfig.getApi()
+        return AddUserRepository.getInstance(apiService)
     }
 
 
