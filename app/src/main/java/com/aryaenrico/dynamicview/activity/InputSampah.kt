@@ -146,12 +146,12 @@ class InputSampah : AppCompatActivity() {
             // create an object of Language class
             var _timbangan = bobot.text.toString()
             when {
-                masa.selectedItemId.toString().equals("1") -> {
+                masa.selectedItemId.toString().equals("1") or masa.selectedItemId.toString().equals("3")  -> {
                     _timbangan = (_timbangan.toFloat() / 1000).toString()
                 }
             }
             val paramNasabah = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
-            val paramPengepul = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
+            val paramPengepul = this.mapSampah.get(paramSampah)?.harga_pengepul ?: 0
 
             val timbangan: Float = _timbangan.toFloat()
             val hargaNasabah = (paramNasabah * timbangan).toInt()

@@ -3,6 +3,8 @@
     <string-array name="masa">
         <item>KG</item>
         <item>GRAM</item>
+        <item>Liter</item>
+        <item>ML</item>
     </string-array>
     <string name="title_activity_splashscreen">Splashscreen</string>
     <string name="dummy_button">Dummy Button</string>
