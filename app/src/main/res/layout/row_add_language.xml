@@ -13,32 +13,18 @@
         android:layout_height="50dp"
         android:background="@drawable/rectangle"
         android:elevation="2dp"
-        android:hint="@string/bobot"
         android:gravity="center"
-        android:textAlignment="center"
+        android:hint="@string/bobot"
         android:inputType="number"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#DCDCDC"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bt_cancel"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rectangle"
-        android:elevation="2dp"
-        android:hint="@string/bobot"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="#DCDCDC"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_name"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/exp_spinner"
@@ -47,8 +33,7 @@
         android:background="@drawable/rectangle"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/exp_spinner_masa"
-        app:layout_constraintStart_toEndOf="@+id/et_name"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
@@ -60,8 +45,26 @@
         android:entries="@array/masa"
         android:gravity="center"
         android:paddingStart="10dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bt_cancel"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:hint="@string/bobot"
+        android:textAlignment="center"
+        android:src="@drawable/cross"
+        android:textColor="@color/black"
+        android:textColorHint="#DCDCDC"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exp_spinner_masa"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
