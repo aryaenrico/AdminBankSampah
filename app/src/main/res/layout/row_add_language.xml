@@ -9,20 +9,20 @@
 
     <EditText
         android:id="@+id/et_name"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/rectangle"
         android:elevation="2dp"
         android:gravity="center"
         android:hint="@string/bobot"
         android:inputType="number"
+        android:layout_marginStart="20dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#DCDCDC"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exp_spinner"
         app:layout_constraintTop_toTopOf="parent" />
 
 
