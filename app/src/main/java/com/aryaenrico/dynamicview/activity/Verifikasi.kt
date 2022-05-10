@@ -33,6 +33,7 @@ class Verifikasi : AppCompatActivity() {
             if (!it.isEmpty()){
                 showData(it)
             }else{
+
                 showToast("Tidak ada data")
             }
 

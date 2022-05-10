@@ -94,7 +94,7 @@ class InputSampah : AppCompatActivity() {
         // membuat objek view dari hasil inflate layout xml
         var view: View = layoutInflater.inflate(R.layout.row_add_language, null, false)
         var spin = view.findViewById<Spinner>(R.id.exp_spinner)
-        var button = view.findViewById<Button>(R.id.bt_cancel)
+        var button = view.findViewById<ImageView>(R.id.bt_cancel)
         val arrayAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -150,6 +150,7 @@ class InputSampah : AppCompatActivity() {
                     _timbangan = (_timbangan.toFloat() / 1000).toString()
                 }
             }
+
             val paramNasabah = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
             val paramPengepul = this.mapSampah.get(paramSampah)?.harga_pengepul ?: 0
 

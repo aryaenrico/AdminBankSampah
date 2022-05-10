@@ -22,6 +22,9 @@ class TambahUser : AppCompatActivity() {
 
         model.pesan.observe(this){
             showToast(it.pesan)
+            if (it.pesan.contains("Berhasil menambah user")){
+                finish()
+            }
         }
 
         binding.buttonTambah.setOnClickListener {

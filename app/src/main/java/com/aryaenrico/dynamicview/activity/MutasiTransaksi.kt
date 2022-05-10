@@ -70,12 +70,10 @@ class MutasiTransaksi : AppCompatActivity() {
         }
 
         model.data.observe(this){data->
-            if (!data.isEmpty()){
-                showData(data)
-            }
             if (data.isEmpty()){
                 showToast("data tidak ada")
             }
+            showData(data)
         }
     }
 
