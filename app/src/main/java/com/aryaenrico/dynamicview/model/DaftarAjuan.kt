@@ -15,5 +15,7 @@ data class DaftarAjuan(
     @field:SerializedName("nama")
     var nama_nasabah:String ="",
     @field:SerializedName("id_nasabah")
-    var id_nasabah:String =""
+    var id_nasabah:String ="",
+    @field:SerializedName("id_pengajuan")
+    var id_pengajuan:String =""
 ): Parcelable

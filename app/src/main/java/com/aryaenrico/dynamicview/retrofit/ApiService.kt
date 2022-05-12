@@ -33,9 +33,20 @@ interface ApiService {
         @Field("id") username: String
     ): Message
 
+    @FormUrlEncoded
+    @POST("insert_pengajuan.php")
+    suspend fun insertPengajuan(
+        @Field("id") id: String,
+        @Field("status") status: String
+    ): Message
+
     @GET("getKategoriAll.php")
     suspend fun getKategoriSampah(
     ): ArrayList<Kategori>
+
+    @GET("getCount_Sampah.php")
+    suspend fun getCountSampah(
+    ): Message
 
     @FormUrlEncoded
     @POST("insert_sampah.php")
@@ -47,8 +58,18 @@ interface ApiService {
         @Field("kategori") kategori: Int,
         @Field("tanggal") tanggal: String,
         @Field("admin") admin: String
+    ): Message
 
-
+    @FormUrlEncoded
+    @POST("updateHarga_Sampah.php")
+    suspend fun updatePriceSampah(
+        @Field("id") id: String,
+        @Field("nasabah") nasabah: Int,
+        @Field("pengepul") pengepul: Int,
+        @Field("tanggal") tanggal: String,
+        @Field("admin") admin: String,
+        @Field("nasabah_lama") nasabahLama: Int,
+    @Field("pengepul_lama") pengepulLama: Int
     ): Message
 
 

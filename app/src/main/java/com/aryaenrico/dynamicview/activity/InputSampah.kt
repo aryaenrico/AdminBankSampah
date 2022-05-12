@@ -13,8 +13,6 @@ import com.aryaenrico.dynamicview.model.Setoran
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.InputSampahViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactory
-
-
 class InputSampah : AppCompatActivity() {
 
     private lateinit var binding: ActivityInputSampahBinding
@@ -23,10 +21,7 @@ class InputSampah : AppCompatActivity() {
 
    // ini sisnya dari kolom nama_sampah
     private var sampah = ArrayList<String>()
-
-
     private lateinit var dataSampah: ArrayList<Sampah>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInputSampahBinding.inflate(layoutInflater)
 
@@ -56,7 +51,6 @@ class InputSampah : AppCompatActivity() {
                         )
                     )
                     this.sampah.add(dataSampah[i].nama_sampah)
-
                 }
             }
 
@@ -65,8 +59,6 @@ class InputSampah : AppCompatActivity() {
         binding.buttonAdd.setOnClickListener {
             addNewView()
         }
-
-
         // This Submit Button is used to store all the
         // data entered by user in arraylist
         binding.buttonSubmitList.setOnClickListener {
@@ -192,7 +184,6 @@ class InputSampah : AppCompatActivity() {
             if (bobot.text.toString().isBlank()){
                 return false
             }
-
         }
         return true
     }

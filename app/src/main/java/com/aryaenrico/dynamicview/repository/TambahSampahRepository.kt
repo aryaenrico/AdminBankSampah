@@ -2,11 +2,15 @@ package com.aryaenrico.dynamicview.repository
 
 import com.aryaenrico.dynamicview.model.Kategori
 import com.aryaenrico.dynamicview.model.Message
+import com.aryaenrico.dynamicview.model.Sampah
 
 import com.aryaenrico.dynamicview.retrofit.ApiService
 import java.lang.Exception
 
 class TambahSampahRepository(private val apiService: ApiService) {
+
+
+
 
     suspend fun getKategori():ArrayList<Kategori>{
         var data = ArrayList<Kategori>()
@@ -14,6 +18,16 @@ class TambahSampahRepository(private val apiService: ApiService) {
             data =apiService.getKategoriSampah()
         }catch (e: Exception){
             data = listOf<Kategori>(Kategori()) as ArrayList<Kategori>
+        }
+        return data
+    }
+
+    suspend fun getCountSampah():Message{
+        var data = Message()
+        try{
+            data =apiService.getCountSampah()
+        }catch (e:Exception){
+            data.pesan ="Kesalahan pada server"
         }
         return data
     }

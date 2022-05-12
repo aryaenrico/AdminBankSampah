@@ -2,30 +2,27 @@ package com.aryaenrico.dynamicview.repository
 
 import com.aryaenrico.dynamicview.model.Message
 import com.aryaenrico.dynamicview.model.Sampah
-import com.aryaenrico.dynamicview.model.Setoran
 import com.aryaenrico.dynamicview.retrofit.ApiService
 import java.lang.Exception
 
-class InputSampahRepository(private val apiService: ApiService) {
+class UbahHargaSampahRepository(private val apiService: ApiService) {
 
     suspend fun getDataSampah():ArrayList<Sampah>{
         var data = ArrayList<Sampah>()
         try{
             data =apiService.getSampah()
-        }catch (e:Exception){
-           data = listOf<Sampah>(Sampah("null","null",0,0)) as ArrayList<Sampah>
+        }catch (e: Exception){
+            data = listOf<Sampah>(Sampah("null","null",0,0)) as ArrayList<Sampah>
         }
         return data
     }
 
-
-
-    suspend fun setoran (setoran: Setoran):Message{
+    suspend fun addSampah(id:String,nasabah:Int,pengepul:Int,tanggal:String,admin:String,nasabahLama:Int,pengepulLama:Int): Message {
         var data = Message()
         try{
-            data =apiService.setoran(setoran)
-        }catch (e:Exception){
-            data.pesan ="kesalahan dalam memuat server"
+            data =apiService.updatePriceSampah(id,nasabah,pengepul,tanggal,admin,nasabahLama,pengepulLama)
+        }catch (e: Exception){
+            data.pesan ="Kesalahan"
         }
         return data
     }
@@ -33,12 +30,12 @@ class InputSampahRepository(private val apiService: ApiService) {
 
     companion object {
         @Volatile
-        private var instance: InputSampahRepository? = null
+        private var instance: UbahHargaSampahRepository? = null
         fun getInstance(
             apiService: ApiService
-        ): InputSampahRepository =
+        ): UbahHargaSampahRepository =
             instance ?: synchronized(this) {
-                instance ?:InputSampahRepository(apiService)
+                instance ?:UbahHargaSampahRepository(apiService)
             }.also { instance = it }
     }
 }

@@ -15,6 +15,9 @@ class TambahSampahViewModel(private val tambahSampahRepository: TambahSampahRepo
     private var _pesan = MutableLiveData<Message>()
     val pesan : LiveData<Message> =_pesan
 
+    private var _count = MutableLiveData<Message>()
+    val count: LiveData<Message> =_count
+
     fun getKategori(){
         viewModelScope.launch {
             _data.value = tambahSampahRepository.getKategori()
@@ -24,6 +27,12 @@ class TambahSampahViewModel(private val tambahSampahRepository: TambahSampahRepo
     fun tambahSampah(id:String,nama:String,nasabah:Int,pengepul:Int,kategori:Int,tanggal:String,admin:String){
         viewModelScope.launch {
             _pesan.value = tambahSampahRepository.addSampah(id, nama, nasabah, pengepul, kategori, tanggal, admin)
+        }
+    }
+
+    fun countSampah(){
+        viewModelScope.launch {
+            _count.value = tambahSampahRepository.getCountSampah()
         }
     }
 

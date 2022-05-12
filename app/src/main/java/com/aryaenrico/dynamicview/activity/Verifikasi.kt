@@ -33,13 +33,26 @@ class Verifikasi : AppCompatActivity() {
             if (!it.isEmpty()){
                 showData(it)
             }else{
-
+                showData(it)
                 showToast("Tidak ada data")
             }
 
         }
 
 
+    }
+    override fun onStart() {
+        super.onStart()
+        model.getAjuan()
+        model.ajuan.observe(this){
+            if (!it.isEmpty()){
+                showData(it)
+            }else{
+                showData(it)
+                showToast("Tidak ada data")
+            }
+
+        }
     }
 
     private fun showData(value: ArrayList<DaftarAjuan>) {

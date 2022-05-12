@@ -36,6 +36,7 @@ class ViewModelFactory(private val sampahRepository:InputSampahRepository) : Vie
             modelClass.isAssignableFrom(InputSampahViewModel::class.java) -> {
                 return InputSampahViewModel(sampahRepository) as T
             }
+
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
             }

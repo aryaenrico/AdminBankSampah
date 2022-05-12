@@ -42,7 +42,7 @@
     <string name="status">Status</string>
     <string name="type">Type</string>
     <string name="kategori_sampah">Kategori Sampah</string>
-    <string name="disetujui">Disetujui</string>
+    <string name="disetujui">Diterima</string>
     <string name="masukkan_nama_sampah">Masukkan Nama Sampah</string>
     <string name="harga_nasabah">Harga Nasabah</string>
     <string name="masukkan_harga_nasabah">Masukkan Harga Nasabah</string>
@@ -69,6 +69,7 @@
     <string name="masukkan_nama">Masukkan Nama</string>
     <string name="masukkan_password">Masukkan Password</string>
     <string name="masukkan_nomor_telepon">Masukkan Nomor Telepon</string>
+    <string name="proses">Proses</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>
