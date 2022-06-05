@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryaenrico.dynamicview.R
@@ -33,13 +32,9 @@ class InputSampah : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         supportActionBar?.hide()
+        showLoading(true)
         val factory: ViewModelFactory = ViewModelFactory.getInstance()
         model = ViewModelProvider(this@InputSampah, factory).get(InputSampahViewModel::class.java)
-
-        val nameObserver: Observer<ArrayList<Nasabah>> = Observer { newName ->
-            this.param = newName[0].nama
-
-        }
 
         model.getData()
         model.data.observe(this) {
@@ -63,9 +58,8 @@ class InputSampah : AppCompatActivity() {
                     addNewView(dataSampah[i].nama_sampah)
                 }
             }
+            showLoading(false)
         }
-
-
 
         binding.buttonAdd.setOnClickListener {
             //addNewView()
@@ -80,14 +74,15 @@ class InputSampah : AppCompatActivity() {
                         binding.rvUser.visibility =View.VISIBLE
                         showNasabah(it)
                     } else if (it[0].nama.isBlank()) {
-                        showToast("Udahan")
+                        showNasabah(it)
                         binding.rvUser.visibility =View.GONE
                     }
-                    showLoading(false)
                 }
             } else {
                 showToast("Masukan nama nasabah terlebih dahulu")
             }
+
+
 
         }
 
@@ -195,10 +190,6 @@ class InputSampah : AppCompatActivity() {
         if (checkEror()) {
             val data = process()
             model.setor(data)
-            showToast(data.tgl_setor)
-            showToast(data.id_setor)
-            showToast(data.id_admin)
-            showToast(data.id_nasabah)
             //val count = binding.parentLinearLayout.childCount
             for (i in 0 until data.detil.size) {
                 Toast.makeText(
@@ -229,6 +220,7 @@ class InputSampah : AppCompatActivity() {
                 Utils.id_nasabah = param.id_nasabah
             }
         })
+        showLoading(false)
     }
 
     override fun onDestroy() {
