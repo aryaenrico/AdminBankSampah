@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryaenrico.dynamicview.adapter.DaftarMutasiAdapter
 import com.aryaenrico.dynamicview.databinding.ActivityMutasiTransaksiBinding
 import com.aryaenrico.dynamicview.model.MutasiTransaksiData
+import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.MutasiTransaksiViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryMutasiTransaksi
 import java.text.SimpleDateFormat
@@ -17,6 +18,8 @@ import java.util.*
 class MutasiTransaksi : AppCompatActivity() {
     private lateinit var binding : ActivityMutasiTransaksiBinding
     private lateinit var model:MutasiTransaksiViewModel
+    private var tanggalAwal =""
+    private var tanggalAkhir =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,35 +30,40 @@ class MutasiTransaksi : AppCompatActivity() {
         model =ViewModelProvider(this@MutasiTransaksi,factory).get(MutasiTransaksiViewModel::class.java)
 
         val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH,0)
+        calendar.get(Calendar.YEAR)
+        calendar.set(Calendar.DAY_OF_MONTH,1)
+        binding.tanggalawal.text = Utils.getTanggalBulanShow(calendar)
+        tanggalAwal =Utils.getTanggalBulanSend(calendar)
+
+        val calendar1 = Calendar.getInstance()
+        binding.tanggalakhir.text = Utils.getTanggalBulanShow(calendar1)
+        tanggalAkhir =Utils.getTanggalBulanSend(calendar1)
 
         val datePicker = DatePickerDialog.OnDateSetListener{_,year,month,dayofmonth ->
             calendar.set(Calendar.YEAR,year)
             calendar.set(Calendar.MONTH,month)
             calendar.set(Calendar.DAY_OF_MONTH,dayofmonth)
-            formatDateAwal(calendar)
-
+            binding.tanggalawal.text = Utils.getTanggalBulanShow(calendar)
+            tanggalAwal =Utils.getTanggalBulanSend(calendar)
         }
 
         val datePicker2 = DatePickerDialog.OnDateSetListener{_,year,month,dayofmonth ->
-            calendar.set(Calendar.YEAR,year)
-            calendar.set(Calendar.MONTH,month)
-            calendar.set(Calendar.DAY_OF_MONTH,dayofmonth)
-            formatDateAkhir(calendar)
+            calendar1.set(Calendar.YEAR,year)
+            calendar1.set(Calendar.MONTH,month)
+            calendar1.set(Calendar.DAY_OF_MONTH,dayofmonth)
+            binding.tanggalakhir.text = Utils.getTanggalBulanShow(calendar1)
+            tanggalAkhir =Utils.getTanggalBulanSend(calendar1)
         }
 
         binding.tanggalawal.setOnClickListener {
             DatePickerDialog(this,datePicker,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
         binding.tanggalakhir.setOnClickListener {
-            DatePickerDialog(this,datePicker2,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(this,datePicker2,calendar1.get(Calendar.YEAR),calendar1.get(Calendar.MONTH),calendar1.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         binding.cariRiwayat.setOnClickListener {
-            val tanggalAwal  = binding.tanggalawal.text.toString().trim()
-            val tanggalAkhir = binding.tanggalakhir.text.toString().trim()
-
-
-            if (!tanggalAkhir.contains("Akhir") and !tanggalAwal.contains("Awal")){
                 val tanggalAwalInt = dateTomilis(tanggalAwal)
                 val tanggalAkhirInt = dateTomilis(tanggalAkhir)
                 if (tanggalAwalInt > tanggalAkhirInt){
@@ -63,10 +71,6 @@ class MutasiTransaksi : AppCompatActivity() {
                 }else{
                     model.getMutasiTransaksi(tanggalAwal,tanggalAkhir)
                 }
-
-            }else{
-                showToast("Harap Masukan tanggal awal dan akhir terlebih dahulu ")
-            }
         }
 
         model.data.observe(this){data->
@@ -75,18 +79,6 @@ class MutasiTransaksi : AppCompatActivity() {
             }
             showData(data)
         }
-    }
-
-    private fun formatDateAwal(calendar: Calendar) {
-        val myFormat ="yyyy-MM-dd"
-        val sdf =SimpleDateFormat(myFormat)
-        binding.tanggalawal.text = sdf.format(calendar.time)
-
-    }
-    private fun formatDateAkhir(calendar: Calendar) {
-        val myFormat ="yyyy-MM-dd"
-        val sdf =SimpleDateFormat(myFormat)
-        binding.tanggalakhir.text = sdf.format(calendar.time)
     }
 
     private fun dateTomilis(message: String):Long{

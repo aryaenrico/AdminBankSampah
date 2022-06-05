@@ -7,44 +7,51 @@
     android:layout_margin="10dp"
     android:background="@drawable/rectangle2">
 
+
     <TextView
-        android:id="@+id/namaUser"
+        android:id="@+id/tvalamat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/gayung"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/nominal"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="15dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <TextView
-        android:id="@+id/jumlahPengaju"
+        android:id="@+id/tvnama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/rp_13_000"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/tanggal"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/etHargaPenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="pilih"
+        android:textColor="@color/black"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tanggalPengajuan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="6dp"
-        android:text="@string/bobots"
-        android:textSize="12sp"
-        android:fontFamily="@font/poppins_light"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namaUser" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

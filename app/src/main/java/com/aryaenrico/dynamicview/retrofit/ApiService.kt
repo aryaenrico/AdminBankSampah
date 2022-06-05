@@ -40,6 +40,12 @@ interface ApiService {
         @Field("status") status: String
     ): Message
 
+    @FormUrlEncoded
+    @POST("search_nasabah.php")
+    suspend fun searchNasbah(
+        @Field("nama") nama: String
+    ):ArrayList<Nasabah>
+
     @GET("getKategoriAll.php")
     suspend fun getKategoriSampah(
     ): ArrayList<Kategori>

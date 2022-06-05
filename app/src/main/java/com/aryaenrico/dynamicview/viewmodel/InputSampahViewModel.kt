@@ -3,6 +3,7 @@ package com.aryaenrico.dynamicview.viewmodel
 import androidx.lifecycle.*
 import com.aryaenrico.dynamicview.injection.Injection
 import com.aryaenrico.dynamicview.model.Message
+import com.aryaenrico.dynamicview.model.Nasabah
 import com.aryaenrico.dynamicview.model.Sampah
 import com.aryaenrico.dynamicview.model.Setoran
 import com.aryaenrico.dynamicview.repository.InputSampahRepository
@@ -16,6 +17,9 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     private var _pesan = MutableLiveData<Message>()
     val pesan :LiveData<Message> =_pesan
 
+    private var _nasabah = MutableLiveData<ArrayList<Nasabah>>()
+    val  nasabah:LiveData<ArrayList<Nasabah>> =_nasabah
+
     fun getData(){
         viewModelScope.launch {
             _data.value =sampahRepository.getDataSampah()
@@ -25,6 +29,12 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     fun setor(setoran: Setoran){
         viewModelScope.launch {
             _pesan.value =sampahRepository.setoran(setoran)
+        }
+    }
+
+    fun getNasabah(nama:String){
+        viewModelScope.launch {
+            _nasabah.value = sampahRepository.searchNasabah(nama)
         }
     }
 

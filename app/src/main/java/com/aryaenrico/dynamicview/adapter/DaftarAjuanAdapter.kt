@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aryaenrico.dynamicview.activity.DetailPengajuanActivity
 import com.aryaenrico.dynamicview.databinding.ItemVerifikasiBinding
 import com.aryaenrico.dynamicview.model.DaftarAjuan
+import com.aryaenrico.dynamicview.util.Utils
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class DaftarAjuanAdapter (private val context: Context) : RecyclerView.Adapter<DaftarAjuanAdapter.DaftarAjuanHolder>() {
@@ -27,8 +30,9 @@ class DaftarAjuanAdapter (private val context: Context) : RecyclerView.Adapter<D
     }
 
     override fun onBindViewHolder(holder: DaftarAjuanHolder, position: Int) {
+        val longData =dateToMilis(daftarAjuan[position].tanggal_pengajuan)
         holder.data.namaUser.text =daftarAjuan[position].nama_nasabah
-        holder.data.tanggalPengajuan.text =daftarAjuan[position].tanggal_pengajuan
+        holder.data.tanggalPengajuan.text =Utils.getTanggalBulanShow(dateToCalendar(longData))
         holder.data.statusPengajuan.text =daftarAjuan[position].status
         holder.data.jumlahPengaju.text =""+daftarAjuan[position].jumlah
 
@@ -47,6 +51,18 @@ class DaftarAjuanAdapter (private val context: Context) : RecyclerView.Adapter<D
 
     companion object{
         const val PARAM="DETAIL"
+    }
+    private fun  dateToMilis (data:String):Long{
+        var calendar = Calendar.getInstance()
+        val date = Utils.dateFormat.parse(data)
+        calendar.time =date
+        return calendar.timeInMillis
+    }
+
+    private fun dateToCalendar(data:Long):Calendar{
+        var calendar =Calendar.getInstance()
+        calendar.timeInMillis =data
+        return calendar
     }
 
 }

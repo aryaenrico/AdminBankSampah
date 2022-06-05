@@ -29,7 +29,6 @@ class TambahUser : AppCompatActivity() {
 
         binding.buttonTambah.setOnClickListener {
             val nama = binding.etNama.text.toString()
-            val password = binding.etPassword.text.toString().trim()
             val alamat = binding.etAlamat.text.toString()
             val username = binding.etUsername.text.toString().trim()
 
@@ -44,12 +43,8 @@ class TambahUser : AppCompatActivity() {
                 alamat.isBlank()->{
                     binding.etNama.error ="kolom alamat wajib di isi"
                 }
-                password.isBlank()->{
-                    binding.etNama.error ="kolom password wajib di isi"
-                }
-
                 else->{
-                    model.inputKategori(nama, alamat, username, password)
+                    model.inputKategori(nama, alamat, username,"12345")
                 }
 
             }
