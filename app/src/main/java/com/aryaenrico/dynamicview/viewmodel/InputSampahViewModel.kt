@@ -13,6 +13,7 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
 
     private var _data = MutableLiveData<ArrayList<Sampah>>()
     val  data:LiveData<ArrayList<Sampah>> =_data
+     var dataNasabah = arrayListOf(Nasabah())
 
     private var _pesan = MutableLiveData<Message>()
     val pesan :LiveData<Message> =_pesan
@@ -23,6 +24,7 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     fun getData(){
         viewModelScope.launch {
             _data.value =sampahRepository.getDataSampah()
+
         }
     }
 
@@ -35,6 +37,7 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     fun getNasabah(nama:String){
         viewModelScope.launch {
             _nasabah.value = sampahRepository.searchNasabah(nama)
+            dataNasabah =sampahRepository.searchNasabah(nama)
         }
     }
 

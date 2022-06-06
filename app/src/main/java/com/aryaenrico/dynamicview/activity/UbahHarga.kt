@@ -78,8 +78,8 @@ class UbahHarga : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 if (!binding.namaSampah.text.toString().equals("Nama Sampah")){
-                    showToast(mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah.toString())
-                    showToast(mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul.toString())
+                    binding.etHargaNasabahLama.setText(mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah.toString())
+                    binding.etHargaPengepulLama.setText(mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul.toString())
                 }
             }
         })

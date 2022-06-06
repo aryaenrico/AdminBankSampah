@@ -1,6 +1,8 @@
 package com.aryaenrico.dynamicview.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +63,21 @@ class InputSampah : AppCompatActivity() {
             showLoading(false)
         }
 
+        binding.etUsername.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+               model.getNasabah(p0.toString())
+            }
+
+        })
+
         binding.buttonAdd.setOnClickListener {
             //addNewView()
         }
@@ -68,21 +85,27 @@ class InputSampah : AppCompatActivity() {
             showLoading(true)
             val nama = binding.etUsername.text.toString()
             if (nama.isNotBlank()) {
-                model.getNasabah(nama)
-                model.nasabah.observe(this) {
-                    if (!it[0].nama.isBlank()) {
-                        binding.rvUser.visibility =View.VISIBLE
-                        showNasabah(it)
-                    } else if (it[0].nama.isBlank()) {
-                        showNasabah(it)
-                        binding.rvUser.visibility =View.GONE
-                    }
+                //model.getNasabah(nama)
+                if (model.dataNasabah[0].nama.isNotBlank()){
+                    binding.rvUser.visibility =View.VISIBLE
+                       showNasabah(model.dataNasabah)
+                }else{
+                    showToast("data tidak ada")
+                    binding.rvUser.visibility =View.GONE
+
                 }
+//                model.nasabah.observe(this) {
+//                    if (!it[0].nama.isBlank()) {
+//                        binding.rvUser.visibility =View.VISIBLE
+//                        showNasabah(it)
+//                    } else if (it[0].nama.isBlank()) {
+//                        showNasabah(it)
+//                        binding.rvUser.visibility =View.GONE
+//                    }
+//                }
             } else {
                 showToast("Masukan nama nasabah terlebih dahulu")
             }
-
-
 
         }
 
