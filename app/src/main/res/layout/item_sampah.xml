@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:paddingBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/inputNamaSampah"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="MINYAK"
+        android:layout_height="60dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rectangle"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/masukkan_nama_sampah"
+        android:importantForAutofill="no"
+        android:paddingStart="10dp"
+        android:inputType="none"
+        android:editable="false"
         android:textColor="@color/black"
+        android:textColorHint="@color/Gray"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:cursorVisible="false"
-        android:focusable="false"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <EditText
-
         android:id="@+id/inputbobotSampah"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/inputNamaSampah"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="175dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rectangle"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/_0"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
         android:textColor="@color/black"
-        android:text="0"
-        />
+        android:textColorHint="@color/Gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
