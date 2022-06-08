@@ -1,0 +1,91 @@
+package com.aryaenrico.dynamicview.viewmodel
+
+import androidx.lifecycle.*
+import com.aryaenrico.dynamicview.injection.Injection
+import com.aryaenrico.dynamicview.model.*
+import com.aryaenrico.dynamicview.repository.UbahTransaksiRepository
+import kotlinx.coroutines.launch
+
+class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepository) : ViewModel() {
+
+    var dataNasabah = arrayListOf(Nasabah())
+    private var _dataMutasi =MutableLiveData<ArrayList<Mutasi>>()
+    var dataMutasi:LiveData<ArrayList<Mutasi>> =_dataMutasi
+
+    private var _message =MutableLiveData<Message>()
+    var message:LiveData<Message> =_message
+
+    private var _detilMutasi =MutableLiveData<ArrayList<DetilMutasi>>()
+    var detilMutasi:LiveData<ArrayList<DetilMutasi>> =_detilMutasi
+
+    private var _dataSampah = MutableLiveData<ArrayList<Sampah>>()
+    val  dataSampah:LiveData<ArrayList<Sampah>> =_dataSampah
+
+    private var _total =MutableLiveData<DetailTotal>()
+    var total:LiveData<DetailTotal> =_total
+
+    fun getNasabah(nama: String) {
+        viewModelScope.launch {
+            dataNasabah = ubahTransaksiRepository.searchNasabah(nama)
+        }
+    }
+    fun getMutasi(awal:String,akhir:String,id:String){
+        viewModelScope.launch {
+            _dataMutasi.value = ubahTransaksiRepository.getMutasi(awal,akhir,id)
+        }
+    }
+    fun getTransaction(id:String){
+        viewModelScope.launch {
+            _detilMutasi.value =ubahTransaksiRepository.getTransaction(id)
+        }
+    }
+
+    fun update(id_setor:String,id_sampah:String,id_nasabah:String,total:String,nasabah:Int,pengepul:Int,total_setor:Int){
+        viewModelScope.launch {
+            _message.value =ubahTransaksiRepository.update(id_setor, id_sampah, id_nasabah, total,nasabah,pengepul,total_setor
+            )
+        }
+    }
+
+
+
+    fun getDataSampah(){
+        viewModelScope.launch {
+            _dataSampah.value =ubahTransaksiRepository.getDataSampah()
+
+        }
+    }
+
+    fun getDetailTotal(id_setor:String){
+        viewModelScope.launch {
+            _total.value =ubahTransaksiRepository.getDetailTotal(id_setor)
+        }
+    }
+
+
+}
+
+class ViewModelFactoryUbahTransaksi(private val ubahTransaksiRepository: UbahTransaksiRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        when {
+            modelClass.isAssignableFrom(UbahTransaksiViewModel::class.java) -> {
+                return UbahTransaksiViewModel(ubahTransaksiRepository) as T
+            }
+
+            else -> {
+                throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+            }
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var instance: ViewModelFactoryUbahTransaksi? = null
+        fun getInstance(ubahTransaksiRepository: UbahTransaksiRepository = Injection.provideUbahTransaksiRepository()): ViewModelFactoryUbahTransaksi =
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactoryUbahTransaksi(ubahTransaksiRepository)
+            }.also { instance = it }
+    }
+}

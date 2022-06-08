@@ -65,22 +65,20 @@ class InputSampah : AppCompatActivity() {
 
         binding.etUsername.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
                model.getNasabah(p0.toString())
             }
-
         })
 
         binding.buttonAdd.setOnClickListener {
             //addNewView()
         }
+
         binding.findUser.setOnClickListener {
             showLoading(true)
             val nama = binding.etUsername.text.toString()

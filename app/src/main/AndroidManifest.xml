@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicView">
         <activity
+            android:name=".activity.ProsesUbahActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DetailUbahTransaksi"
+            android:exported="false" />
+        <activity
             android:name=".activity.UbahSampah"
             android:exported="false" />
         <activity

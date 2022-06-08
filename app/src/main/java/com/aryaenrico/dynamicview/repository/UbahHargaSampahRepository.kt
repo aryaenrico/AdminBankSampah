@@ -12,7 +12,7 @@ class UbahHargaSampahRepository(private val apiService: ApiService) {
         try{
             data =apiService.getSampah()
         }catch (e: Exception){
-            data = listOf<Sampah>(Sampah("null","null",0,0)) as ArrayList<Sampah>
+            data = arrayListOf(Sampah("null","null",0,0)) as ArrayList<Sampah>
         }
         return data
     }

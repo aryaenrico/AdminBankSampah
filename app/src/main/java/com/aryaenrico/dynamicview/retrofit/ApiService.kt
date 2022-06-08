@@ -8,6 +8,23 @@ interface ApiService {
     @GET("getSampahAll.php")
     suspend fun getSampah(): ArrayList<Sampah>
 
+    @GET("get_total.php")
+    suspend fun transaction(@Query("id_setoran")id:String):ArrayList<DetilMutasi>
+
+    @GET("get_mutasi.php")
+    suspend fun getMutasiNasabah(
+        @Query("tanggal_awal") awal: String,
+        @Query("tanggal_akhir") akhir: String,
+        @Query("id_nasabah")  id_nasabah:String
+    ): ArrayList<Mutasi>
+
+    @GET("get_total_mutasi.php")
+    suspend fun getTotalMutasiNasabah(
+        @Query("id_setoran")  id_nasabah:String
+    ):DetailTotal
+
+
+
     @POST("setoran.php")
     suspend fun setoran(@Body setoran: Setoran): Message
 
@@ -31,6 +48,18 @@ interface ApiService {
         @Field("alamat") alamat: String,
         @Field("password") password: String,
         @Field("id") username: String
+    ): Message
+
+    @FormUrlEncoded
+    @POST("update_transaction.php")
+    suspend fun updateTransaction(
+        @Field("id_setor") id_setor: String,
+        @Field("id_sampah") id_sampah: String,
+        @Field("id_nasabah") id_nasabah: String,
+        @Field("total") total: String,
+        @Field("harga_nasabah") hrg_nasabah: Int,
+        @Field("harga_pengepul") hrg_pengepul: Int,
+        @Field("total_setor") total_setor: Int
     ): Message
 
     @FormUrlEncoded

@@ -7,32 +7,33 @@
     android:background="@color/white"
     tools:context=".activity.UbahSampah">
 
-
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/poppins_light"
-        android:text="@string/username"
+        android:text="Nama Sampah"
         android:layout_marginStart="30dp"
         android:textColor="#56983D"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/exp_spinner"
+    <EditText
+        android:id="@+id/nama_sampah"
         android:layout_width="130dp"
         android:layout_height="50dp"
+        android:layout_marginStart="28dp"
         android:background="@drawable/rectangle"
-        android:elevation="2dp"
-        android:layout_marginStart="30dp"
+        android:text="data"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/bobot"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:background="@drawable/rectangle"
@@ -45,20 +46,18 @@
         android:textColor="@color/black"
         android:textColorHint="#DCDCDC"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/exp_spinner"
+        app:layout_constraintStart_toEndOf="@+id/nama_sampah"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
-    <Spinner
-        android:id="@+id/exp_spinner_masa"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rectangle"
-        android:elevation="2dp"
-        android:entries="@array/masa"
-        android:gravity="center"
-        android:paddingStart="10dp"
+    <Button
+        android:id="@+id/btnubahTransaksi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_name"
-        app:layout_constraintTop_toTopOf="@+id/et_name" />
+        app:layout_constraintTop_toBottomOf="@id/nama_sampah"
+        android:text="Ubah"
+        android:layout_marginTop="20dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

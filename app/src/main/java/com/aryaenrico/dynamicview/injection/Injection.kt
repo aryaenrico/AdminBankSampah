@@ -37,6 +37,11 @@ object Injection {
         return UbahHargaSampahRepository.getInstance(apiService)
     }
 
+    fun provideUbahTransaksiRepository():UbahTransaksiRepository{
+        val apiService = ApiConfig.getApi()
+        return UbahTransaksiRepository.getInstance(apiService)
+    }
+
 
 
 }

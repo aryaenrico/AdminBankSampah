@@ -20,9 +20,7 @@ class SearchUserAdapter:RecyclerView.Adapter<SearchUserAdapter.SearchHolder>() {
         daftarNasbah.addAll(param)
         notifyDataSetChanged()
     }
-    class SearchHolder(var data:ItemNasabahBinding):RecyclerView.ViewHolder(data.root) {
-
-    }
+    class SearchHolder(var data:ItemNasabahBinding):RecyclerView.ViewHolder(data.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

@@ -1,5 +1,6 @@
 package com.aryaenrico.dynamicview.util
 
+import com.aryaenrico.dynamicview.model.Mutasi
 import com.aryaenrico.dynamicview.model.Nasabah
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +31,8 @@ object Utils {
         return sdf.format(calendar.time)
     }
     var id_nasabah:String=""
-   lateinit var searchNasabah:ArrayList<Nasabah>
+    lateinit var mutasi:Mutasi
+
 
 
 }
