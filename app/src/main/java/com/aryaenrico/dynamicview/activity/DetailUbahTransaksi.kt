@@ -3,6 +3,7 @@ package com.aryaenrico.dynamicview.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,11 +27,15 @@ class DetailUbahTransaksi : AppCompatActivity() {
         setContentView(binding.root)
         data = Utils.mutasi
         model = ViewModelProvider(this, ViewModelFactoryUbahTransaksi.getInstance()).get(UbahTransaksiViewModel::class.java)
+        model.setLoading(true)
+        model.loading.observe(this){
+            showLoading(it)
+        }
         model.getDetailTotal(data.id_setor)
         model.total.observe(this){
-
+            binding.total.text =""+it.harga
         }
-        //binding.total.text =""+data.harga
+
         binding.namaPengaju.text =data.nama_admin
         binding.tanggalTransaksi.text =data.tanggal
 
@@ -67,12 +72,20 @@ class DetailUbahTransaksi : AppCompatActivity() {
                 binding.total.text =""+it.harga
             }
         }
-        Toast.makeText(this,data.id_setor,Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         this.data = Mutasi()
+    }
+
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 

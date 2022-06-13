@@ -44,7 +44,7 @@
                 android:textColor="@color/Green"
                 android:textColorHint="@color/Gray"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/rvUser"
+                app:layout_constraintBottom_toTopOf="@+id/rvUserEdit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
@@ -59,21 +59,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.374"
+                app:layout_constraintVertical_bias="0.088"
                 tools:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvUserEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:layout_constraintBottom_toTopOf="@+id/cariUsername"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etUsername"
                 tools:listitem="@layout/item_nasabah"
-                />
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/cariUsername"
@@ -162,11 +161,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 android:visibility="gone"
-
                 />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/notFound1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Total: Rp.30,000"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etUsername"
+                app:layout_constraintBottom_toTopOf="@+id/cariUsername"
+                />
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

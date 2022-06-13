@@ -1,6 +1,6 @@
 package com.aryaenrico.dynamicview.repository
 
-import android.widget.Toast
+
 import com.aryaenrico.dynamicview.model.*
 import com.aryaenrico.dynamicview.retrofit.ApiService
 import java.lang.Exception
@@ -18,9 +18,8 @@ class UbahTransaksiRepository (private val apiService: ApiService)
         if (data.size>0){
             return data
         }else{
-            return arrayListOf(Nasabah("","",""))
+            return arrayListOf(Nasabah())
         }
-
     }
 
     suspend fun getMutasi(awal:String,akhir:String,id:String):ArrayList<Mutasi>{
@@ -76,9 +75,9 @@ class UbahTransaksiRepository (private val apiService: ApiService)
     suspend fun getDetailTotal(id_setor:String):DetailTotal{
         var data:DetailTotal
         try{
-            data =apiService.getTotalMutasiNasabah(id_setor)
+            data = apiService.getTotalMutasiNasabah(id_setor)
         }catch (e:Exception){
-           data = DetailTotal()
+            data = DetailTotal()
         }
         return data
     }

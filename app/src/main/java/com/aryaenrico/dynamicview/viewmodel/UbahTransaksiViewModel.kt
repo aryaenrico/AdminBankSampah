@@ -8,12 +8,20 @@ import kotlinx.coroutines.launch
 
 class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepository) : ViewModel() {
 
-    var dataNasabah = arrayListOf(Nasabah())
+
     private var _dataMutasi =MutableLiveData<ArrayList<Mutasi>>()
     var dataMutasi:LiveData<ArrayList<Mutasi>> =_dataMutasi
 
+    private var _dataNasabah =MutableLiveData<ArrayList<Nasabah>>()
+    var dataNasabah:LiveData<ArrayList<Nasabah>> =_dataNasabah
+
     private var _message =MutableLiveData<Message>()
     var message:LiveData<Message> =_message
+
+    private var _loading =MutableLiveData<Boolean>()
+    var loading :LiveData<Boolean> =_loading
+
+
 
     private var _detilMutasi =MutableLiveData<ArrayList<DetilMutasi>>()
     var detilMutasi:LiveData<ArrayList<DetilMutasi>> =_detilMutasi
@@ -26,17 +34,20 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
 
     fun getNasabah(nama: String) {
         viewModelScope.launch {
-            dataNasabah = ubahTransaksiRepository.searchNasabah(nama)
+            _dataNasabah.value = ubahTransaksiRepository.searchNasabah(nama)
+            _loading.value =false
         }
     }
     fun getMutasi(awal:String,akhir:String,id:String){
         viewModelScope.launch {
             _dataMutasi.value = ubahTransaksiRepository.getMutasi(awal,akhir,id)
+            _loading.value =false
         }
     }
     fun getTransaction(id:String){
         viewModelScope.launch {
             _detilMutasi.value =ubahTransaksiRepository.getTransaction(id)
+            _loading.value =false
         }
     }
 
@@ -44,6 +55,7 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
         viewModelScope.launch {
             _message.value =ubahTransaksiRepository.update(id_setor, id_sampah, id_nasabah, total,nasabah,pengepul,total_setor
             )
+            _loading.value =false
         }
     }
 
@@ -52,6 +64,7 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
     fun getDataSampah(){
         viewModelScope.launch {
             _dataSampah.value =ubahTransaksiRepository.getDataSampah()
+            _loading.value =false
 
         }
     }
@@ -60,6 +73,10 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
         viewModelScope.launch {
             _total.value =ubahTransaksiRepository.getDetailTotal(id_setor)
         }
+    }
+
+    fun setLoading(load:Boolean){
+        _loading.value =load
     }
 
 

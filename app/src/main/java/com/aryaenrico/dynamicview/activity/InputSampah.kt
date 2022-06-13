@@ -28,11 +28,14 @@ class InputSampah : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         supportActionBar?.hide()
-        showLoading(true)
+
         val factory: ViewModelFactory = ViewModelFactory.getInstance()
         model = ViewModelProvider(this@InputSampah, factory).get(InputSampahViewModel::class.java)
-
+        model.setLoading(true)
         model.getData()
+        model.loading.observe(this){
+            showLoading(it)
+        }
         model.data.observe(this) {
             this.dataSampah = it
 
@@ -54,13 +57,13 @@ class InputSampah : AppCompatActivity() {
                     addNewView(dataSampah[i].nama_sampah)
                 }
             }
-            showLoading(false)
+
         }
 
         binding.findUser.setOnClickListener {
-            showLoading(true)
             val nama = binding.etUsername.text.toString()
             if (nama.isNotBlank()) {
+                model.setLoading(true)
                 model.getNasabah(nama)
                 model.nasabah.observe(this){data ->
                     if (data[0].nama.isNotBlank()){
@@ -70,9 +73,9 @@ class InputSampah : AppCompatActivity() {
                     }else{
                         binding.rvUser.visibility   = View.GONE
                         binding.notFound.visibility = View.VISIBLE
-                        binding.notFound.setText("Tidak Ada Riwayat Transaksi")
+                        binding.notFound.setText("Username Tidak ditemukan")
                     }
-                    showLoading(false)
+
                 }
             } else {
                 showToast("Nama Nasabah Tidak Boleh Kosong")
@@ -183,16 +186,17 @@ class InputSampah : AppCompatActivity() {
     // clicks on Show List data button
     private fun showData() {
         if (checkEror()) {
+            model.setLoading(true)
             val data = process()
             model.setor(data)
             //val count = binding.parentLinearLayout.childCount
-            for (i in 0 until data.detil.size) {
-                Toast.makeText(
-                    this,
-                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+//            for (i in 0 until data.detil.size) {
+//                Toast.makeText(
+//                    this,
+//                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
         } else {
             showToast("Pastikan semua data telah terisi ")
         }

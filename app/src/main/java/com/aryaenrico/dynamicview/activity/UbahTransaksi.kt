@@ -3,8 +3,6 @@ package com.aryaenrico.dynamicview.activity
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -31,33 +29,31 @@ class UbahTransaksi : AppCompatActivity() {
         supportActionBar?.hide()
         model =ViewModelProvider(this,ViewModelFactoryUbahTransaksi.getInstance()).get(UbahTransaksiViewModel::class.java)
 
-        binding.etUsername.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun afterTextChanged(p0: Editable?) {
-                model.getNasabah(p0.toString())
-            }
-
-        })
+        model.loading.observe(this){
+            showLoading(it)
+        }
 
         binding.cariUsername.setOnClickListener {
-            showLoading(true)
             val nama = binding.etUsername.text.toString()
             if (nama.isNotBlank()){
-                if(model.dataNasabah[0].nama.isNotBlank()){
-                    binding.rvUserEdit.visibility =View.VISIBLE
-                    showNasabah(model.dataNasabah)
-                }else{
-                    binding.rvUserEdit.visibility =View.GONE
-                    showToast("Data tidak di temukan")
+                model.setLoading(true)
+                model.getNasabah(nama)
+                model.dataNasabah.observe(this){data ->
+                    if (data[0].nama.isNotBlank()){
+                        binding.rvUserEdit.visibility = View.VISIBLE
+                        showNasabah(data)
+                        binding.notFound1.visibility = View.GONE
+
+                    }else{
+                        binding.rvUserEdit.visibility   = View.GONE
+                        binding.notFound1.visibility = View.VISIBLE
+                        binding.notFound1.setText("Username tidak ditemukan")
+
+                    }
                 }
             }else{
                 showToast("Harap Masukan Nama user terlebih dahulu")
             }
-            showLoading(false)
         }
 
         val calendar1 = Calendar.getInstance()
@@ -76,7 +72,9 @@ class UbahTransaksi : AppCompatActivity() {
         }
 
         binding.buttonCari.setOnClickListener {
-            if (binding.etUsername.text.toString().isNotBlank()){
+
+            if (Utils.id_nasabah.isNotBlank()){
+                model.setLoading(true)
                 model.getMutasi(Utils.getTanggalBulan(),tanggalAkhir,Utils.id_nasabah)
                 model.dataMutasi.observe(this){ data ->
                     if (data[0].harga>0){
@@ -98,7 +96,6 @@ class UbahTransaksi : AppCompatActivity() {
     }
 
     private fun showNasabah(param: ArrayList<Nasabah>) {
-        binding.rvUserEdit.visibility = View.VISIBLE
         binding.rvUserEdit.layoutManager = LinearLayoutManager(this)
         val adapter = SearchUserAdapter()
         adapter.setData(param)
@@ -110,7 +107,7 @@ class UbahTransaksi : AppCompatActivity() {
                 Utils.id_nasabah = param.id_nasabah
             }
         })
-        showLoading(false)
+
     }
 
     private fun showMutasi(param:ArrayList<Mutasi>){
@@ -128,6 +125,19 @@ class UbahTransaksi : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Utils.id_nasabah =""
+        showMutasi(arrayListOf(Mutasi()))
+        binding.recyclerView.visibility =View.GONE
+        binding.etUsername.setText("")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Utils.mutasi = Mutasi()
     }
 
     override fun onDestroy() {

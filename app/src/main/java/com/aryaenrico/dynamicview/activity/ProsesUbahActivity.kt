@@ -3,6 +3,7 @@ package com.aryaenrico.dynamicview.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.databinding.ActivityUbahSampahBinding
@@ -28,6 +29,10 @@ class ProsesUbahActivity : AppCompatActivity() {
         model = ViewModelProvider(this, ViewModelFactoryUbahTransaksi.getInstance()).get(UbahTransaksiViewModel::class.java)
         data = intent.getParcelableExtra<Mutasi>("Data") as Mutasi
         detil = intent.getParcelableExtra<DetilMutasi>("sampah") as DetilMutasi
+        model.setLoading(true)
+        model.loading.observe(this){
+            showLoading(it)
+        }
 
         model.getDataSampah()
         model.dataSampah.observe(this){
@@ -65,18 +70,34 @@ class ProsesUbahActivity : AppCompatActivity() {
         }
 
         binding.btnubahTransaksi.setOnClickListener {
-            val nasabah = mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-            val pengepul = mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul ?:0
-            val bobot =(binding.bobot.text.toString()).toFloat()
-            val paramNasabah =(nasabah*bobot).toInt()
-            val paramPengepul =(pengepul*bobot).toInt()
+            val check  =(binding.bobot.text.toString()).toFloat()
 
-            model.update(data.id_setor,mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"",data.id_nasabah,binding.bobot.text.toString(),paramNasabah,paramPengepul,data.harga)
+            if (check != 0.0f){
+                model.setLoading(true)
+                val nasabah = mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
+                val pengepul = mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul ?:0
+                val bobot =(binding.bobot.text.toString()).toFloat()
+                val paramNasabah =(nasabah*bobot).toInt()
+                val paramPengepul =(pengepul*bobot).toInt()
+
+                model.update(data.id_setor,mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"",data.id_nasabah,binding.bobot.text.toString(),paramNasabah,paramPengepul,data.harga)
+            }else{
+                showToast("Bobot tidak boleh 0")
+            }
+
         }
 
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this@ProsesUbahActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }
