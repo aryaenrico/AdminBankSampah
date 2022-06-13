@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -27,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.536"
+            app:layout_constraintVertical_bias="0.0"
             tools:visibility="visible" />
 
         <TextView
@@ -44,9 +43,9 @@
 
         <EditText
             android:id="@+id/etUsername"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rectangle"
             android:fontFamily="@font/poppins_light"
             android:hint="@string/masukkan_nama_pengguna"
@@ -56,8 +55,26 @@
             android:textColorHint="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/notFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="User Tidak Ditemukan"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/findUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername"
+            app:layout_constraintVertical_bias="0.321" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUser"
@@ -108,20 +125,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#56983D"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/add"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parent_linear_layout" />
+
 
         <Button
             android:id="@+id/button_submit_list"
@@ -138,7 +142,7 @@
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add" />
+            app:layout_constraintTop_toBottomOf="@+id/parent_linear_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

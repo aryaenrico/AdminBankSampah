@@ -1,8 +1,6 @@
 package com.aryaenrico.dynamicview.activity
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -21,13 +19,9 @@ class InputSampah : AppCompatActivity() {
     private lateinit var binding: ActivityInputSampahBinding
     private lateinit var model: InputSampahViewModel
     private var mapSampah = HashMap<String, Sampah>()
-
-    // private lateinit var dataNasabah:ArrayList<Nasabah>
-    private var param = ""
-
-    // ini sisnya dari kolom nama_sampah
     private var sampah = ArrayList<String>()
     private lateinit var dataSampah: ArrayList<Sampah>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInputSampahBinding.inflate(layoutInflater)
 
@@ -63,46 +57,25 @@ class InputSampah : AppCompatActivity() {
             showLoading(false)
         }
 
-        binding.etUsername.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-               model.getNasabah(p0.toString())
-            }
-        })
-
-        binding.buttonAdd.setOnClickListener {
-            //addNewView()
-        }
-
         binding.findUser.setOnClickListener {
             showLoading(true)
             val nama = binding.etUsername.text.toString()
             if (nama.isNotBlank()) {
-                //model.getNasabah(nama)
-                if (model.dataNasabah[0].nama.isNotBlank()){
-                    binding.rvUser.visibility =View.VISIBLE
-                       showNasabah(model.dataNasabah)
-                }else{
-                    showToast("data tidak ada")
-                    binding.rvUser.visibility =View.GONE
-
+                model.getNasabah(nama)
+                model.nasabah.observe(this){data ->
+                    if (data[0].nama.isNotBlank()){
+                        binding.rvUser.visibility = View.VISIBLE
+                        showNasabah(data)
+                        binding.notFound.visibility = View.GONE
+                    }else{
+                        binding.rvUser.visibility   = View.GONE
+                        binding.notFound.visibility = View.VISIBLE
+                        binding.notFound.setText("Tidak Ada Riwayat Transaksi")
+                    }
+                    showLoading(false)
                 }
-//                model.nasabah.observe(this) {
-//                    if (!it[0].nama.isBlank()) {
-//                        binding.rvUser.visibility =View.VISIBLE
-//                        showNasabah(it)
-//                    } else if (it[0].nama.isBlank()) {
-//                        showNasabah(it)
-//                        binding.rvUser.visibility =View.GONE
-//                    }
-//                }
             } else {
-                showToast("Masukan nama nasabah terlebih dahulu")
+                showToast("Nama Nasabah Tidak Boleh Kosong")
             }
 
         }
@@ -111,7 +84,6 @@ class InputSampah : AppCompatActivity() {
         // data entered by user in arraylist
         binding.buttonSubmitList.setOnClickListener {
             showData()
-            //showToast(Utils.id_nasabah)
         }
 
         model.pesan.observe(this) {
@@ -119,7 +91,13 @@ class InputSampah : AppCompatActivity() {
                 showToast(it.pesan)
             }
             if (it.pesan.equals("sukses")) {
-                binding.parentLinearLayout.removeAllViews()
+                val count = binding.parentLinearLayout.childCount
+                var v: View?
+                for (i in 0 until count) {
+                    v = binding.parentLinearLayout.getChildAt(i)
+                    val bobot: EditText = v.findViewById(R.id.inputbobotSampah)
+                    bobot.setText("0")
+                }
             }
         }
     }
@@ -130,10 +108,6 @@ class InputSampah : AppCompatActivity() {
         var sampahEditText = view.findViewById<EditText>(R.id.inputNamaSampah)
         sampahEditText.setText(param)
         binding.parentLinearLayout.addView(view, binding.parentLinearLayout.childCount)
-    }
-
-    private fun remove(data: View) {
-        binding.parentLinearLayout.removeView(data)
     }
 
     private fun process(): Setoran {
@@ -229,7 +203,6 @@ class InputSampah : AppCompatActivity() {
     }
 
     private fun showNasabah(param: ArrayList<Nasabah>) {
-        binding.rvUser.visibility = View.VISIBLE
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         val adapter = SearchUserAdapter()
         adapter.setData(param)
@@ -241,7 +214,6 @@ class InputSampah : AppCompatActivity() {
                 Utils.id_nasabah = param.id_nasabah
             }
         })
-        showLoading(false)
     }
 
     override fun onDestroy() {
