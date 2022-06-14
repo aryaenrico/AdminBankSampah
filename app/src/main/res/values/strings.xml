@@ -72,9 +72,14 @@
     <string name="proses">Proses</string>
     <string name="_0">0</string>
     <string name="harga_nasabah_lama">Harga Nasabah Lama</string>
-    <string name="harga_pengepul_lama">Harga Pengepul Lama</string>
     <string name="_3000">3000</string>
     <string name="_4500">4500</string>
+    <string name="tanggal_berlaku_harga_baru">Tanggal Berlaku Harga Baru</string>
+    <string name="harga_nasabah_baru">Harga Nasabah Baru</string>
+    <string name="masukkan_harga_nasabah_baru">Masukkan Harga Nasabah Baru</string>
+    <string name="harga_pengepul_lama">Harga Pengepul Lama</string>
+    <string name="harga_pengepul_baru">Harga Pengepul baru</string>
+    <string name="tanggal_penyetoran">Tanggal Penyetoran</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>

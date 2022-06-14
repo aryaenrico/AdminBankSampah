@@ -41,7 +41,7 @@ class DetailUbahTransaksi : AppCompatActivity() {
 
         model.getTransaction(data.id_setor)
         model.detilMutasi.observe(this){
-            if (it[0].harga_nasabah >0){
+            if (it[0].harga_nasabah >= 0){
                 showData(it)
             }
         }
