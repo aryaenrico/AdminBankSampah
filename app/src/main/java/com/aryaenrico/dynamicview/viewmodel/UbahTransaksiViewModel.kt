@@ -61,9 +61,9 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
 
 
 
-    fun getDataSampah(){
+    fun getDataSampah(param:String){
         viewModelScope.launch {
-            _dataSampah.value =ubahTransaksiRepository.getDataSampah()
+            _dataSampah.value =ubahTransaksiRepository.getDataSampah(param)
             _loading.value =false
 
         }

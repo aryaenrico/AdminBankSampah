@@ -50,7 +50,7 @@ class UbahHarga : AppCompatActivity() {
         binding.ettglBerlaku.setOnClickListener {
             DatePickerDialog(this,datePicker2,calendar1.get(Calendar.YEAR),calendar1.get(Calendar.MONTH),calendar1.get(Calendar.DAY_OF_MONTH)).show()
         }
-        model.getData()
+        model.getData(Utils.getTanggalLengkap())
         model.data.observe(this){data->
             if (data.isNotEmpty()){
                 for (i in 0..data.size-1){
@@ -87,8 +87,7 @@ class UbahHarga : AppCompatActivity() {
 
         binding.findUser.setOnClickListener {
             showToast(tanggalAkhir)
-
-//          val idSampah  = this.mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"kosong"
+//            val idSampah  = this.mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"kosong"
 //            val nasabah   =binding.etHargaNasabah.text.toString()
 //            val pengepul   =binding.etHargaPengepul.text.toString()
 //            val admin ="a001"

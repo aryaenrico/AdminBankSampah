@@ -7,10 +7,10 @@ import java.lang.Exception
 
 class UbahHargaSampahRepository(private val apiService: ApiService) {
 
-    suspend fun getDataSampah():ArrayList<Sampah>{
+    suspend fun getDataSampah(param:String):ArrayList<Sampah>{
         var data = ArrayList<Sampah>()
         try{
-            data =apiService.getSampah()
+            data =apiService.getSampah(param)
         }catch (e: Exception){
             data = arrayListOf(Sampah("null","null",0,0)) as ArrayList<Sampah>
         }

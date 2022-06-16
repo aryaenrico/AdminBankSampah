@@ -14,6 +14,15 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     private var _data = MutableLiveData<ArrayList<Sampah>>()
     val  data:LiveData<ArrayList<Sampah>> =_data
 
+    private var _tglSetor = MutableLiveData<Long>()
+    val  tglSetor:LiveData<Long> =_tglSetor
+
+
+
+
+    init {
+     getTglSetor()
+    }
 
     private var _pesan = MutableLiveData<Message>()
     val pesan :LiveData<Message> =_pesan
@@ -25,12 +34,20 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     private var _nasabah = MutableLiveData<ArrayList<Nasabah>>()
     val  nasabah:LiveData<ArrayList<Nasabah>> =_nasabah
 
-    fun getData(){
+    fun getData(param:String){
         viewModelScope.launch {
-            _data.value =sampahRepository.getDataSampah()
+            _data.value =sampahRepository.getDataSampah(param)
             _loading.value =false
 
         }
+    }
+    fun getTglSetor(){
+        _tglSetor.value =System.currentTimeMillis()
+    }
+
+    fun setTglSetor(param:Long){
+        _tglSetor.value =param
+        _loading.value =false
     }
 
     fun setor(setoran: Setoran){

@@ -1,5 +1,6 @@
 package com.aryaenrico.dynamicview.activity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -13,6 +14,9 @@ import com.aryaenrico.dynamicview.model.*
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.InputSampahViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactory
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class InputSampah : AppCompatActivity() {
 
@@ -21,6 +25,8 @@ class InputSampah : AppCompatActivity() {
     private var mapSampah = HashMap<String, Sampah>()
     private var sampah = ArrayList<String>()
     private lateinit var dataSampah: ArrayList<Sampah>
+    private  var tanggalAkhir=""
+    private lateinit var calendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInputSampahBinding.inflate(layoutInflater)
@@ -32,32 +38,53 @@ class InputSampah : AppCompatActivity() {
         val factory: ViewModelFactory = ViewModelFactory.getInstance()
         model = ViewModelProvider(this@InputSampah, factory).get(InputSampahViewModel::class.java)
         model.setLoading(true)
-        model.getData()
+
         model.loading.observe(this){
             showLoading(it)
         }
-        model.data.observe(this) {
-            this.dataSampah = it
 
-            if (dataSampah[0].id_sampah.equals("null")) {
-                showToast("Terdapat kesalahan pada server")
-                finish()
-            } else {
-                for (i in 0..dataSampah.size - 1) {
-                    this.mapSampah.set(
-                        dataSampah[i].nama_sampah,
-                        Sampah(
-                            id_sampah = dataSampah[i].id_sampah,
-                            nama_sampah = dataSampah[i].nama_sampah,
-                            harga_nasabah = dataSampah[i].harga_nasabah,
-                            harga_pengepul = dataSampah[i].harga_pengepul
+        model.tglSetor.observe(this){
+            this.calendar =Utils.longToCalendar(it)
+            showToast(Utils.getTanggalBulanShow(calendar))
+            this.tanggalAkhir =Utils.getTanggalBulanSend(calendar)
+            model.getData(this.tanggalAkhir)
+            binding.cariTanggal.text =Utils.getTanggalBulanSend(calendar)
+            model.data.observe(this) {
+                this.dataSampah = it
+                binding.parentLinearLayout.removeAllViews()
+                if (dataSampah[0].id_sampah.equals("null")) {
+                    showToast("Terdapat kesalahan pada server")
+                    finish()
+                } else {
+                    for (i in 0..dataSampah.size - 1) {
+                        this.mapSampah.set(
+                            dataSampah[i].nama_sampah,
+                            Sampah(
+                                id_sampah = dataSampah[i].id_sampah,
+                                nama_sampah = dataSampah[i].nama_sampah,
+                                harga_nasabah = dataSampah[i].harga_nasabah,
+                                harga_pengepul = dataSampah[i].harga_pengepul
+                            )
                         )
-                    )
-                    this.sampah.add(dataSampah[i].nama_sampah)
-                    addNewView(dataSampah[i].nama_sampah)
+                        this.sampah.add(dataSampah[i].nama_sampah)
+                        addNewView(dataSampah[i].nama_sampah)
+                    }
                 }
             }
+        }
 
+        val datePicker = DatePickerDialog.OnDateSetListener{ _, year, month, dayofmonth ->
+            model.setLoading(true)
+            calendar.set(Calendar.YEAR,year)
+            calendar.set(Calendar.MONTH,month)
+            calendar.set(Calendar.DAY_OF_MONTH,dayofmonth)
+            this.sampah.clear()
+            model.setTglSetor(calendar.timeInMillis)
+
+        }
+
+        binding.cariTanggal.setOnClickListener {
+            DatePickerDialog(this,datePicker,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         binding.findUser.setOnClickListener {
@@ -83,8 +110,7 @@ class InputSampah : AppCompatActivity() {
 
         }
 
-        // This Submit Button is used to store all the
-        // data entered by user in arraylist
+        // submit data
         binding.buttonSubmitList.setOnClickListener {
             showData()
         }
@@ -105,6 +131,7 @@ class InputSampah : AppCompatActivity() {
         }
     }
 
+    // tampilana input
     private fun addNewView(param: String) {
         // membuat objek view dari hasil inflate layout xml
         var view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
@@ -160,7 +187,6 @@ class InputSampah : AppCompatActivity() {
     }
 
     private fun checkEror(): Boolean {
-
         if (Utils.id_nasabah.isEmpty()) {
             return false
         }
@@ -182,21 +208,20 @@ class InputSampah : AppCompatActivity() {
         return false
     }
 
-    // This function is called after user
-    // clicks on Show List data button
+    //proses kirrim
     private fun showData() {
         if (checkEror()) {
             model.setLoading(true)
             val data = process()
             model.setor(data)
-            //val count = binding.parentLinearLayout.childCount
-//            for (i in 0 until data.detil.size) {
-//                Toast.makeText(
-//                    this,
-//                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
+            val count = binding.parentLinearLayout.childCount
+            for (i in 0 until data.detil.size) {
+                Toast.makeText(
+                    this,
+                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         } else {
             showToast("Pastikan semua data telah terisi ")
         }

@@ -14,9 +14,9 @@ class UbahSampahViewModel(private val ubahHargaSampahRepository: UbahHargaSampah
     private var _pesan = MutableLiveData<Message>()
     val pesan: LiveData<Message> =_pesan
 
-    fun getData(){
+    fun getData(param:String){
         viewModelScope.launch {
-            _data.value = ubahHargaSampahRepository.getDataSampah()
+            _data.value = ubahHargaSampahRepository.getDataSampah(param)
         }
     }
     fun updateHargaSampah(id:String,nasabah:Int,pengepul:Int,tanggal:String,admin:String,nasabahLama:Int,pengepulLama:Int){

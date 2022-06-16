@@ -6,7 +6,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET("getSampahAll.php")
-    suspend fun getSampah(): ArrayList<Sampah>
+    suspend fun getSampah( @Query("tanggal") awal: String,): ArrayList<Sampah>
 
     @GET("get_total.php")
     suspend fun transaction(@Query("id_setoran")id:String):ArrayList<DetilMutasi>

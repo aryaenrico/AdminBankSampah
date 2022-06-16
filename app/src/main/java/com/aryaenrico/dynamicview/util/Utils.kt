@@ -30,6 +30,13 @@ object Utils {
         val sdf =SimpleDateFormat(myFormat)
         return sdf.format(calendar.time)
     }
+
+    fun longToCalendar(param:Long):Calendar{
+        val calendar =Calendar.getInstance()
+        calendar.timeInMillis =param
+        return calendar
+
+    }
     var id_nasabah:String=""
     lateinit var mutasi:Mutasi
 

@@ -34,7 +34,7 @@ class ProsesUbahActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        model.getDataSampah()
+        model.getDataSampah(data.tanggal)
         model.dataSampah.observe(this){
             this.dataSampah = it
 
