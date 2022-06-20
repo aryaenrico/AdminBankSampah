@@ -37,25 +37,29 @@ class InputSampah : AppCompatActivity() {
 
         val factory: ViewModelFactory = ViewModelFactory.getInstance()
         model = ViewModelProvider(this@InputSampah, factory).get(InputSampahViewModel::class.java)
+
         model.setLoading(true)
 
         model.loading.observe(this){
             showLoading(it)
         }
 
-        model.tglSetor.observe(this){
-            this.calendar =Utils.longToCalendar(it)
+        // live data tgl setor
+        model.tglSetor.observe(this){tanggal->
+            this.calendar =Utils.longToCalendar(tanggal)
             showToast(Utils.getTanggalBulanShow(calendar))
-            this.tanggalAkhir =Utils.getTanggalBulanSend(calendar)
-            model.getData(this.tanggalAkhir)
-            binding.cariTanggal.text =Utils.getTanggalBulanSend(calendar)
+            this.tanggalAkhir =Utils.idSetor(calendar)
+            model.getData(Utils.getTanggalBulanSend(calendar))
+            binding.cariTanggal.text =Utils.getTanggalBulanShow(calendar)
             model.data.observe(this) {
                 this.dataSampah = it
                 binding.parentLinearLayout.removeAllViews()
                 if (dataSampah[0].id_sampah.equals("null")) {
                     showToast("Terdapat kesalahan pada server")
                     finish()
-                } else {
+                } else if (dataSampah[0].id_sampah.equals("Tidak ada data")){
+                    addNewView(dataSampah[0].nama_sampah)
+                }else {
                     for (i in 0..dataSampah.size - 1) {
                         this.mapSampah.set(
                             dataSampah[i].nama_sampah,
@@ -73,6 +77,7 @@ class InputSampah : AppCompatActivity() {
             }
         }
 
+        // konfigurasi tanggal
         val datePicker = DatePickerDialog.OnDateSetListener{ _, year, month, dayofmonth ->
             model.setLoading(true)
             calendar.set(Calendar.YEAR,year)
@@ -87,6 +92,7 @@ class InputSampah : AppCompatActivity() {
             DatePickerDialog(this,datePicker,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        // saat mencari nama nasabah
         binding.findUser.setOnClickListener {
             val nama = binding.etUsername.text.toString()
             if (nama.isNotBlank()) {
@@ -115,6 +121,7 @@ class InputSampah : AppCompatActivity() {
             showData()
         }
 
+        // pesan setelah setor di lakukan
         model.pesan.observe(this) {
             if (it.pesan.isNotBlank()) {
                 showToast(it.pesan)
@@ -127,11 +134,13 @@ class InputSampah : AppCompatActivity() {
                     val bobot: EditText = v.findViewById(R.id.inputbobotSampah)
                     bobot.setText("0")
                 }
+                Utils.id_nasabah =""
+                binding.etUsername.setText("")
             }
         }
     }
 
-    // tampilana input
+    // tampilan sampah dan bobot untuk input
     private fun addNewView(param: String) {
         // membuat objek view dari hasil inflate layout xml
         var view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
@@ -177,8 +186,8 @@ class InputSampah : AppCompatActivity() {
                 continue
             }
         }
-        builder.append(Utils.getTanggalBulan())
-        setoran.id_admin = "a001"
+        builder.append(this.tanggalAkhir)
+        setoran.id_admin = "1"
         setoran.detil = paramDetilSetor
         setoran.id_nasabah = Utils.id_nasabah
         setoran.id_setor = builder.toString()
@@ -186,6 +195,7 @@ class InputSampah : AppCompatActivity() {
         return setoran
     }
 
+    // pengecekan sebelum submit
     private fun checkEror(): Boolean {
         if (Utils.id_nasabah.isEmpty()) {
             return false
@@ -213,8 +223,8 @@ class InputSampah : AppCompatActivity() {
         if (checkEror()) {
             model.setLoading(true)
             val data = process()
+            showToast(data.id_setor)
             model.setor(data)
-            val count = binding.parentLinearLayout.childCount
             for (i in 0 until data.detil.size) {
                 Toast.makeText(
                     this,

@@ -1,16 +1,14 @@
 package com.aryaenrico.dynamicview.repository
-
-
 import com.aryaenrico.dynamicview.model.Message
 import com.aryaenrico.dynamicview.retrofit.ApiService
 import java.lang.Exception
 
 class AddUserRepository(private val apiService: ApiService) {
 
-   suspend fun add(pNama:String,pAlamat:String,pPassword:String,pId:String):Message{
+   suspend fun addUserRepo(pNama:String,pAlamat:String,pPassword:String,ptelp:String):Message{
        var data = Message()
        try{
-           data =apiService.addUser(nama = pNama,alamat =pAlamat,password = pPassword,username = pId )
+           data =apiService.addUser(nama = pNama,alamat =pAlamat,password = pPassword,no_telp = ptelp)
        }catch (e:Exception){
            data.pesan ="terdapat kesalan pada jaringan"
        }

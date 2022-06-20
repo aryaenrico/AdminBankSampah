@@ -37,7 +37,7 @@ class TambahSampah : AppCompatActivity() {
            this.countSampah =temp.toString()
         }
         model.data.observe(this){data->
-            for (i in 0..data.size-1){
+            for (i in data.indices){
                 this.kategoriSampah.add(data[i].deskripsi)
                 this.kategoriKey.set(data[i].deskripsi,data[i])
             }
@@ -53,10 +53,9 @@ class TambahSampah : AppCompatActivity() {
                 val kategoriSampah = kategoriKey.get(binding.filledexposed.text.toString())?.id_kategori ?:0
                 val nasabah = binding.etHargaNasabah.text.toString()
                 val pengepul = binding.etHargaPengepul.text.toString()
-                val idSampahtemp ="${this.countSampah}${namaSampah.trim()}${kategoriSampah}"
+                val idSampahtemp ="SMP${this.countSampah}${kategoriSampah}"
                 val idSampah =idSampahtemp.filter { !it.isWhitespace() }
                 showToast(idSampah)
-
                 model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),"a001")
             }else{
                 showToast("Pastikan semua kolom sudah terisi")

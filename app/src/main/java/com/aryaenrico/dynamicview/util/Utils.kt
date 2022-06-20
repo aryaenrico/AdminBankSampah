@@ -19,6 +19,11 @@ object Utils {
         val timeStamp: String = SimpleDateFormat(formater).format(System.currentTimeMillis())
         return timeStamp
     }
+    fun idSetor(calendar: Calendar):String{
+        val myFormat ="yyyyMMdd"
+        val sdf =SimpleDateFormat(myFormat)
+        return sdf.format(calendar.time)
+    }
     fun getTanggalBulanShow(calendar: Calendar):String{
         val myFormat ="dd-MMMM-yyyy"
         val locale =Locale("id","ID")

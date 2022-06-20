@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_light"
-        android:text="@string/username"
+        android:text="@string/nama"
         android:textColor="#56983D"
         android:layout_marginStart="30dp"
         android:textSize="14sp"
@@ -31,17 +31,17 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/etUsername"
-        android:layout_marginTop="8dp"
+        android:id="@+id/etname"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/rectangle"
         android:fontFamily="@font/poppins_light"
         android:hint="@string/masukkan_nama_pengguna"
         android:inputType="text"
         android:paddingStart="20dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="14sp"
@@ -55,22 +55,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/poppins_light"
-        android:text="@string/nama"
+        android:text="No Telp"
         android:textColor="#56983D"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername"
+        app:layout_constraintTop_toBottomOf="@+id/etname"
         android:layout_marginTop="10dp"/>
 
     <EditText
-        android:id="@+id/etNama"
+        android:id="@+id/etNoTelp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/rectangle"
         android:fontFamily="@font/poppins_light"
-        android:hint="@string/masukkan_nama"
+        android:hint="Masukan No telp"
         android:inputType="text"
         android:paddingStart="20dp"
         android:textColor="@color/black"
@@ -93,7 +93,7 @@
         android:textColor="#56983D"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNama" />
+        app:layout_constraintTop_toBottomOf="@+id/etNoTelp" />
 
     <EditText
         android:id="@+id/etAlamat"
@@ -113,37 +113,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNotelp" />
 
-    <TextView
-        android:id="@+id/tvPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:fontFamily="@font/poppins_light"
-        android:text="@string/password"
-        android:textColor="#56983D"
-        android:layout_marginTop="10dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAlamat" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/rectangle"
-        android:fontFamily="@font/poppins_light"
-        android:hint="@string/masukkan_password"
-        android:inputType="text"
-        android:layout_marginTop="10dp"
-        android:paddingStart="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 
     <Button
         android:id="@+id/buttonTambah"
@@ -161,7 +130,7 @@
         android:textStyle="bold"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etAlamat" />
 
 
 

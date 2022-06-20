@@ -47,7 +47,7 @@ interface ApiService {
         @Field("nama") nama: String,
         @Field("alamat") alamat: String,
         @Field("password") password: String,
-        @Field("id") username: String
+        @Field("no_telp") no_telp: String,
     ): Message
 
     @FormUrlEncoded

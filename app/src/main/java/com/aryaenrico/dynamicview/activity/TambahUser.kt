@@ -28,23 +28,24 @@ class TambahUser : AppCompatActivity() {
         }
 
         binding.buttonTambah.setOnClickListener {
-            val nama = binding.etNama.text.toString()
+            val nama = binding.etname.text.toString()
             val alamat = binding.etAlamat.text.toString()
-            val username = binding.etUsername.text.toString().trim()
+            val notelp = binding.etNoTelp.text.toString().trim()
+            val password ="12345"
 
             when{
-                username.isBlank()->{
-                    binding.etNama.error ="kolom username wajib di isi"
+                notelp.isBlank()->{
+                    binding.etNoTelp.error ="kolom username wajib di isi"
                 }
                 nama.isBlank()->{
-                    binding.etNama.error ="kolom nama wajib di isi"
+                    binding.etname.error ="kolom nama wajib di isi"
                 }
 
                 alamat.isBlank()->{
-                    binding.etNama.error ="kolom alamat wajib di isi"
+                    binding.etAlamat.error ="kolom alamat wajib di isi"
                 }
                 else->{
-                    model.inputKategori(nama, alamat, username,"12345")
+                    model.inputUser(nama, alamat, "12345",notelp)
                 }
 
             }
