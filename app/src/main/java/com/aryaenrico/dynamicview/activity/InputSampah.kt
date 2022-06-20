@@ -19,7 +19,6 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class InputSampah : AppCompatActivity() {
-
     private lateinit var binding: ActivityInputSampahBinding
     private lateinit var model: InputSampahViewModel
     private var mapSampah = HashMap<String, Sampah>()

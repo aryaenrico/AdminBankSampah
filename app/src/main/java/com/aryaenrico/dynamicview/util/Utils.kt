@@ -25,7 +25,7 @@ object Utils {
         return sdf.format(calendar.time)
     }
     fun getTanggalBulanShow(calendar: Calendar):String{
-        val myFormat ="dd-MMMM-yyyy"
+        val myFormat ="dd - MMMM - yyyy"
         val locale =Locale("id","ID")
         val sdf =SimpleDateFormat(myFormat,locale)
        return sdf.format(calendar.time)

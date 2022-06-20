@@ -72,7 +72,6 @@ class UbahTransaksi : AppCompatActivity() {
         }
 
         binding.buttonCari.setOnClickListener {
-
             if (Utils.id_nasabah.isNotBlank()){
                 model.setLoading(true)
                 model.getMutasi(Utils.getTanggalBulan(),tanggalAkhir,Utils.id_nasabah)

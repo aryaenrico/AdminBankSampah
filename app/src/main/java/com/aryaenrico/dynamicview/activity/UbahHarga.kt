@@ -19,7 +19,6 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class UbahHarga : AppCompatActivity() {
-
     private lateinit var binding:ActivityUbahHargaBinding
     private lateinit var model: UbahSampahViewModel
     private var dataSampah = ArrayList<String>()
