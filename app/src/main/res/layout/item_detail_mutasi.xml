@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/rectangle2">
+    android:elevation="1dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rectangle3">
 
     <TextView
         android:id="@+id/namaUser"
@@ -13,9 +14,8 @@
         android:textSize="16sp"
         android:text="@string/gayung"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/poppins"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,21 +23,19 @@
         android:id="@+id/jumlahPengaju"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins"
         android:text="@string/rp_13_000"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tanggalPengajuan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:text="@string/bobots"
         android:textSize="12sp"
@@ -45,5 +43,13 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namaUser" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/detailbutton"
+        app:layout_constraintBottom_toBottomOf="@+id/jumlahPengaju"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/jumlahPengaju" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

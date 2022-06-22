@@ -41,7 +41,7 @@
             <AutoCompleteTextView
                 android:id="@+id/namaSampah"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:inputType="none"
                 android:text="@string/nama_sampah"
@@ -72,7 +72,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/rectangle"
+            android:background="@drawable/rectangle2"
             android:fontFamily="@font/poppins_light"
             android:hint="@string/harga_nasabah_lama"
             android:importantForAutofill="yes"
@@ -108,7 +108,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/rectangle"
+            android:background="@drawable/rectangle2"
             android:fontFamily="@font/poppins_light"
             android:hint="@string/masukkan_harga_pengepul"
             android:importantForAutofill="no"
@@ -137,7 +137,7 @@
             app:layout_constraintTop_toBottomOf="@+id/etHargaPengepulLama"
             tools:ignore="TextContrastCheck" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ettgl_berlaku"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -146,7 +146,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:text="@string/tanggal"
-            android:textColor="@color/white"
+            android:textColor="@color/Green"
             android:background="@drawable/rectangle2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +173,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/rectangle"
+            android:background="@drawable/rectangle2"
             android:fontFamily="@font/poppins_light"
             android:hint="@string/masukkan_harga_nasabah_baru"
             android:importantForAutofill="no"
@@ -208,7 +208,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/rectangle"
+            android:background="@drawable/rectangle2"
             android:fontFamily="@font/poppins_light"
             android:hint="Masukkan Harga Pengepul Baru"
             android:importantForAutofill="no"

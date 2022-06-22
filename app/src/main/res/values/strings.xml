@@ -80,6 +80,9 @@
     <string name="harga_pengepul_lama">Harga Pengepul Lama</string>
     <string name="harga_pengepul_baru">Harga Pengepul baru</string>
     <string name="tanggal_penyetoran">Tanggal Penyetoran</string>
+    <string name="daftar_mutasi_detail">Daftar Mutasi</string>
+    <string name="cek_username_admin">Cek username</string>
+    <string name="tanggal12">Tanggal</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>
