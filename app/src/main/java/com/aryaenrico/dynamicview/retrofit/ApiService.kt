@@ -23,8 +23,6 @@ interface ApiService {
         @Query("id_setoran")  id_nasabah:String
     ):DetailTotal
 
-
-
     @POST("setoran.php")
     suspend fun setoran(@Body setoran: Setoran): Message
 

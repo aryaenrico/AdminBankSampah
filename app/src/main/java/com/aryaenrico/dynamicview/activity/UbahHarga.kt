@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.databinding.ActivityUbahHargaBinding
 import com.aryaenrico.dynamicview.model.Sampah
+import com.aryaenrico.dynamicview.util.FormatAngka
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.UbahSampahViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryUbahHargaSampah
@@ -19,89 +21,134 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class UbahHarga : AppCompatActivity() {
-    private lateinit var binding:ActivityUbahHargaBinding
+    private lateinit var binding: ActivityUbahHargaBinding
     private lateinit var model: UbahSampahViewModel
     private var dataSampah = ArrayList<String>()
     private var mapSampah = HashMap<String, Sampah>()
-    private var tanggalAkhir =""
+    private var tanggalBerlaku = ""
+    private val calendar1 = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ubah_harga)
         binding = ActivityUbahHargaBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
+        disabledOldPrice()
         model = ViewModelProvider(this@UbahHarga, ViewModelFactoryUbahHargaSampah.getInstance()).get(UbahSampahViewModel::class.java)
-
-
-        val calendar1 = Calendar.getInstance()
-        binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
-        tanggalAkhir =Utils.getTanggalBulanSend(calendar1)
-
-        val datePicker2 = DatePickerDialog.OnDateSetListener{ _, year, month, dayofmonth ->
-            calendar1.set(Calendar.YEAR,year)
-            calendar1.set(Calendar.MONTH,month)
-            calendar1.set(Calendar.DAY_OF_MONTH,dayofmonth)
-            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
-            tanggalAkhir =Utils.getTanggalBulanSend(calendar1)
-        }
-
-        binding.ettglBerlaku.setOnClickListener {
-            DatePickerDialog(this,datePicker2,calendar1.get(Calendar.YEAR),calendar1.get(Calendar.MONTH),calendar1.get(Calendar.DAY_OF_MONTH)).show()
-        }
+        model.setLoading(true)
         model.getData(Utils.getTanggalLengkap())
-        model.data.observe(this){data->
-            if (data.isNotEmpty()){
-                for (i in 0..data.size-1){
+        model.loading.observe(this){
+            showLoading(it)
+        }
+        binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
+        tanggalBerlaku = Utils.getTanggalBulanSend(calendar1)
+        binding.ettglBerlaku.setOnClickListener {
+            DatePickerDialog(
+                this,
+                setDate(),
+                calendar1.get(Calendar.YEAR),
+                calendar1.get(Calendar.MONTH),
+                calendar1.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+        model.data.observe(this) { data ->
+            if (data.isNotEmpty()) {
+                for (i in 0..data.size - 1) {
                     this.dataSampah.add(data[i].nama_sampah)
-                    this.mapSampah.set(data[i].nama_sampah,data[i])
+                    this.mapSampah.set(data[i].nama_sampah, data[i])
                 }
-            }else{
+            } else {
                 showToast("Terdapat kesalahan")
                 finish()
             }
-
-            model.pesan.observe(this){
+            model.pesan.observe(this) {
                 showToast(it.pesan)
+                if (it.pesan.contains("Berhasil")){
+                    finish()
+                }
             }
-
         }
 
-        val arrayAdapter = ArrayAdapter(this,R.layout.dropdownitem,this.dataSampah)
+        val arrayAdapter = ArrayAdapter(this, R.layout.dropdownitem, this.dataSampah)
         binding.namaSampah.setAdapter(arrayAdapter)
-        binding.namaSampah.addTextChangedListener(object :TextWatcher{
+        binding.namaSampah.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                if (!binding.namaSampah.text.toString().equals("Nama Sampah")){
-                    binding.etHargaNasabahLama.setText(mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah.toString())
-                    binding.etHargaPengepulLama.setText(mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul.toString())
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (!binding.namaSampah.text.toString().equals("Nama Sampah")) {
+                    binding.etHargaNasabahLama.setText(
+                        FormatAngka.getCurrency(
+                            mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
+                        )
+                    )
+                    binding.etHargaPengepulLama.setText(
+                        FormatAngka.getCurrency(
+                            mapSampah.get(
+                                binding.namaSampah.text.toString()
+                            )?.harga_pengepul ?: 0
+                        )
+                    )
                 }
             }
         })
 
 
         binding.findUser.setOnClickListener {
-            showToast(tanggalAkhir)
-//            val idSampah  = this.mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"kosong"
-//            val nasabah   =binding.etHargaNasabah.text.toString()
-//            val pengepul   =binding.etHargaPengepul.text.toString()
-//            val admin ="a001"
-//            val tanggal =Utils.getTanggalLengkap()
-//            val nasabahLama =  this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-//            val pengepulLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-//
-//            model.updateHargaSampah(idSampah,nasabah.toInt(),pengepul.toInt(),tanggal,admin,nasabahLama,pengepulLama)
+            model.setLoading(true)
+            sendChangedPrice()
         }
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(this@UbahHarga, message, Toast.LENGTH_SHORT).show()
+    }
+    private fun disabledOldPrice() {
+        binding.etHargaPengepulLama.setFocusable(false)
+        binding.etHargaNasabahLama.setFocusable(false)
+    }
+    private fun setDate():DatePickerDialog.OnDateSetListener{
+       val date2 = DatePickerDialog.OnDateSetListener { _, year, month, dayofmonth ->
+            calendar1.set(Calendar.YEAR, year)
+            calendar1.set(Calendar.MONTH, month)
+            calendar1.set(Calendar.DAY_OF_MONTH, dayofmonth)
+            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
+            tanggalBerlaku = Utils.getTanggalBulanSend(calendar1)
+        }
+        return date2
+    }
+    private fun sendChangedPrice(){
+            val idSampah  = this.mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"kosong"
+            val nasabah   = binding.etHargaNasabah.text.toString()
+            val pengepul   =binding.etHargaPengepul.text.toString()
+            val admin = "1"
+            val tanggal =tanggalBerlaku
+            val nasabahLama =  this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
+            val pengepulLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
+            if (idSampah.equals("kosong")){
+                showToast("Pilih jenis sampah terlebih dahulu")
+            }else if (nasabah.isEmpty()){
+                showToast("masukan harga nasabah baru")
+            }else if (pengepul.isEmpty()){
+                showToast("masukan harga pengepul  baru")
+            }else {
+                model.updateHargaSampah(idSampah,nasabah.toInt(),pengepul.toInt(),tanggal,admin,nasabahLama,pengepulLama)
+            }
+    }
 
-
-private fun showToast(message:String){
-    Toast.makeText(this@UbahHarga,message, Toast.LENGTH_SHORT).show()
-}
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 
 }

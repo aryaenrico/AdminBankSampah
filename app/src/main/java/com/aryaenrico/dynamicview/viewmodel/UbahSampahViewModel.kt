@@ -14,16 +14,24 @@ class UbahSampahViewModel(private val ubahHargaSampahRepository: UbahHargaSampah
     private var _pesan = MutableLiveData<Message>()
     val pesan: LiveData<Message> =_pesan
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> =_loading
+
     fun getData(param:String){
         viewModelScope.launch {
             _data.value = ubahHargaSampahRepository.getDataSampah(param)
+            _loading.value =false
         }
     }
     fun updateHargaSampah(id:String,nasabah:Int,pengepul:Int,tanggal:String,admin:String,nasabahLama:Int,pengepulLama:Int){
         viewModelScope.launch {
             _pesan.value =ubahHargaSampahRepository.addSampah(id, nasabah, pengepul, tanggal, admin, nasabahLama, pengepulLama)
+            _loading.value =false
         }
 
+    }
+    fun setLoading(param:Boolean){
+        _loading.value =param
     }
 }
 class ViewModelFactoryUbahHargaSampah(private val ubahHargaSampahRepository: UbahHargaSampahRepository) : ViewModelProvider.NewInstanceFactory() {
