@@ -9,4 +9,8 @@ object FormatAngka {
     fun getCurrency(data:Int):String{
         return formatter.format(data)
     }
+    fun token(data: String): String {
+        val tokenizer = StringTokenizer(data, ",")
+        return tokenizer.nextToken()
+    }
 }

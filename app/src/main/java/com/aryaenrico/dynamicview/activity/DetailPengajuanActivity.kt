@@ -46,23 +46,20 @@ class DetailPengajuanActivity : AppCompatActivity() {
         }
 
         binding.btnPengajuan.setOnClickListener {
-            //model.pengajuan(param.id_pengajuan,binding.filledexposed.text.toString())
-            showToast(cleanString)
+            model.pengajuan(param.id_pengajuan,binding.filledexposed.text.toString(),cleanString,param.id_nasabah)
         }
 
         binding.saldo.addTextChangedListener(object :TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
-
             override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 var data = sequence.toString()
-                if (!data.equals("current")){
+                if (!data.equals(current)){
                     binding.saldo.removeTextChangedListener(this)
                     cleanString = data.replace("[Rp. ]".toRegex(), "")
 
                     if (cleanString.isNotEmpty()){
-                        format  = FormatAngka.getCurrency(cleanString.toInt())
+                        format  = FormatAngka.token(FormatAngka.getCurrency(cleanString.toInt()))
                         current = format
                         binding.saldo.setText(format)
                     }else{
@@ -75,16 +72,14 @@ class DetailPengajuanActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
             }
-
         })
     }
 
     private fun data(detail:DaftarAjuan){
         binding.namaPengaju.text =detail.nama_nasabah
         cleanString =detail.jumlah.toString()
-        binding.saldo.setText(FormatAngka.getCurrency(detail.jumlah))
+        binding.saldo.setText(FormatAngka.token(FormatAngka.getCurrency(detail.jumlah)))
         binding.tanggalPengajuan.text = detail.tanggal_pengajuan
     }
     private fun showToast(pesan:String){

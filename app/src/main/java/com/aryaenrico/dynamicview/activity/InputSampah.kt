@@ -223,7 +223,7 @@ class InputSampah : AppCompatActivity() {
             model.setLoading(true)
             val data = process()
             showToast(data.id_setor)
-            //model.setor(data)
+            model.setor(data)
             for (i in 0 until data.detil.size) {
                 Toast.makeText(
                     this,

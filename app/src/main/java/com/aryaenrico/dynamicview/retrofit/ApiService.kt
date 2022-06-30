@@ -64,7 +64,9 @@ interface ApiService {
     @POST("insert_pengajuan.php")
     suspend fun insertPengajuan(
         @Field("id") id: String,
-        @Field("status") status: String
+        @Field("status") status: String,
+        @Field("jumlah") jumlah: String,
+        @Field("id_nasabah") id_nasabah: String
     ): Message
 
     @FormUrlEncoded

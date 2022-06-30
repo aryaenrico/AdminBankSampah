@@ -10,9 +10,9 @@ class AddPengajuanViewModel(private val addPengajuanRepository: AddPengajuanRepo
     private var _pesan = MutableLiveData<Message>()
     val pesan : LiveData<Message> =_pesan
 
-    fun pengajuan(id:String,status:String){
+    fun pengajuan(id:String,status:String,jumlah:String,id_nasabah:String){
         viewModelScope.launch {
-            _pesan.value =addPengajuanRepository.addPengajuan(id,status)
+            _pesan.value =addPengajuanRepository.addPengajuan(id,status,jumlah,id_nasabah)
         }
     }
 }

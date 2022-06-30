@@ -6,10 +6,10 @@ import java.lang.Exception
 
 class AddPengajuanRepository(private val apiService: ApiService){
 
-    suspend fun addPengajuan(id:String,status:String):Message{
+    suspend fun addPengajuan(id:String,status:String,jumlah:String,id_nasabah:String):Message{
         var data = Message()
         try{
-            data =apiService.insertPengajuan(id,status)
+            data =apiService.insertPengajuan(id,status,jumlah,id_nasabah)
         }catch (e: Exception){
             data.pesan =e.message.toString()
         }
