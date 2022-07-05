@@ -2,6 +2,7 @@ package com.aryaenrico.dynamicview.activity
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -75,9 +76,14 @@ class MutasiTransaksi : AppCompatActivity() {
 
         model.data.observe(this){data->
             if (data.isEmpty()){
-                showToast("data tidak ada")
+                binding.tvmutasiNotfound.visibility = View.VISIBLE
+                binding.recyclerView.visibility =View.GONE
+            }else{
+                binding.tvmutasiNotfound.visibility = View.GONE
+                binding.recyclerView.visibility =View.VISIBLE
+                showData(data)
             }
-            showData(data)
+
         }
     }
 

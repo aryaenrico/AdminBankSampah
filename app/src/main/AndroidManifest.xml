@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicView">
         <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ProsesUbahActivity"
             android:exported="false" />
         <activity

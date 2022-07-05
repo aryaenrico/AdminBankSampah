@@ -2,6 +2,7 @@ package com.aryaenrico.dynamicview.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.aryaenrico.dynamicview.activity.DetailUbahTransaksi
 import com.aryaenrico.dynamicview.databinding.ItemUbahTransaksiBinding
 import com.aryaenrico.dynamicview.model.Mutasi
 import com.aryaenrico.dynamicview.model.Nasabah
+import com.aryaenrico.dynamicview.util.FormatAngka
 import com.aryaenrico.dynamicview.util.Utils
 
 class UbahTransaksiAdapter(private var context:Context): RecyclerView.Adapter<UbahTransaksiAdapter.Holder>() {
@@ -28,8 +30,8 @@ class UbahTransaksiAdapter(private var context:Context): RecyclerView.Adapter<Ub
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.data.etNamaAdmin.text =daftarMutasi[position].nama_admin
-        holder.data.tvtanggal.text =daftarMutasi[position].tanggal
-        holder.data.totalSetor.text ="Rp"+daftarMutasi[position].harga
+        holder.data.tvtanggal.text =Utils.getTanggalBulanAdapter(Utils.longToDate(Utils.stringToLong(daftarMutasi[position].tanggal)))
+        holder.data.totalSetor.text =FormatAngka.token(FormatAngka.getCurrency(daftarMutasi[position].harga))
         holder.itemView.setOnClickListener {
             val intent =Intent(context,DetailUbahTransaksi::class.java)
             //intent.putExtra(DATA,daftarMutasi[position])
@@ -45,4 +47,7 @@ class UbahTransaksiAdapter(private var context:Context): RecyclerView.Adapter<Ub
     companion object{
         const val DATA ="data"
     }
+
+
+
 }

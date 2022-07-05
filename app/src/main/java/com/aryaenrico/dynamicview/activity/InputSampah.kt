@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.adapter.SearchUserAdapter
+import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.databinding.ActivityInputSampahBinding
 import com.aryaenrico.dynamicview.model.*
 import com.aryaenrico.dynamicview.util.Utils
@@ -26,6 +27,7 @@ class InputSampah : AppCompatActivity() {
     private lateinit var dataSampah: ArrayList<Sampah>
     private  var tanggalAkhir=""
     private lateinit var calendar: Calendar
+    private var id_admin="";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInputSampahBinding.inflate(layoutInflater)
@@ -34,13 +36,17 @@ class InputSampah : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val factory: ViewModelFactory = ViewModelFactory.getInstance()
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(profileadmin = profileAdmin.getInstance(datastore))
         model = ViewModelProvider(this@InputSampah, factory).get(InputSampahViewModel::class.java)
 
         model.setLoading(true)
 
         model.loading.observe(this){
             showLoading(it)
+        }
+
+        model.getProfileAdmin().observe(this){
+           this.id_admin =it.id_admin
         }
 
         // live data tgl setor
@@ -186,7 +192,7 @@ class InputSampah : AppCompatActivity() {
             }
         }
         builder.append(this.tanggalAkhir)
-        setoran.id_admin = "1"
+        setoran.id_admin = this.id_admin
         setoran.detil = paramDetilSetor
         setoran.id_nasabah = Utils.id_nasabah
         setoran.id_setor = builder.toString()
@@ -224,13 +230,6 @@ class InputSampah : AppCompatActivity() {
             val data = process()
             showToast(data.id_setor)
             model.setor(data)
-            for (i in 0 until data.detil.size) {
-                Toast.makeText(
-                    this,
-                    "id_sampah $i is  = ${data.detil[i].id_sampah} harga pengepul =  ${data.detil[i].harga_pengepul} harga nasabah = ${data.detil[i].harga_nasabah} Bobot = ${data.detil[i].total} ",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         } else {
             showToast("Pastikan semua data telah terisi ")
         }

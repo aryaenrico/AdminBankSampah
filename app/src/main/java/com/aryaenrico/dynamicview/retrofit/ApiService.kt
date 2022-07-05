@@ -66,7 +66,8 @@ interface ApiService {
         @Field("id") id: String,
         @Field("status") status: String,
         @Field("jumlah") jumlah: String,
-        @Field("id_nasabah") id_nasabah: String
+        @Field("id_nasabah") id_nasabah: String,
+        @Field("id_admin") id_admin: String
     ): Message
 
     @FormUrlEncoded
@@ -92,7 +93,8 @@ interface ApiService {
         @Field("pengepul") pengepul: Int,
         @Field("kategori") kategori: Int,
         @Field("tanggal") tanggal: String,
-        @Field("admin") admin: String
+        @Field("admin") admin: String,
+        @Field("satuan") satuan: String,
     ): Message
 
     @FormUrlEncoded
@@ -106,6 +108,13 @@ interface ApiService {
         @Field("nasabah_lama") nasabahLama: Int,
     @Field("pengepul_lama") pengepulLama: Int
     ): Message
+
+    @FormUrlEncoded
+    @POST("loginAdmin.php")
+    suspend fun login(
+        @Field("no_telepon") noTelepon: String,
+        @Field("password") password: String
+    ): Login
 
 
 }

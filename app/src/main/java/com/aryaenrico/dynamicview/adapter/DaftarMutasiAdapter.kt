@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aryaenrico.dynamicview.databinding.ItemMutasiTransaksiBinding
 import com.aryaenrico.dynamicview.model.MutasiTransaksiData
+import com.aryaenrico.dynamicview.util.FormatAngka
+import com.aryaenrico.dynamicview.util.Utils
 
 class DaftarMutasiAdapter (private val context: Context) : RecyclerView.Adapter<DaftarMutasiAdapter.Holder>() {
 
@@ -24,9 +26,9 @@ class DaftarMutasiAdapter (private val context: Context) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.data.etHargaNasabah.text =""+daftarMutasi[position].hargaNasabah
-        holder.data.etHargaPengepul.text =""+daftarMutasi[position].hargaPengepul
-        holder.data.tvtanggal.text =daftarMutasi[position].tanggal
+        holder.data.etHargaNasabah.text =FormatAngka.token(FormatAngka.getCurrency(daftarMutasi[position].hargaNasabah))
+        holder.data.etHargaPengepul.text =FormatAngka.token(FormatAngka.getCurrency(daftarMutasi[position].hargaPengepul))
+        holder.data.tvtanggal.text =Utils.getTanggalBulanAdapter(Utils.longToDate(Utils.stringToLong(daftarMutasi[position].tanggal)))
 
     }
 

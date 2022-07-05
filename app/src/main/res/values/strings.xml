@@ -83,6 +83,9 @@
     <string name="daftar_mutasi_detail">Daftar Mutasi</string>
     <string name="cek_username_admin">Cek username</string>
     <string name="tanggal12">Tanggal</string>
+    <string name="loginpage">login</string>
+    <string name="forgot">lupa password</string>
+    <string name="satuanPenimbanagan">Satuan Penimbangan</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>

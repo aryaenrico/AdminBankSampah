@@ -8,6 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class DetilMutasi(
     @field:SerializedName("nama_sampah")
     var sampah:String="",
+    @field:SerializedName("satuan")
+    var satuan:String="",
     @field:SerializedName("harga_nasabah")
     var harga_nasabah:Int=0,
     @field:SerializedName("total")

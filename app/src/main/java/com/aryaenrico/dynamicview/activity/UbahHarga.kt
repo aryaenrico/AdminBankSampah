@@ -7,7 +7,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
@@ -154,7 +153,7 @@ class UbahHarga : AppCompatActivity() {
                         binding.etHargaNasabah.setText("")
                     }
 
-                    binding.etHargaNasabah.setSelection(formatNasabah.length)
+                    binding.etHargaNasabah.setSelection(currentNasabah.length)
                     binding.etHargaNasabah.addTextChangedListener(this)
                 }
             }

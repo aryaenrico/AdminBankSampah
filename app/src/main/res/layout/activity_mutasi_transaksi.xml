@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activity.MutasiTransaksi">
+    tools:context=".activity.MutasiTransaksi"
+    android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tanggalawal"
@@ -108,15 +109,32 @@
         android:textColor="@color/Green"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    <TextView
+        android:id="@+id/tvmutasiNotfound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins"
+        android:text="Tidak ada riwayat transaksi"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545"
+        android:visibility="gone"
+        android:textStyle="bold"/>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         app:layout_constraintTop_toBottomOf="@+id/tvPengepul"
         tools:layout_editor_absoluteX="30dp"
-        tools:listitem="@layout/item_mutasi_transaksi"/>
+        tools:listitem="@layout/item_mutasi_transaksi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

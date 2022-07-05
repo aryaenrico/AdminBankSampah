@@ -4,6 +4,12 @@ import com.aryaenrico.dynamicview.repository.*
 import com.aryaenrico.dynamicview.retrofit.ApiConfig
 
 object Injection {
+
+    fun provideLoginRepository():LoginRepository {
+        val apiService = ApiConfig.getApi()
+        return LoginRepository.getInstance(apiService)
+    }
+
     fun provideRepository():InputSampahRepository {
         val apiService = ApiConfig.getApi()
         return InputSampahRepository.getInstance(apiService)

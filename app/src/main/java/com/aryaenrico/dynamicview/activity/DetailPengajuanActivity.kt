@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
 import com.aryaenrico.dynamicview.adapter.DaftarAjuanAdapter
+import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.databinding.ActivityDetailPengajuanBinding
 import com.aryaenrico.dynamicview.model.DaftarAjuan
 import com.aryaenrico.dynamicview.util.FormatAngka
@@ -21,12 +22,13 @@ class DetailPengajuanActivity : AppCompatActivity() {
     private var cleanString =""
     private var format =""
     private var current =""
+    private var id_admin=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPengajuanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model =ViewModelProvider(this,ViewModelFactoryAddPengajuan.getInstance()).get(AddPengajuanViewModel::class.java)
+        model =ViewModelProvider(this,ViewModelFactoryAddPengajuan.getInstance(profileadmin = profileAdmin.getInstance(datastore))).get(AddPengajuanViewModel::class.java)
 
         val param = intent.getParcelableExtra<DaftarAjuan>(DaftarAjuanAdapter.PARAM) as DaftarAjuan
         data(param)
@@ -35,6 +37,10 @@ class DetailPengajuanActivity : AppCompatActivity() {
         val status = listOf("Diterima","Ditolak")
         val arrayAdapter = ArrayAdapter(this,R.layout.dropdownitem,status)
         binding.filledexposed.setAdapter(arrayAdapter)
+
+        model.getProfileAdmin().observe(this){
+            this.id_admin =it.id_admin
+        }
 
         model.pesan.observe(this){
             if (it.pesan.contains("berhasil")){
@@ -46,7 +52,7 @@ class DetailPengajuanActivity : AppCompatActivity() {
         }
 
         binding.btnPengajuan.setOnClickListener {
-            model.pengajuan(param.id_pengajuan,binding.filledexposed.text.toString(),cleanString,param.id_nasabah)
+            model.pengajuan(param.id_pengajuan,binding.filledexposed.text.toString(),cleanString,param.id_nasabah,this.id_admin)
         }
 
         binding.saldo.addTextChangedListener(object :TextWatcher {

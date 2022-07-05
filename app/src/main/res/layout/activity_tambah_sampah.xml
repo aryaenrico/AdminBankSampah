@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,10 @@
     android:padding="10dp"
     android:background="@color/white"
     tools:context=".activity.TambahSampah">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_kategoriSampah"
@@ -110,7 +114,7 @@
         android:fontFamily="@font/poppins_light"
         android:hint="@string/masukkan_harga_nasabah"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="numberSigned"
         android:layout_marginTop="10dp"
         android:paddingStart="15dp"
         android:textColor="@color/black"
@@ -133,7 +137,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etHargaNasabah"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck"/>
 
     <EditText
         android:id="@+id/etHargaPengepul"
@@ -145,7 +149,7 @@
         android:fontFamily="@font/poppins_light"
         android:hint="@string/masukkan_harga_nasabah"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="numberSigned"
         android:layout_marginTop="10dp"
         android:paddingStart="15dp"
         android:textColor="@color/black"
@@ -154,6 +158,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_HargaPengepul"
+        tools:ignore="RtlSymmetry,TextContrastCheck" />
+    <TextView
+        android:id="@+id/tv_satuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/satuanPenimbanagan"
+        android:textColor="@color/Green"
+        android:layout_marginTop="18dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etHargaPengepul"
+        tools:ignore="TextContrastCheck"/>
+
+    <EditText
+        android:id="@+id/etsatuan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rectangle2"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/satuanPenimbanagan"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/Gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_satuan"
         tools:ignore="RtlSymmetry,TextContrastCheck" />
 
     <Button
@@ -173,7 +211,8 @@
         android:textStyle="bold"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etHargaPengepul" />
+        app:layout_constraintTop_toBottomOf="@+id/etsatuan" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -3,12 +3,16 @@ package com.aryaenrico.dynamicview.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
+import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.databinding.ActivityTambahSampahBinding
 import com.aryaenrico.dynamicview.model.Kategori
+import com.aryaenrico.dynamicview.util.FormatAngka
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.TambahSampahViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryTambahSampah
@@ -19,6 +23,14 @@ class TambahSampah : AppCompatActivity() {
     private var kategoriSampah =ArrayList<String>()
     private var kategoriKey =HashMap<String,Kategori>()
     private var countSampah="0"
+    private var cleanStringPengepul =""
+    private var formatPengepul =""
+    private var currentPengepul =""
+    private var cleanStringNasabah =""
+    private var formatNasabah =""
+    private var currentNasabah =""
+    private lateinit var id_admin:String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +38,12 @@ class TambahSampah : AppCompatActivity() {
         binding = ActivityTambahSampahBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model =ViewModelProvider(this,ViewModelFactoryTambahSampah.getInstance()).get(TambahSampahViewModel::class.java)
+        model =ViewModelProvider(this,ViewModelFactoryTambahSampah.getInstance(profileadmin = profileAdmin.getInstance(datastore))).get(TambahSampahViewModel::class.java)
         model.getKategori()
-
         model.countSampah()
+        model.getProfileAdmin().observe(this){
+            this.id_admin =it.id_admin
+        }
 
         model.count.observe(this){total->
            val data = total.pesan.toInt()
@@ -46,17 +60,74 @@ class TambahSampah : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdownitem,kategoriSampah)
         binding.filledexposed.setAdapter(arrayAdapter)
 
+        binding.etHargaPengepul.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var data = sequence.toString()
+                if (!data.equals(currentPengepul)){
+                    binding.etHargaPengepul.removeTextChangedListener(this)
+                    cleanStringPengepul = data.replace("[Rp. ]".toRegex(), "")
+                    if (cleanStringPengepul.isNotEmpty()){
+                        formatPengepul  = FormatAngka.token(FormatAngka.getCurrency(cleanStringPengepul.toInt()))
+                        currentPengepul = formatPengepul
+                        binding.etHargaPengepul.setText(formatPengepul)
+                    }else{
+                        currentPengepul=""
+                        binding.etHargaPengepul.setText("")
+                    }
+
+                    binding.etHargaPengepul.setSelection(currentPengepul.length)
+                    binding.etHargaPengepul.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        }
+        )
+
+        binding.etHargaNasabah.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var data = sequence.toString()
+                if (!data.equals(currentNasabah)){
+                    binding.etHargaNasabah.removeTextChangedListener(this)
+                    cleanStringNasabah = data.replace("[Rp. ]".toRegex(), "")
+                    if (cleanStringNasabah.isNotEmpty()){
+                        formatNasabah  = FormatAngka.token(FormatAngka.getCurrency(cleanStringNasabah.toInt()))
+                        currentNasabah = formatNasabah
+                        binding.etHargaNasabah.setText(formatNasabah)
+                    }else{
+                        currentNasabah=""
+                        binding.etHargaNasabah.setText("")
+                    }
+
+                    binding.etHargaNasabah.setSelection(currentNasabah.length)
+                    binding.etHargaNasabah.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        }
+        )
+
         binding.findUser.setOnClickListener {
            // mendapat inputan user
             if  (check()){
                 val namaSampah = binding.etNamaSampah.text.toString()
                 val kategoriSampah = kategoriKey.get(binding.filledexposed.text.toString())?.id_kategori ?:0
-                val nasabah = binding.etHargaNasabah.text.toString()
-                val pengepul = binding.etHargaPengepul.text.toString()
+                val nasabah = cleanStringNasabah
+                val pengepul = cleanStringPengepul
                 val idSampahtemp ="SMP${this.countSampah}${kategoriSampah}"
                 val idSampah =idSampahtemp.filter { !it.isWhitespace() }
-                showToast(idSampah)
-                model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),"a001")
+                model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.etsatuan.text.toString())
             }else{
                 showToast("Pastikan semua kolom sudah terisi")
             }
@@ -65,11 +136,14 @@ class TambahSampah : AppCompatActivity() {
 
         model.pesan.observe(this){
             showToast(it.pesan)
-            if (it.pesan.contains("Berhasil"))
+            if (it.pesan.contains("Berhasil")){
                 binding.etHargaNasabah.setText("")
-            binding.etHargaPengepul.setText("")
-            binding.filledexposed.setText("")
-            binding.etNamaSampah.setText("")
+                binding.etHargaPengepul.setText("")
+                binding.filledexposed.setText("")
+                binding.etNamaSampah.setText("")
+                binding.etsatuan.setText("")
+            }
+
         }
     }
 
@@ -79,6 +153,7 @@ class TambahSampah : AppCompatActivity() {
          binding.etHargaPengepul.text.isBlank()->false
          binding.etNamaSampah.text.isBlank()->false
          binding.filledexposed.text.equals(getString(R.string.kategori_sampah))->false
+         binding.etsatuan.text.isEmpty()->false
          else->true
 
      }

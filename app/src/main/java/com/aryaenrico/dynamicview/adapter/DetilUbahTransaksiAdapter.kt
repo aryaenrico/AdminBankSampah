@@ -11,6 +11,7 @@ import com.aryaenrico.dynamicview.databinding.ItemUbahTransaksiBinding
 import com.aryaenrico.dynamicview.model.DetilMutasi
 import com.aryaenrico.dynamicview.model.Mutasi
 import com.aryaenrico.dynamicview.model.Nasabah
+import com.aryaenrico.dynamicview.util.FormatAngka
 
 class DetilUbahTransaksiAdapter: RecyclerView.Adapter<DetilUbahTransaksiAdapter.Holder>() {
     private val daftarMutasi = ArrayList<DetilMutasi>()
@@ -34,8 +35,8 @@ class DetilUbahTransaksiAdapter: RecyclerView.Adapter<DetilUbahTransaksiAdapter.
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.data.namaUser.text =daftarMutasi[position].sampah
-        holder.data.jumlahPengaju.text =""+daftarMutasi[position].harga_nasabah
-        holder.data.tanggalPengajuan.text =""+daftarMutasi[position].total
+        holder.data.jumlahPengaju.text =FormatAngka.token(FormatAngka.getCurrency(daftarMutasi[position].harga_nasabah))
+        holder.data.tanggalPengajuan.text ="${daftarMutasi[position].total } ${daftarMutasi[position].satuan}"
 
         holder.itemView.setOnClickListener {
             this.item.onitemClicked(daftarMutasi[position])

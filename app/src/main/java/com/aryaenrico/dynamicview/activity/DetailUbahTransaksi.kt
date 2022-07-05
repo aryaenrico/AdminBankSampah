@@ -12,6 +12,7 @@ import com.aryaenrico.dynamicview.adapter.UbahTransaksiAdapter
 import com.aryaenrico.dynamicview.databinding.ActivityDetailUbahTransaksiBinding
 import com.aryaenrico.dynamicview.model.DetilMutasi
 import com.aryaenrico.dynamicview.model.Mutasi
+import com.aryaenrico.dynamicview.util.FormatAngka
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.UbahTransaksiViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryUbahTransaksi
@@ -33,11 +34,11 @@ class DetailUbahTransaksi : AppCompatActivity() {
         }
         model.getDetailTotal(data.id_setor)
         model.total.observe(this){
-            binding.total.text =""+it.harga
+            binding.total.text =FormatAngka.token(FormatAngka.getCurrency(it.harga))
         }
 
         binding.namaPengaju.text =data.nama_admin
-        binding.tanggalTransaksi.text =data.tanggal
+        binding.tanggalTransaksi.text =Utils.getTanggalBulanDetailUbahTransaksi(Utils.longToDate(Utils.stringToLong(data.tanggal)))
 
         model.getTransaction(data.id_setor)
         model.detilMutasi.observe(this){
@@ -69,7 +70,7 @@ class DetailUbahTransaksi : AppCompatActivity() {
         model.getDetailTotal(data.id_setor)
         model.total.observe(this){
             if (it.harga>0){
-                binding.total.text =""+it.harga
+                binding.total.text =FormatAngka.token(FormatAngka.getCurrency(it.harga))
             }
         }
 

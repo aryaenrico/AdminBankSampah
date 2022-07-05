@@ -1,15 +1,13 @@
 package com.aryaenrico.dynamicview.viewmodel
 
 import androidx.lifecycle.*
+import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.injection.Injection
-import com.aryaenrico.dynamicview.model.Message
-import com.aryaenrico.dynamicview.model.Nasabah
-import com.aryaenrico.dynamicview.model.Sampah
-import com.aryaenrico.dynamicview.model.Setoran
+import com.aryaenrico.dynamicview.model.*
 import com.aryaenrico.dynamicview.repository.InputSampahRepository
 import kotlinx.coroutines.launch
 
-class InputSampahViewModel(private val sampahRepository: InputSampahRepository):ViewModel() {
+class InputSampahViewModel(private val sampahRepository: InputSampahRepository,private val profileadmin: profileAdmin):ViewModel() {
 
     private var _data = MutableLiveData<ArrayList<Sampah>>()
     val  data:LiveData<ArrayList<Sampah>> =_data
@@ -33,6 +31,11 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
 
     private var _nasabah = MutableLiveData<ArrayList<Nasabah>>()
     val  nasabah:LiveData<ArrayList<Nasabah>> =_nasabah
+
+
+    fun getProfileAdmin():LiveData<Admin>{
+        return profileadmin.getProfile().asLiveData()
+    }
 
     fun getData(param:String){
         viewModelScope.launch {
@@ -69,12 +72,12 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository):
     }
 
 }
-class ViewModelFactory(private val sampahRepository:InputSampahRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val sampahRepository:InputSampahRepository,private val profileadmin: profileAdmin) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(InputSampahViewModel::class.java) -> {
-                return InputSampahViewModel(sampahRepository) as T
+                return InputSampahViewModel(sampahRepository,profileadmin) as T
             }
 
             else -> {
@@ -87,9 +90,9 @@ class ViewModelFactory(private val sampahRepository:InputSampahRepository) : Vie
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(sampahRepository: InputSampahRepository = Injection.provideRepository()): ViewModelFactory =
+        fun getInstance(sampahRepository: InputSampahRepository = Injection.provideRepository(),profileadmin: profileAdmin): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(sampahRepository)
+                instance ?: ViewModelFactory(sampahRepository,profileadmin)
             }.also { instance = it }
     }
 }

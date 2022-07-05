@@ -32,10 +32,10 @@ class TambahSampahRepository(private val apiService: ApiService) {
         return data
     }
 
-    suspend fun addSampah(id:String,nama:String,nasabah:Int,pengepul:Int,kategori:Int,tanggal:String,admin:String):Message{
+    suspend fun addSampah(id:String,nama:String,nasabah:Int,pengepul:Int,kategori:Int,tanggal:String,admin:String,satuan:String):Message{
         var data = Message()
         try{
-            data =apiService.addSampah(id,nama,nasabah,pengepul,kategori,tanggal,admin)
+            data =apiService.addSampah(id,nama,nasabah,pengepul,kategori,tanggal,admin,satuan)
         }catch (e: Exception){
             data.pesan ="Kesalahan"
         }
