@@ -1,5 +1,4 @@
 package com.aryaenrico.dynamicview.activity
-
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
+import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.databinding.ActivityUbahHargaBinding
 import com.aryaenrico.dynamicview.model.Sampah
 import com.aryaenrico.dynamicview.util.FormatAngka
@@ -25,14 +25,17 @@ class UbahHarga : AppCompatActivity() {
     private lateinit var model: UbahSampahViewModel
     private var dataSampah = ArrayList<String>()
     private var mapSampah = HashMap<String, Sampah>()
-    private var tanggalBerlaku = ""
-    private val calendar1 = Calendar.getInstance()
-    private var cleanStringPengepul =""
-    private var formatPengepul =""
-    private var currentPengepul =""
-    private var cleanStringNasabah =""
-    private var formatNasabah =""
-    private var currentNasabah =""
+    private var tanggalBerlakuAwal = ""
+    private var tanggalBerlakuAkhir = ""
+    private var calendarAkhir = Calendar.getInstance()
+    private var calendarAwal = Calendar.getInstance()
+    private var cleanStringPengepul = ""
+    private var formatPengepul = ""
+    private var currentPengepul = ""
+    private var cleanStringNasabah = ""
+    private var formatNasabah = ""
+    private var currentNasabah = ""
+    private lateinit var id_admin: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,21 +44,30 @@ class UbahHarga : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(binding.root)
         disabledOldPrice()
-        model = ViewModelProvider(this@UbahHarga, ViewModelFactoryUbahHargaSampah.getInstance()).get(UbahSampahViewModel::class.java)
+        model = ViewModelProvider(
+            this@UbahHarga,
+            ViewModelFactoryUbahHargaSampah.getInstance(
+                profileadmin = profileAdmin.getInstance(
+                    datastore
+                )
+            )
+        ).get(UbahSampahViewModel::class.java)
         model.setLoading(true)
         model.getData(Utils.getTanggalLengkap())
-        model.loading.observe(this){
+        model.loading.observe(this) {
             showLoading(it)
         }
-        binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
-        tanggalBerlaku = Utils.getTanggalBulanSend(calendar1)
+        binding.ettglBerlaku.text=Utils.getTanggalBulanShow(calendarAkhir)
+        setCalendarAkhir()
+        tanggalBerlakuAwal = Utils.getTanggalBulanSend(calendarAwal)
+        tanggalBerlakuAkhir = Utils.getTanggalBulanSend(calendarAkhir)
         binding.ettglBerlaku.setOnClickListener {
             DatePickerDialog(
                 this,
                 setDate(),
-                calendar1.get(Calendar.YEAR),
-                calendar1.get(Calendar.MONTH),
-                calendar1.get(Calendar.DAY_OF_MONTH)
+                calendarAkhir.get(Calendar.YEAR),
+                calendarAkhir.get(Calendar.MONTH),
+                calendarAkhir.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
         model.data.observe(this) { data ->
@@ -68,11 +80,12 @@ class UbahHarga : AppCompatActivity() {
                 showToast("Terdapat kesalahan")
                 finish()
             }
-            model.pesan.observe(this) {
-                showToast(it.pesan)
-                if (it.pesan.contains("Berhasil")){
-                    finish()
-                }
+        }
+
+        model.pesan.observe(this) {
+            showToast(it.pesan)
+            if (it.pesan.contains("Berhasil")) {
+                finish()
             }
         }
 
@@ -85,6 +98,7 @@ class UbahHarga : AppCompatActivity() {
                 count: Int, after: Int
             ) {
             }
+
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -98,58 +112,60 @@ class UbahHarga : AppCompatActivity() {
                     binding.etHargaPengepulLama.setText(
                         FormatAngka.getCurrency(
                             mapSampah[
-                                binding.namaSampah.text.toString()
+                                    binding.namaSampah.text.toString()
                             ]?.harga_pengepul ?: 0
                         )
                     )
                 }
             }
         })
-         binding.etHargaPengepul.addTextChangedListener(object :TextWatcher{
-             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-             }
-
-             override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                 var data = sequence.toString()
-                 if (!data.equals(currentPengepul)){
-                     binding.etHargaPengepul.removeTextChangedListener(this)
-                     cleanStringPengepul = data.replace("[Rp. ]".toRegex(), "")
-                     if (cleanStringPengepul.isNotEmpty()){
-                         formatPengepul  = FormatAngka.token(FormatAngka.getCurrency(cleanStringPengepul.toInt()))
-                         currentPengepul = formatPengepul
-                         binding.etHargaPengepul.setText(formatPengepul)
-                     }else{
-                         currentPengepul=""
-                         binding.etHargaPengepul.setText("")
-                     }
-
-                     binding.etHargaPengepul.setSelection(currentPengepul.length)
-                     binding.etHargaPengepul.addTextChangedListener(this)
-                 }
-             }
-
-             override fun afterTextChanged(p0: Editable?) {
-
-             }
-
-         }
-         )
-
-        binding.etHargaNasabah.addTextChangedListener(object :TextWatcher{
+        binding.etHargaPengepul.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 var data = sequence.toString()
-                if (!data.equals(currentNasabah)){
+                if (!data.equals(currentPengepul)) {
+                    binding.etHargaPengepul.removeTextChangedListener(this)
+                    cleanStringPengepul = data.replace("[Rp. ]".toRegex(), "")
+                    if (cleanStringPengepul.isNotEmpty()) {
+                        formatPengepul =
+                            FormatAngka.token(FormatAngka.getCurrency(cleanStringPengepul.toInt()))
+                        currentPengepul = formatPengepul
+                        binding.etHargaPengepul.setText(formatPengepul)
+                    } else {
+                        currentPengepul = ""
+                        binding.etHargaPengepul.setText("")
+                    }
+
+                    binding.etHargaPengepul.setSelection(currentPengepul.length)
+                    binding.etHargaPengepul.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        }
+        )
+
+        binding.etHargaNasabah.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var data = sequence.toString()
+                if (!data.equals(currentNasabah)) {
                     binding.etHargaNasabah.removeTextChangedListener(this)
                     cleanStringNasabah = data.replace("[Rp. ]".toRegex(), "")
-                    if (cleanStringNasabah.isNotEmpty()){
-                        formatNasabah  = FormatAngka.token(FormatAngka.getCurrency(cleanStringNasabah.toInt()))
+                    if (cleanStringNasabah.isNotEmpty()) {
+                        formatNasabah =
+                            FormatAngka.token(FormatAngka.getCurrency(cleanStringNasabah.toInt()))
                         currentNasabah = formatNasabah
                         binding.etHargaNasabah.setText(formatNasabah)
-                    }else{
-                        currentNasabah=""
+                    } else {
+                        currentNasabah = ""
                         binding.etHargaNasabah.setText("")
                     }
 
@@ -165,48 +181,66 @@ class UbahHarga : AppCompatActivity() {
         }
         )
 
-
         binding.findUser.setOnClickListener {
             model.setLoading(true)
             sendChangedPrice()
+
+        }
+
+        model.getProfileAdmin().observe(this) {
+            this.id_admin = it.id_admin
         }
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this@UbahHarga, message, Toast.LENGTH_SHORT).show()
     }
+
     private fun disabledOldPrice() {
         binding.etHargaPengepulLama.setFocusable(false)
         binding.etHargaNasabahLama.setFocusable(false)
     }
-    private fun setDate():DatePickerDialog.OnDateSetListener{
-       val date2 = DatePickerDialog.OnDateSetListener { _, year, month, dayofmonth ->
-            calendar1.set(Calendar.YEAR, year)
-            calendar1.set(Calendar.MONTH, month)
-            calendar1.set(Calendar.DAY_OF_MONTH, dayofmonth)
-            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendar1))
-            tanggalBerlaku = Utils.getTanggalBulanSend(calendar1)
+
+    private fun setDate(): DatePickerDialog.OnDateSetListener {
+        val date2 = DatePickerDialog.OnDateSetListener { _, year, month, dayofmonth ->
+            calendarAkhir.set(Calendar.YEAR, year)
+            calendarAkhir.set(Calendar.MONTH, month)
+            calendarAkhir.set(Calendar.DAY_OF_MONTH, dayofmonth)
+
+            calendarAwal.set(Calendar.YEAR, year)
+            calendarAwal.set(Calendar.MONTH, month)
+            calendarAwal.set(Calendar.DAY_OF_MONTH, 1)
+
+            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendarAkhir))
+            tanggalBerlakuAwal = Utils.getTanggalBulanSend(calendarAwal)
+            tanggalBerlakuAkhir = Utils.getTanggalBulanSend(calendarAkhir)
         }
         return date2
     }
-    private fun sendChangedPrice(){
 
-            val idSampah  = this.mapSampah[binding.namaSampah.text.toString()]?.id_sampah ?:"kosong"
-            val nasabah   = cleanStringNasabah
-            val pengepul   =cleanStringPengepul
-            val admin = "1"
-            val tanggal =tanggalBerlaku
-            val nasabahLama =  this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-            val pengepulLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-            if (idSampah.equals("kosong")){
-                showToast("Pilih jenis sampah terlebih dahulu")
-            }else if (nasabah.isEmpty()){
-                showToast("masukan harga nasabah baru")
-            }else if (pengepul.isEmpty()){
-                showToast("masukan harga pengepul  baru")
-            }else {
-                model.updateHargaSampah(idSampah,nasabah.toInt(),pengepul.toInt(),tanggal,admin,nasabahLama,pengepulLama)
-            }
+    private fun sendChangedPrice() {
+        val idSampah = this.mapSampah[binding.namaSampah.text.toString()]?.id_sampah ?: "kosong"
+        val nasabah = cleanStringNasabah
+        val pengepul = cleanStringPengepul
+
+        val nasabahLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
+        val pengepulLama =
+            this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
+        when {
+            idSampah.equals("kosong") -> showToast("Pilih jenis sampah terlebih dahulu")
+            nasabah.isEmpty() -> showToast("masukan harga nasabah baru")
+            pengepul.isEmpty() -> showToast("masukan harga pengepul  baru")
+            else -> model.updateHargaSampah(
+                idSampah,
+                nasabah.toInt(),
+                pengepul.toInt(),
+                tanggalBerlakuAwal,
+                this.id_admin,
+                nasabahLama,
+                pengepulLama,
+                tanggalBerlakuAkhir
+            )
+        }
     }
 
     private fun showLoading(isLoad: Boolean) {
@@ -216,8 +250,9 @@ class UbahHarga : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
-
-
-
+    private fun setCalendarAkhir() {
+        calendarAwal.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
+        calendarAwal.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
+        calendarAwal.set(Calendar.DAY_OF_MONTH, 1)
+    }
 }

@@ -103,10 +103,11 @@ interface ApiService {
         @Field("id") id: String,
         @Field("nasabah") nasabah: Int,
         @Field("pengepul") pengepul: Int,
-        @Field("tanggal") tanggal: String,
+        @Field("tanggal_awal") tanggal_awal: String,
         @Field("admin") admin: String,
         @Field("nasabah_lama") nasabahLama: Int,
-    @Field("pengepul_lama") pengepulLama: Int
+        @Field("pengepul_lama") pengepulLama: Int,
+        @Field("tanggal_akhir") tanggal_akhir: String
     ): Message
 
     @FormUrlEncoded

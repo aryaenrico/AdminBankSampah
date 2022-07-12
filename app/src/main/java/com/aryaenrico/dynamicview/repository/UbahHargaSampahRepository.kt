@@ -17,10 +17,10 @@ class UbahHargaSampahRepository(private val apiService: ApiService) {
         return data
     }
 
-    suspend fun addSampah(id:String,nasabah:Int,pengepul:Int,tanggal:String,admin:String,nasabahLama:Int,pengepulLama:Int): Message {
+    suspend fun addSampah(id:String,nasabah:Int,pengepul:Int,tanggal:String,admin:String,nasabahLama:Int,pengepulLama:Int,tanggalAkhir:String): Message {
         var data = Message()
         try{
-            data =apiService.updatePriceSampah(id,nasabah,pengepul,tanggal,admin,nasabahLama,pengepulLama)
+            data =apiService.updatePriceSampah(id,nasabah,pengepul,tanggal,admin,nasabahLama,pengepulLama,tanggalAkhir)
         }catch (e: Exception){
             data.pesan ="Kesalahan"
         }
