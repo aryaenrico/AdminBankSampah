@@ -57,7 +57,7 @@ class UbahHarga : AppCompatActivity() {
         model.loading.observe(this) {
             showLoading(it)
         }
-        binding.ettglBerlaku.text=Utils.getTanggalBulanShow(calendarAkhir)
+        binding.ettglBerlaku.text=Utils.getTanggalBulanShow(calendarAwal)
         setCalendarAkhir()
         tanggalBerlakuAwal = Utils.getTanggalBulanSend(calendarAwal)
         tanggalBerlakuAkhir = Utils.getTanggalBulanSend(calendarAkhir)
@@ -65,9 +65,9 @@ class UbahHarga : AppCompatActivity() {
             DatePickerDialog(
                 this,
                 setDate(),
-                calendarAkhir.get(Calendar.YEAR),
-                calendarAkhir.get(Calendar.MONTH),
-                calendarAkhir.get(Calendar.DAY_OF_MONTH)
+                calendarAwal.get(Calendar.YEAR),
+                calendarAwal.get(Calendar.MONTH),
+                calendarAwal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
         model.data.observe(this) { data ->
@@ -183,6 +183,8 @@ class UbahHarga : AppCompatActivity() {
 
         binding.findUser.setOnClickListener {
             model.setLoading(true)
+            showToast(tanggalBerlakuAwal)
+            showToast(tanggalBerlakuAkhir)
             sendChangedPrice()
 
         }
@@ -203,15 +205,15 @@ class UbahHarga : AppCompatActivity() {
 
     private fun setDate(): DatePickerDialog.OnDateSetListener {
         val date2 = DatePickerDialog.OnDateSetListener { _, year, month, dayofmonth ->
-            calendarAkhir.set(Calendar.YEAR, year)
-            calendarAkhir.set(Calendar.MONTH, month)
-            calendarAkhir.set(Calendar.DAY_OF_MONTH, dayofmonth)
-
             calendarAwal.set(Calendar.YEAR, year)
             calendarAwal.set(Calendar.MONTH, month)
-            calendarAwal.set(Calendar.DAY_OF_MONTH, 1)
+            calendarAwal.set(Calendar.DAY_OF_MONTH, dayofmonth)
 
-            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendarAkhir))
+            calendarAkhir.set(Calendar.YEAR, year)
+            calendarAkhir.set(Calendar.MONTH, month)
+            calendarAkhir.set(Calendar.DAY_OF_MONTH, calendarAwal.getActualMaximum(Calendar.DATE))
+
+            binding.ettglBerlaku.setText(Utils.getTanggalBulanShow(calendarAwal))
             tanggalBerlakuAwal = Utils.getTanggalBulanSend(calendarAwal)
             tanggalBerlakuAkhir = Utils.getTanggalBulanSend(calendarAkhir)
         }
@@ -224,13 +226,14 @@ class UbahHarga : AppCompatActivity() {
         val pengepul = cleanStringPengepul
 
         val nasabahLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
-        val pengepulLama =
-            this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
+        val pengepulLama = this.mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?: 0
         when {
             idSampah.equals("kosong") -> showToast("Pilih jenis sampah terlebih dahulu")
             nasabah.isEmpty() -> showToast("masukan harga nasabah baru")
             pengepul.isEmpty() -> showToast("masukan harga pengepul  baru")
-            else -> model.updateHargaSampah(
+            else ->
+
+                model.updateHargaSampah(
                 idSampah,
                 nasabah.toInt(),
                 pengepul.toInt(),
@@ -251,8 +254,8 @@ class UbahHarga : AppCompatActivity() {
         }
     }
     private fun setCalendarAkhir() {
-        calendarAwal.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
-        calendarAwal.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
-        calendarAwal.set(Calendar.DAY_OF_MONTH, 1)
+        calendarAkhir.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
+        calendarAkhir.set(Calendar.YEAR, calendarAwal.get(Calendar.YEAR))
+        calendarAkhir.set(Calendar.DAY_OF_MONTH, calendarAwal.getActualMaximum(Calendar.DATE))
     }
 }

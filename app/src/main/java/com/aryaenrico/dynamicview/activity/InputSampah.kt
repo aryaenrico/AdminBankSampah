@@ -15,6 +15,7 @@ import com.aryaenrico.dynamicview.model.*
 import com.aryaenrico.dynamicview.util.Utils
 import com.aryaenrico.dynamicview.viewmodel.InputSampahViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactory
+import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -63,11 +64,11 @@ class InputSampah : AppCompatActivity() {
                     showToast("Terdapat kesalahan pada server")
                     finish()
                 } else if (dataSampah[0].id_sampah.equals("Tidak ada data")){
-                    addNewView(dataSampah[0].nama_sampah)
+                    addNewView(dataSampah[0].nama_sampah,"0")
                 }else {
-                    for (i in 0..dataSampah.size - 1) {
+                    for (i in dataSampah.indices) {
                         this.mapSampah.set(
-                            dataSampah[i].nama_sampah,
+                            dataSampah[i].id_sampah,
                             Sampah(
                                 id_sampah = dataSampah[i].id_sampah,
                                 nama_sampah = dataSampah[i].nama_sampah,
@@ -76,7 +77,7 @@ class InputSampah : AppCompatActivity() {
                             )
                         )
                         this.sampah.add(dataSampah[i].nama_sampah)
-                        addNewView(dataSampah[i].nama_sampah)
+                        addNewView(dataSampah[i].nama_sampah,dataSampah[i].id_sampah)
                     }
                 }
             }
@@ -146,10 +147,12 @@ class InputSampah : AppCompatActivity() {
     }
 
     // tampilan sampah dan bobot untuk input
-    private fun addNewView(param: String) {
+    private fun addNewView(param: String,sampahId:String) {
         // membuat objek view dari hasil inflate layout xml
         var view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
         var sampahEditText = view.findViewById<EditText>(R.id.inputNamaSampah)
+        var idSampah =view.findViewById<TextView>(R.id.id_sampah)
+        idSampah.text =sampahId
         sampahEditText.setText(param)
         binding.parentLinearLayout.addView(view, binding.parentLinearLayout.childCount)
     }
@@ -167,7 +170,7 @@ class InputSampah : AppCompatActivity() {
             val detilSetoran = DetilSetor()
             v = binding.parentLinearLayout.getChildAt(i)
 
-            val id_sampah: EditText = v.findViewById(R.id.inputNamaSampah)
+            val id_sampah: TextView = v.findViewById(R.id.id_sampah)
             val bobot: EditText = v.findViewById(R.id.inputbobotSampah)
 
             val paramSampah = id_sampah.text.toString()
@@ -230,6 +233,12 @@ class InputSampah : AppCompatActivity() {
             val data = process()
             showToast(data.id_setor)
             model.setor(data)
+//            for (i in data.detil.indices){
+//                showToast(data.detil[i].id_sampah)
+//                showToast(data.detil[i].total.toString())
+//            }
+
+
         } else {
             showToast("Pastikan semua data telah terisi ")
         }
