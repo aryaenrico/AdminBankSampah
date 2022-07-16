@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,10 @@ class TambahSampah : AppCompatActivity() {
         setContentView(binding.root)
 
         model =ViewModelProvider(this,ViewModelFactoryTambahSampah.getInstance(profileadmin = profileAdmin.getInstance(datastore))).get(TambahSampahViewModel::class.java)
+        model.setLoading(true)
+        model.loading.observe(this){
+            showLoading(it)
+        }
         model.getKategori()
         model.countSampah()
         model.getProfileAdmin().observe(this){
@@ -131,7 +136,8 @@ class TambahSampah : AppCompatActivity() {
                 val idSampahtemp ="SMP${this.countSampah}${kategoriSampah}"
                 val idSampah =idSampahtemp.filter { !it.isWhitespace() }
                 showToast(binding.satuanPenimbangan.text.toString())
-               // model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.etsatuan.text.toString())
+                model.setLoading(true)
+                model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.satuanPenimbangan.text.toString())
             }else{
                 showToast("Pastikan semua kolom sudah terisi")
             }
@@ -145,7 +151,7 @@ class TambahSampah : AppCompatActivity() {
                 binding.etHargaPengepul.setText("")
                 binding.filledexposed.setText("")
                 binding.etNamaSampah.setText("")
-                //binding.etsatuan.setText("")
+                binding.satuanPenimbangan.setText("")
             }
 
         }
@@ -157,7 +163,7 @@ class TambahSampah : AppCompatActivity() {
          binding.etHargaPengepul.text.isBlank()->false
          binding.etNamaSampah.text.isBlank()->false
          binding.filledexposed.text.equals(getString(R.string.kategori_sampah))->false
-         //binding.etsatuan.text.isEmpty()->false
+         binding.satuanPenimbangan.text.equals(getString(R.string.satuan_penimbangan))->false
          else->true
 
      }
@@ -165,5 +171,12 @@ class TambahSampah : AppCompatActivity() {
 
     private fun showToast(message:String){
         Toast.makeText(this@TambahSampah ,message, Toast.LENGTH_SHORT).show()
+    }
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

@@ -11,10 +11,18 @@ class InputKategoriViewmodel(private val inputKategoriRepository: InputKategoriR
     private var _pesan = MutableLiveData<Message>()
     val pesan : LiveData<Message> =_pesan
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> =_loading
+
     fun inputKategori(kategori:String){
         viewModelScope.launch {
             _pesan.value = inputKategoriRepository.inputKategori(kategori)
+            setLoading(false)
         }
+    }
+
+    fun setLoading(param:Boolean){
+        _loading.value = param
     }
 }
 

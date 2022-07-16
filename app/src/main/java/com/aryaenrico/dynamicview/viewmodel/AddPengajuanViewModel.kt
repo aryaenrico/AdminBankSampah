@@ -16,19 +16,27 @@ class AddPengajuanViewModel(private val addPengajuanRepository: AddPengajuanRepo
     private var _saldo = MutableLiveData<SaldoNasabah>()
     val saldo : LiveData<SaldoNasabah> =_saldo
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> =_loading
+
     fun getSaldoNasabah(id_nasabah: String){
         viewModelScope.launch {
             _saldo.value =addPengajuanRepository.saldoUser(id_nasabah)
+            setLoading(false)
         }
     }
 
     fun pengajuan(id:String,status:String,jumlah:String,id_nasabah:String,id_admin:String){
         viewModelScope.launch {
             _pesan.value =addPengajuanRepository.addPengajuan(id,status,jumlah,id_nasabah,id_admin)
+              setLoading(false)
         }
     }
     fun getProfileAdmin():LiveData<Admin>{
         return  profileadmin.getProfile().asLiveData()
+    }
+    fun setLoading(param:Boolean){
+        _loading.value = param
     }
 }
 class ViewModelFactoryAddPengajuan(private val addPengajuanRepository: AddPengajuanRepository,private val profileadmin: profileAdmin) : ViewModelProvider.NewInstanceFactory() {

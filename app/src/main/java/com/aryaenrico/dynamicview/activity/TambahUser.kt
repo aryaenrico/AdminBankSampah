@@ -2,6 +2,7 @@ package com.aryaenrico.dynamicview.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.databinding.ActivityTambahUserBinding
@@ -20,6 +21,9 @@ class TambahUser : AppCompatActivity() {
         val factory: ViewModelFactoryAddUser = ViewModelFactoryAddUser.getInstance()
         model = ViewModelProvider(this@TambahUser,factory).get(AddUserViewModel::class.java)
 
+        model.loading.observe(this){
+            showLoading(it)
+        }
         model.pesan.observe(this){
             showToast(it.pesan)
             if (it.pesan.contains("Berhasil menambah user")){
@@ -45,7 +49,8 @@ class TambahUser : AppCompatActivity() {
                     binding.etAlamat.error ="kolom alamat wajib di isi"
                 }
                 else->{
-                    model.inputUser(nama, alamat, "12345",notelp)
+                    model.setLoading(true)
+                    model.inputUser(nama, alamat, password,notelp)
                 }
 
             }
@@ -53,5 +58,12 @@ class TambahUser : AppCompatActivity() {
     }
     private fun showToast(message:String){
         Toast.makeText(this@TambahUser ,message, Toast.LENGTH_SHORT).show()
+    }
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

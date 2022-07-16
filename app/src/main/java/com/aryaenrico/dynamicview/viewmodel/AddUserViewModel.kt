@@ -12,10 +12,17 @@ class AddUserViewModel (private val addUserRepository: AddUserRepository):ViewMo
     private var _pesan = MutableLiveData<Message>()
     val pesan : LiveData<Message> =_pesan
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> =_loading
+
     fun inputUser(nama:String,alamat:String,password:String,notelp:String){
         viewModelScope.launch {
             _pesan.value =addUserRepository.addUserRepo(nama,alamat,password,notelp)
+            setLoading(false)
         }
+    }
+    fun setLoading(param:Boolean){
+        _loading.value = param
     }
 }
 

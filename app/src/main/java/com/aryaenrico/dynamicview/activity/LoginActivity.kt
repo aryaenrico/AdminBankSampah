@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -26,7 +27,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         model =ViewModelProvider(this,ViewModelFactoryLogin.getInstance(profileadmin = profileAdmin.getInstance(datastore))).get(LoginViewModel::class.java)
-
+        model.loading.observe(this){
+            showLoading(true)
+        }
         model.loginResult.observe(this){
             if (it.pesanEror.equals("berhasil")){
                 showToast("Selamat Anda Berhasil Login")
@@ -47,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnlogin.setOnClickListener {
             if (checkError()){
+                model.setLoading(true)
                 model.login(binding.username.text.toString(),binding.password.text.toString())
             }
 
@@ -68,6 +72,13 @@ class LoginActivity : AppCompatActivity() {
                 binding.password.error ="kolom ini wajib di isi"
                 false
             }else-> true
+        }
+    }
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

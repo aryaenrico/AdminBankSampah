@@ -2,6 +2,7 @@ package com.aryaenrico.dynamicview.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.R
@@ -20,6 +21,9 @@ class TambahKategori : AppCompatActivity() {
 
         val factory:ViewModelFactoryInputKategori = ViewModelFactoryInputKategori.getInstance()
         model = ViewModelProvider(this@TambahKategori,factory).get(InputKategoriViewmodel::class.java)
+        model.loading.observe(this){
+            showLoading(it)
+        }
 
         binding.tambahKategori.setOnClickListener {
             var kategori = binding.etNamaSampah.text.toString().trim()
@@ -27,6 +31,7 @@ class TambahKategori : AppCompatActivity() {
                 kategori.isBlank()->{
                     binding.etNamaSampah.error ="Kolom Ini tidak boleh kososng"
                 }else->{
+                 model.setLoading(true)
                     model.inputKategori(kategori)
                 }
             }
@@ -44,5 +49,12 @@ class TambahKategori : AppCompatActivity() {
 
     private fun showToast(message:String){
         Toast.makeText(this@TambahKategori ,message, Toast.LENGTH_SHORT).show()
+    }
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

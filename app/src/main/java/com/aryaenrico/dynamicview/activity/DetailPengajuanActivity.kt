@@ -3,6 +3,7 @@ package com.aryaenrico.dynamicview.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,10 @@ class DetailPengajuanActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this,R.layout.dropdownitem,status)
         binding.filledexposed.setAdapter(arrayAdapter)
 
+        model.loading.observe(this){
+            showLoading(it)
+        }
+
         model.getProfileAdmin().observe(this){
             this.id_admin =it.id_admin
         }
@@ -60,6 +65,7 @@ class DetailPengajuanActivity : AppCompatActivity() {
         }
 
         binding.btnPengajuan.setOnClickListener {
+            model.setLoading(true)
             model.pengajuan(param.id_pengajuan,binding.filledexposed.text.toString(),cleanString,param.id_nasabah,this.id_admin)
         }
 
@@ -98,5 +104,13 @@ class DetailPengajuanActivity : AppCompatActivity() {
     }
     private fun showToast(pesan:String){
         Toast.makeText(this@DetailPengajuanActivity,pesan,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoad: Boolean) {
+        if (isLoad) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

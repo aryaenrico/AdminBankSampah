@@ -19,26 +19,37 @@ class TambahSampahViewModel(private val tambahSampahRepository: TambahSampahRepo
     private var _count = MutableLiveData<Message>()
     val count: LiveData<Message> =_count
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> =_loading
+
     fun getKategori(){
         viewModelScope.launch {
             _data.value = tambahSampahRepository.getKategori()
+            setLoading(false)
         }
     }
 
     fun tambahSampah(id:String,nama:String,nasabah:Int,pengepul:Int,kategori:Int,tanggal:String,admin:String,satuan:String){
         viewModelScope.launch {
             _pesan.value = tambahSampahRepository.addSampah(id, nama, nasabah, pengepul, kategori, tanggal, admin,satuan)
+            setLoading(false)
         }
     }
 
     fun countSampah(){
         viewModelScope.launch {
             _count.value = tambahSampahRepository.getCountSampah()
+            setLoading(false)
         }
     }
     fun getProfileAdmin():LiveData<Admin>{
         return profileadmin.getProfile().asLiveData()
     }
+
+    fun setLoading(param:Boolean){
+            _loading.value =param
+    }
+
 
 
 }
