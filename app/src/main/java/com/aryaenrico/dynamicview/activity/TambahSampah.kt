@@ -30,6 +30,7 @@ class TambahSampah : AppCompatActivity() {
     private var formatNasabah =""
     private var currentNasabah =""
     private lateinit var id_admin:String
+    private var satuanMassa = listOf("KG","Liter")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +60,8 @@ class TambahSampah : AppCompatActivity() {
 
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdownitem,kategoriSampah)
         binding.filledexposed.setAdapter(arrayAdapter)
+        val arrayAdapterSatuanMassa =ArrayAdapter(this,R.layout.dropdownitem,satuanMassa)
+        binding.satuanPenimbangan.setAdapter(arrayAdapterSatuanMassa)
 
         binding.etHargaPengepul.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -127,7 +130,8 @@ class TambahSampah : AppCompatActivity() {
                 val pengepul = cleanStringPengepul
                 val idSampahtemp ="SMP${this.countSampah}${kategoriSampah}"
                 val idSampah =idSampahtemp.filter { !it.isWhitespace() }
-                model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.etsatuan.text.toString())
+                showToast(binding.satuanPenimbangan.text.toString())
+               // model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.etsatuan.text.toString())
             }else{
                 showToast("Pastikan semua kolom sudah terisi")
             }
@@ -141,7 +145,7 @@ class TambahSampah : AppCompatActivity() {
                 binding.etHargaPengepul.setText("")
                 binding.filledexposed.setText("")
                 binding.etNamaSampah.setText("")
-                binding.etsatuan.setText("")
+                //binding.etsatuan.setText("")
             }
 
         }
@@ -153,7 +157,7 @@ class TambahSampah : AppCompatActivity() {
          binding.etHargaPengepul.text.isBlank()->false
          binding.etNamaSampah.text.isBlank()->false
          binding.filledexposed.text.equals(getString(R.string.kategori_sampah))->false
-         binding.etsatuan.text.isEmpty()->false
+         //binding.etsatuan.text.isEmpty()->false
          else->true
 
      }

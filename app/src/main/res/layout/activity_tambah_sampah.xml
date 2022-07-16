@@ -173,26 +173,34 @@
         app:layout_constraintTop_toBottomOf="@+id/etHargaPengepul"
         tools:ignore="TextContrastCheck"/>
 
-    <EditText
-        android:id="@+id/etsatuan"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/rectangle2"
-        android:fontFamily="@font/poppins_light"
-        android:hint="@string/satuanPenimbanagan"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:layout_marginTop="10dp"
-        android:paddingStart="15dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/Gray"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_satuan"
-        tools:ignore="RtlSymmetry,TextContrastCheck" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etsatuan"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/Green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_satuan">
+
+            <AutoCompleteTextView
+                android:id="@+id/satuan_Penimbangan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text="Satuan Penimbangan"
+                android:textColor="@color/Gray"
+                tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/findUser"
