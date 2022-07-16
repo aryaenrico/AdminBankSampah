@@ -10,5 +10,7 @@ data class Sampah(
      @field:SerializedName("harga_nasabah")
      var harga_nasabah:Int=0,
      @field:SerializedName("harga_pengepul")
-     var harga_pengepul:Int=0
+     var harga_pengepul:Int=0,
+     @field:SerializedName("satuan")
+     var satuan:String=""
  )

@@ -64,7 +64,7 @@ class InputSampah : AppCompatActivity() {
                     showToast("Terdapat kesalahan pada server")
                     finish()
                 } else if (dataSampah[0].id_sampah.equals("Tidak ada data")){
-                    addNewView(dataSampah[0].nama_sampah,"0")
+                    addNewView(dataSampah[0].nama_sampah,"0","")
                 }else {
                     for (i in dataSampah.indices) {
                         this.mapSampah.set(
@@ -73,12 +73,13 @@ class InputSampah : AppCompatActivity() {
                                 id_sampah = dataSampah[i].id_sampah,
                                 nama_sampah = dataSampah[i].nama_sampah,
                                 harga_nasabah = dataSampah[i].harga_nasabah,
-                                harga_pengepul = dataSampah[i].harga_pengepul
+                                harga_pengepul = dataSampah[i].harga_pengepul,
+                                satuan = dataSampah[i].satuan
 
                             )
                         )
                         this.sampah.add(dataSampah[i].nama_sampah)
-                        addNewView(dataSampah[i].nama_sampah,dataSampah[i].id_sampah)
+                        addNewView(dataSampah[i].nama_sampah,dataSampah[i].id_sampah,dataSampah[i].satuan)
                     }
                 }
             }
@@ -148,16 +149,16 @@ class InputSampah : AppCompatActivity() {
     }
 
     // tampilan sampah dan bobot untuk input
-    private fun addNewView(param: String,sampahId:String) {
+    private fun addNewView(param: String,sampahId:String,satuan:String) {
         // membuat objek view dari hasil inflate layout xml
         val view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
         val sampahEditText = view.findViewById<EditText>(R.id.inputNamaSampah)
         val idSampah =view.findViewById<TextView>(R.id.id_sampah)
         val spin = view.findViewById<Spinner>(R.id.spinner_masa)
         var data = listOf("KG","G")
-//        if (satuan.contains("liter")){
-//            data = listOf("Liter")
-//        }
+        if (satuan.contains("Liter")){
+            data = listOf("Liter")
+        }
         val arrayAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
@@ -185,10 +186,16 @@ class InputSampah : AppCompatActivity() {
 
             val id_sampah: TextView = v.findViewById(R.id.id_sampah)
             val bobot: EditText = v.findViewById(R.id.inputbobotSampah)
+            val masa: Spinner = v.findViewById(R.id.spinner_masa)
 
             val paramSampah = id_sampah.text.toString()
             val parambobot1 = bobot.text.toString()
-            val parambobot: Float = parambobot1.toFloat()
+            var parambobot: Float = parambobot1.toFloat()
+            when {
+                masa.selectedItemId.toString().equals("1") -> {
+                    parambobot /= 1000
+                }
+            }
             if (!parambobot1.equals("0")) {
                 val paramNasabah = this.mapSampah.get(paramSampah)?.harga_nasabah ?: 0
                 val paramPengepul = this.mapSampah.get(paramSampah)?.harga_pengepul ?: 0
