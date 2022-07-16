@@ -1,10 +1,11 @@
 package com.aryaenrico.dynamicview.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.databinding.ActivityUbahSampahBinding
 import com.aryaenrico.dynamicview.model.DetilMutasi
@@ -18,7 +19,6 @@ class ProsesUbahActivity : AppCompatActivity() {
     private lateinit var data:Mutasi
     private lateinit var detil:DetilMutasi
     private lateinit var model: UbahTransaksiViewModel
-
     private var mapSampah = HashMap<String, Sampah>()
     private lateinit var dataSampah: ArrayList<Sampah>
 
@@ -28,6 +28,7 @@ class ProsesUbahActivity : AppCompatActivity() {
         setContentView(binding.root)
         model = ViewModelProvider(this, ViewModelFactoryUbahTransaksi.getInstance()).get(UbahTransaksiViewModel::class.java)
         data = intent.getParcelableExtra<Mutasi>("Data") as Mutasi
+
         detil = intent.getParcelableExtra<DetilMutasi>("sampah") as DetilMutasi
         model.setLoading(true)
         model.loading.observe(this){
@@ -44,7 +45,7 @@ class ProsesUbahActivity : AppCompatActivity() {
             } else {
                 for (i in dataSampah.indices) {
                     this.mapSampah.set(
-                        dataSampah[i].nama_sampah,
+                        dataSampah[i].id_sampah,
                         Sampah(
                             id_sampah = dataSampah[i].id_sampah,
                             nama_sampah = dataSampah[i].nama_sampah,
@@ -58,6 +59,28 @@ class ProsesUbahActivity : AppCompatActivity() {
         }
         binding.namaSampah.setText(detil.sampah)
         binding.bobot.setText(""+detil.total)
+        val myString =detil.satuan
+
+
+        var dataAdapter = listOf("KG","G")
+        if (detil.satuan.contains("Liter")){
+            dataAdapter = listOf("Liter")
+        }
+        val arrayAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            dataAdapter
+        )
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMasa.adapter = arrayAdapter
+
+         //the value you want the position for
+
+
+        val spinnerPosition =arrayAdapter.getPosition(myString)
+
+
+       binding.spinnerMasa.setSelection(spinnerPosition)
 
         model.message.observe(this){
             showToast(it.pesan)
@@ -70,17 +93,20 @@ class ProsesUbahActivity : AppCompatActivity() {
         }
 
         binding.btnubahTransaksi.setOnClickListener {
-            val check  =(binding.bobot.text.toString()).toFloat()
+            var check  =(binding.bobot.text.toString()).toFloat()
+            val param =binding.spinnerMasa.selectedItemId.toString()
+            if (param.equals("1")){
+                check/=1000
+            }
+
 
             if (check != 0.0f){
                 model.setLoading(true)
-                val nasabah = mapSampah.get(binding.namaSampah.text.toString())?.harga_nasabah ?:0
-                val pengepul = mapSampah.get(binding.namaSampah.text.toString())?.harga_pengepul ?:0
-                val bobot =(binding.bobot.text.toString()).toFloat()
-                val paramNasabah =(nasabah*bobot).toInt()
-                val paramPengepul =(pengepul*bobot).toInt()
-
-                model.update(data.id_setor,mapSampah.get(binding.namaSampah.text.toString())?.id_sampah ?:"",data.id_nasabah,binding.bobot.text.toString(),paramNasabah,paramPengepul,data.harga)
+                val nasabah = mapSampah.get(detil.id_sampah)?.harga_nasabah ?:0
+                val pengepul = mapSampah.get(detil.id_sampah)?.harga_pengepul ?:0
+                val paramNasabah =(nasabah*check).toInt()
+                val paramPengepul =(pengepul*check).toInt()
+                model.update(this.data.id_setor,detil.id_sampah,this.data.id_nasabah,check.toString(),paramNasabah,paramPengepul,data.harga)
             }else{
                 showToast("Bobot tidak boleh 0")
             }
