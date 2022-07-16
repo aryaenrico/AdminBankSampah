@@ -74,6 +74,7 @@ class InputSampah : AppCompatActivity() {
                                 nama_sampah = dataSampah[i].nama_sampah,
                                 harga_nasabah = dataSampah[i].harga_nasabah,
                                 harga_pengepul = dataSampah[i].harga_pengepul
+
                             )
                         )
                         this.sampah.add(dataSampah[i].nama_sampah)
@@ -149,9 +150,21 @@ class InputSampah : AppCompatActivity() {
     // tampilan sampah dan bobot untuk input
     private fun addNewView(param: String,sampahId:String) {
         // membuat objek view dari hasil inflate layout xml
-        var view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
-        var sampahEditText = view.findViewById<EditText>(R.id.inputNamaSampah)
-        var idSampah =view.findViewById<TextView>(R.id.id_sampah)
+        val view: View = layoutInflater.inflate(R.layout.item_sampah, null, false)
+        val sampahEditText = view.findViewById<EditText>(R.id.inputNamaSampah)
+        val idSampah =view.findViewById<TextView>(R.id.id_sampah)
+        val spin = view.findViewById<Spinner>(R.id.spinner_masa)
+        var data = listOf("KG","G")
+//        if (satuan.contains("liter")){
+//            data = listOf("Liter")
+//        }
+        val arrayAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            data
+        )
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spin.adapter = arrayAdapter
         idSampah.text =sampahId
         sampahEditText.setText(param)
         binding.parentLinearLayout.addView(view, binding.parentLinearLayout.childCount)
