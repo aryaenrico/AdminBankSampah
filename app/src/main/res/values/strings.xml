@@ -86,6 +86,7 @@
     <string name="loginpage">login</string>
     <string name="forgot">lupa password</string>
     <string name="satuanPenimbanagan">Satuan Penimbangan</string>
+    <string name="saldo">Total Saldo</string>
 
     <string-array name="kategorisampah">
         <item>Plastik</item>

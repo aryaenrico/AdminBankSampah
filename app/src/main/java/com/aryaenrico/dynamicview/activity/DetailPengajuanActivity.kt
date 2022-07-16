@@ -12,6 +12,7 @@ import com.aryaenrico.dynamicview.adapter.DaftarAjuanAdapter
 import com.aryaenrico.dynamicview.dataStore.profileAdmin
 import com.aryaenrico.dynamicview.databinding.ActivityDetailPengajuanBinding
 import com.aryaenrico.dynamicview.model.DaftarAjuan
+import com.aryaenrico.dynamicview.model.SaldoNasabah
 import com.aryaenrico.dynamicview.util.FormatAngka
 import com.aryaenrico.dynamicview.viewmodel.AddPengajuanViewModel
 import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryAddPengajuan
@@ -19,6 +20,7 @@ import com.aryaenrico.dynamicview.viewmodel.ViewModelFactoryAddPengajuan
 class DetailPengajuanActivity : AppCompatActivity() {
     private lateinit var binding:ActivityDetailPengajuanBinding
     private lateinit var model:AddPengajuanViewModel
+
     private var cleanString =""
     private var format =""
     private var current =""
@@ -41,6 +43,12 @@ class DetailPengajuanActivity : AppCompatActivity() {
         model.getProfileAdmin().observe(this){
             this.id_admin =it.id_admin
         }
+
+        model.getSaldoNasabah(param.id_nasabah)
+        model.saldo.observe(this){
+           binding.totalsaldo.text = FormatAngka.token(FormatAngka.getCurrency(it.saldo.toInt()))
+        }
+
 
         model.pesan.observe(this){
             if (it.pesan.contains("berhasil")){
