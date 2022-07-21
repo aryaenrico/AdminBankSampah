@@ -19,12 +19,10 @@
         android:id="@+id/inputNamaSampah"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="30dp"
         android:background="@drawable/rectangle2"
         android:fontFamily="@font/poppins_light"
         android:hint="@string/masukkan_nama_sampah"
         android:importantForAutofill="no"
-        android:paddingStart="10dp"
         android:inputType="none"
         android:editable="false"
         android:textColor="@color/black"
@@ -48,23 +46,24 @@
         android:textColor="@color/black"
         android:textColorHint="@color/Gray"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/spinner_masa"
-        app:layout_constraintHorizontal_bias="0.257"
+
+        app:layout_constraintEnd_toStartOf="@+id/spinner_masa"
         app:layout_constraintStart_toEndOf="@+id/inputNamaSampah"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
 
     <Spinner
         android:id="@+id/spinner_masa"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:background="@drawable/rectangle2"
         android:elevation="2dp"
         android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/inputbobotSampah"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.AppCompat.DropDownItem.Spinner"
 
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

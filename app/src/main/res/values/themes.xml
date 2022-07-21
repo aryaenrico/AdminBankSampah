@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Theme.DynamicView.Fullscreen" parent="Theme.DynamicView">
         <item name="android:actionBarStyle">@style/Widget.Theme.DynamicView.ActionBar.Fullscreen
         </item>
@@ -30,4 +31,13 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/Green</item>
     </style>
+
+    <style name="Theme.DynamicView.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.DynamicView.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.DynamicView.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
