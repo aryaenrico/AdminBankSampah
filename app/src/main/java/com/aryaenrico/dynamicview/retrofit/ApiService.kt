@@ -8,7 +8,7 @@ interface ApiService {
     @GET("getSampahAll.php")
     suspend fun getSampah( @Query("tanggal") awal: String,): ArrayList<Sampah>
 
-    @GET("get_saldo.php")
+    @GET("get_saldo2.php")
     suspend fun getSaldoNasabah( @Query("id_nasabah") id_nasabah: String,): SaldoNasabah
 
     @GET("get_total.php")

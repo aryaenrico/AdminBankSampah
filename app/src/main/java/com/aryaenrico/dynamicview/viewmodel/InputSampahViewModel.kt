@@ -15,6 +15,9 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository,p
     private var _tglSetor = MutableLiveData<Long>()
     val  tglSetor:LiveData<Long> =_tglSetor
 
+    private var _dataTempSetoran = MutableLiveData<TempSetoran>()
+    val  dataTempSetoran:LiveData<TempSetoran> =_dataTempSetoran
+
 
 
 
@@ -31,6 +34,11 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository,p
 
     private var _nasabah = MutableLiveData<ArrayList<Nasabah>>()
     val  nasabah:LiveData<ArrayList<Nasabah>> =_nasabah
+
+
+    fun setTempSetoran(data:TempSetoran){
+        _dataTempSetoran.value =data
+    }
 
 
     fun getProfileAdmin():LiveData<Admin>{

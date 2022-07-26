@@ -135,7 +135,6 @@ class TambahSampah : AppCompatActivity() {
                 val pengepul = cleanStringPengepul
                 val idSampahtemp ="SMP${this.countSampah}${kategoriSampah}"
                 val idSampah =idSampahtemp.filter { !it.isWhitespace() }
-                showToast(binding.satuanPenimbangan.text.toString())
                 model.setLoading(true)
                 model.tambahSampah(idSampah,namaSampah,nasabah.toInt(),pengepul.toInt(),kategoriSampah,Utils.getTanggalLengkap(),this.id_admin,binding.satuanPenimbangan.text.toString())
             }else{
