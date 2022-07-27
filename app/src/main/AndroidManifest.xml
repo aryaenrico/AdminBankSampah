@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicView">
         <activity
+            android:name=".activity.tambah_sampah_persetoran"
+            android:exported="false" />
+        <activity
             android:name=".UpdateProfile"
             android:exported="false" />
         <activity

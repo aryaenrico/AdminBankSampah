@@ -3,6 +3,7 @@ package com.aryaenrico.dynamicview.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,8 @@ class DetailUbahTransaksi : AppCompatActivity() {
     private lateinit var binding:ActivityDetailUbahTransaksiBinding
     private lateinit var model: UbahTransaksiViewModel
     private lateinit var data:Mutasi
+    private var hash:HashMap<String,DetilMutasi> =HashMap()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -37,13 +40,24 @@ class DetailUbahTransaksi : AppCompatActivity() {
             binding.total.text =FormatAngka.token(FormatAngka.getCurrency(it.harga))
         }
 
-        binding.namaPengaju.text =data.nama_admin
+        binding.namaPengaju.text = data.nama_admin
         binding.tanggalTransaksi.text =Utils.getTanggalBulanDetailUbahTransaksi(Utils.longToDate(Utils.stringToLong(data.tanggal)))
 
+        binding.btnTambahSampahBaru.setOnClickListener {
+            val move =Intent(this,tambah_sampah_persetoran::class.java)
+            move.putExtra(KEY,data.id_setor)
+            move.putExtra(KEY2,data.id_nasabah)
+            move.putExtra("map",hash)
+            startActivity(move)
+        }
         model.getTransaction(data.id_setor)
         model.detilMutasi.observe(this){
             if (it[0].harga_nasabah >= 0){
                 showData(it)
+                for (i in it.indices){
+                    this.hash.put(it[i].id_sampah,it[i])
+                }
+
             }
         }
     }
@@ -73,6 +87,16 @@ class DetailUbahTransaksi : AppCompatActivity() {
                 binding.total.text =FormatAngka.token(FormatAngka.getCurrency(it.harga))
             }
         }
+        model.getTransaction(data.id_setor)
+        model.detilMutasi.observe(this){
+            if (it[0].harga_nasabah >= 0){
+                showData(it)
+                for (i in it.indices){
+                    this.hash.put(it[i].id_sampah,it[i])
+                }
+
+            }
+        }
 
     }
 
@@ -87,6 +111,11 @@ class DetailUbahTransaksi : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    companion object{
+        val KEY ="param_id_setor"
+        val KEY2 ="param_id_nasabah"
     }
 
 

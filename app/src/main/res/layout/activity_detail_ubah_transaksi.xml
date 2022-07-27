@@ -144,9 +144,17 @@
                     android:text="@string/nominal"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/btn_tambah_sampah_baru"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvTotal" />
+                <Button
+                    android:id="@+id/btn_tambah_sampah_baru"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Tambah Jenis Sampah"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

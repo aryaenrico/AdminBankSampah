@@ -12,6 +12,8 @@ class InputSampahViewModel(private val sampahRepository: InputSampahRepository,p
     private var _data = MutableLiveData<ArrayList<Sampah>>()
     val  data:LiveData<ArrayList<Sampah>> =_data
 
+
+
     private var _tglSetor = MutableLiveData<Long>()
     val  tglSetor:LiveData<Long> =_tglSetor
 

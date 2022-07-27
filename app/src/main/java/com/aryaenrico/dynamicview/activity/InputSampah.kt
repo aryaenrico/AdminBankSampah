@@ -273,7 +273,7 @@ class InputSampah : AppCompatActivity() {
         dataTempSetoran.id_nasabah = Utils.id_nasabah
         dataTempSetoran.nama_nasabah = binding.etUsername.text.toString()
 
-        var dataTemp: HashMap<String, TempData> = hashMapOf<String, TempData>()
+        var dataTemp: HashMap<String, TempData> = hashMapOf()
         dataTemp.clear()
         for (i in 0 until count) {
 
@@ -422,7 +422,6 @@ class InputSampah : AppCompatActivity() {
             }
 
             setNegativeButton("Tidak"){_, _ ->
-                // if user press no, then return the activity
 
             }
 

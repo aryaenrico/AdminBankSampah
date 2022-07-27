@@ -29,6 +29,9 @@ interface ApiService {
     @POST("setoran.php")
     suspend fun setoran(@Body setoran: Setoran): Message
 
+    @POST("setoran_tambahan.php")
+    suspend fun setoranTambahan(@Body setoranTambahan: SetoranTambahan): Message
+
     @FormUrlEncoded
     @POST("insert_kategori.php")
     suspend fun insertKategori(@Field("kategori") kategori: String): Message

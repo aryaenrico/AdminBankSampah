@@ -9,6 +9,10 @@ object Injection {
         val apiService = ApiConfig.getApi()
         return LoginRepository.getInstance(apiService)
     }
+    fun provideSampahPersetoranRepository():SampahPersatuanRepository{
+        val apiService = ApiConfig.getApi()
+        return SampahPersatuanRepository.getInstance(apiService)
+    }
 
     fun provideRepository():InputSampahRepository {
         val apiService = ApiConfig.getApi()

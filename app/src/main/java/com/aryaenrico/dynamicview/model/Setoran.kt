@@ -15,6 +15,15 @@ data class Setoran(
     var detil:ArrayList<DetilSetor> = ArrayList<DetilSetor>()
 )
 
+data class SetoranTambahan(
+    @field:SerializedName("id_nasabah")
+    var id_nasabah:String="",
+    @field:SerializedName("id_setor")
+    var id_setor:String = "",
+    @field:SerializedName("detil")
+    var detil:ArrayList<DetilSetor> = ArrayList<DetilSetor>()
+)
+
 data class DetilSetor(
     @field:SerializedName("id_sampah")
     var id_sampah:String="",

@@ -21,9 +21,11 @@
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_login.xml" value="0.1953125" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_mutasi_transaksi.xml" value="0.33" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_pengajuan.xml" value="0.2717391304347826" />
+        <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_profile.xml" value="0.3625" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_proses_ubah.xml" value="0.2884963768115942" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_splashscreen.xml" value="0.2717391304347826" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_tambah_sampah.xml" value="0.23550724637681159" />
+        <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_tambah_sampah_persetoran.xml" value="0.3625" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_tambah_user.xml" value="0.5" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_ubah_harga.xml" value="0.3625" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/activity_ubah_sampah.xml" value="0.3625" />
@@ -37,6 +39,7 @@
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/item_ubah_transaksi.xml" value="0.2857789855072464" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/item_verifikasi.xml" value="0.2857789855072464" />
         <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/row_add_language.xml" value="0.2717391304347826" />
+        <entry key="..\:/AdminBankSampah3/app/src/main/res/layout/tambah_sampah_per_setoran.xml" value="0.17862021857923496" />
         <entry key="..\:/Users/Arya Enrico/DynamicView/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/Arya Enrico/DynamicView/app/src/main/res/layout/row_add_language.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/phaks/AndroidStudioProjects/AdminBankSampah/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.171" />
