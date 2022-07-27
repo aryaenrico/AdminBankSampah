@@ -153,7 +153,7 @@ class tambah_sampah_persetoran : AppCompatActivity() {
         setoran.id_nasabah =this.id_nasabah
 
         for (i in 0 until count) {
-            val detilSetoran = DetilSetor()
+
             v = binding.parentLinearLayout.getChildAt(i)
 
             val id_sampah: TextView = v.findViewById(R.id.id_sampah)
@@ -177,11 +177,7 @@ class tambah_sampah_persetoran : AppCompatActivity() {
                 val hargaPengepul = (paramPengepul * parambobot).toInt()
                 val idSampah = this.mapSampah.get(paramSampah)?.id_sampah ?: ""
 
-                detilSetoran.id_sampah = idSampah
-                detilSetoran.total = parambobot
-                detilSetoran.harga_nasabah = hargaNasabah
-                detilSetoran.harga_pengepul = hargaPengepul
-                paramDetilSetor.add(detilSetoran)
+                paramDetilSetor.add(DetilSetor(idSampah,parambobot,hargaNasabah,hargaPengepul))
             } else {
                 continue
             }
