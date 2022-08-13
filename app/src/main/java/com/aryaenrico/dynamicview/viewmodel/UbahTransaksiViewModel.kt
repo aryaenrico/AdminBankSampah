@@ -59,6 +59,13 @@ class UbahTransaksiViewModel(val ubahTransaksiRepository: UbahTransaksiRepositor
         }
     }
 
+    fun delete(id_setor: String,id_sampah: String,id_nasabah: String,total: Int){
+        viewModelScope.launch {
+            _message.value =ubahTransaksiRepository.DeleteItem(id_setor, id_sampah,id_nasabah,total)
+        }
+        _loading.value =false
+    }
+
 
 
     fun getDataSampah(param:String){

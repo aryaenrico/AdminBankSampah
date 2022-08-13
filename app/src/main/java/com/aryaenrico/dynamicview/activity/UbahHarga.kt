@@ -183,8 +183,6 @@ class UbahHarga : AppCompatActivity() {
 
         binding.findUser.setOnClickListener {
             model.setLoading(true)
-            showToast(tanggalBerlakuAwal)
-            showToast(tanggalBerlakuAkhir)
             sendChangedPrice()
 
         }

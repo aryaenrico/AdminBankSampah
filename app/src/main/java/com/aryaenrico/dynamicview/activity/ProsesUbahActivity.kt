@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aryaenrico.dynamicview.databinding.ActivityUbahSampahBinding
@@ -75,12 +76,29 @@ class ProsesUbahActivity : AppCompatActivity() {
         binding.spinnerMasa.adapter = arrayAdapter
 
          //the value you want the position for
-
-
         val spinnerPosition =arrayAdapter.getPosition(myString)
 
 
        binding.spinnerMasa.setSelection(spinnerPosition)
+       binding.btnHapusTransaksi.setOnClickListener {
+           AlertDialog.Builder(this).apply {
+               setTitle("Hapus Item.")
+               setMessage("Apakah Anda Ingin Menghapus Item")
+
+               setPositiveButton("Ya") { _, _ ->
+                   // if user press yes, then finish the current activity
+                   model.setLoading(true)
+                   model.delete(data.id_setor,detil.id_sampah,data.id_nasabah,detil.harga_nasabah)
+
+               }
+
+               setNegativeButton("Tidak"){_, _ ->
+
+               }
+
+               setCancelable(true)
+           }.create().show()
+       }
 
         model.message.observe(this){
             showToast(it.pesan)

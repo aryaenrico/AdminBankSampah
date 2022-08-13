@@ -56,7 +56,7 @@ class UbahTransaksiRepository (private val apiService: ApiService)
         try{
             data =apiService.updateTransaction(id_setor,id_sampah,id_nasabah,total,nasabah,pengepul,total_setor)
         }catch (e:Exception){
-            data = Message("Eror")
+            data = Message("Terdapat Kesalahan pada server")
         }
         return data
     }
@@ -78,6 +78,16 @@ class UbahTransaksiRepository (private val apiService: ApiService)
             data = apiService.getTotalMutasiNasabah(id_setor)
         }catch (e:Exception){
             data = DetailTotal()
+        }
+        return data
+    }
+
+    suspend fun DeleteItem(id_Setor:String,id_Sampah:String,id_Nasabah:String,total:Int):Message{
+        var data: Message
+        try{
+            data =apiService.deleteItem(id_Setor,id_Sampah,id_Nasabah,total)
+        }catch (e:Exception){
+            data = Message("Terdapat Kesalahan pada server")
         }
         return data
     }

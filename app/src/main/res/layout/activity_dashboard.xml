@@ -7,6 +7,12 @@
     android:background="@color/white"
     tools:context=".activity.Dashboard">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
     <RelativeLayout
         android:id="@+id/banner"
         android:layout_width="match_parent"
@@ -49,6 +55,19 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             tools:ignore="TextContrastCheck" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical"
+            android:src="@drawable/profile"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </RelativeLayout>
 
@@ -419,6 +438,7 @@
             android:textColor="@color/black" />
 
     </LinearLayout>
+    </ScrollView>
 
 
 

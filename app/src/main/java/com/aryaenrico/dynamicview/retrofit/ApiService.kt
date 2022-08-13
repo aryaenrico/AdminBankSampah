@@ -66,6 +66,17 @@ interface ApiService {
         @Field("total_setor") total_setor: Int
     ): Message
 
+
+    @FormUrlEncoded
+    @POST("hapus_setoran.php")
+    suspend fun deleteItem(
+        @Field("id_setor") id_setor: String,
+        @Field("id_sampah") id_sampah: String,
+        @Field("id_nasabah") id_nasabah: String,
+        @Field("harga_nasabah") hrg_nasabah: Int
+
+    ): Message
+
     @FormUrlEncoded
     @POST("insert_pengajuan.php")
     suspend fun insertPengajuan(
