@@ -14,7 +14,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://ublmobilekmmi.web.id/bank_sampah/")
+                .baseUrl("https://budiluhursampah.000webhostapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
